@@ -22,7 +22,7 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 					</div>
 				</div>
 				<hr>
-				<?php if(($card === 'asn_balangan') || ($card === 'demo')): ?>
+				<?php if(($card === 'asn_balangan')): ?>
 				<div class="row mb-md-4 mb-3">
 					<div class="col-md-4">
 						<div class="form-floating">
