@@ -4,7 +4,7 @@
 			<div class="d-flex justify-content-between align-items-md-center align-items-start flex-lg-row flex-column">
 				<div class="order-last order-md-first col-md-6">
 					<h1 class="display-4 fw-bold text-white">Selamat Datang</h1>
-					<p class="fs-4 text-white">Di Survei IKM BKPPD Balangan</p>
+					<p class="fs-4 text-white">Di e-Survei Demo Version</p>
 					
 					<a href="<?= base_url('survei') ?>" class="btn btn-warning btn-lg px-4 shadow">
 						Isi Survei Sekarang
