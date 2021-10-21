@@ -61,8 +61,8 @@ $(document).ready(function() {
         modules: 'date, security, html5, sanitize',
         showErrorDialogs: true,
         // disabledFormFilter: 'form.toggle-disabled',
-        // reCaptchaSiteKey: '6LeXCeAcAAAAAN9hcW1y8BsKfh5BjITTc7rCPf45',
-        // reCaptchaTheme: 'light',
+        reCaptchaSiteKey: '6LeXCeAcAAAAAN9hcW1y8BsKfh5BjITTc7rCPf45',
+        reCaptchaTheme: 'light',
         onError: function($form) {
             $.notify({
                 icon: `fas fa-times`,
