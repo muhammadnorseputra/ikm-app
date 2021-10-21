@@ -273,4 +273,15 @@ class SkmIndex extends CI_Controller
         ];  
         $this->load->view($data['content'], $data);
     }
+    public function closed() {
+        if($this->skm->skm_periode()->row()->status === 'ON'):
+          redirect(base_url('survei'));
+        else:
+          $data = [
+            'title' => 'Survey Kepuasan Masyarakat - BKPPD Balangan',
+            'mf_beranda' => $this->mf_beranda->get_identitas()
+          ];
+          $this->load->view('Frontend/v1/pages/h_survei_closed', $data);
+        endif;
+      }
 }
