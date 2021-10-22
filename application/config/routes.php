@@ -63,6 +63,7 @@ $route['closed'] = 'frontend/skm/skmIndex/closed';
 
 // BACKEND
 $route['console'] = 'backend/login';
+$route['logout'] = 'backend/login/sign_out';
 $route['dashboard'] = 'backend/console';
  
 

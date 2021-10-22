@@ -6,35 +6,35 @@
 		<title><?= $title ?></title>
 		<link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap-4/css/bootstrap.min.css') ?>">
 		<link rel="stylesheet" href="<?= base_url('assets/css/b_login.css') ?>">
+		<link rel="stylesheet" href="<?= base_url('template/v1/plugin/jquery-form-validator/form-validator/theme-default.min.css') ?>">
 	</head>
 	<body>
-			
 		<section class="login-block px-md-0 px-3">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 login-sec">
 						<h2 class="text-center">Console e-Survei</h2>
-						<form class="login-form">
+						<?php  
+							$urlRef = isset($_GET['continue']) ? $_GET['continue'] : ''; 
+						?>
+						<?= form_open(base_url('backend/login/cek_akun'), ['autocomplete' => 'off', 'id' => 'f_login'], ['token' => encrypt_url('esurvei@#123'.date('d')), 'continue' => $urlRef]); ?>
 							<div class="form-group">
-								<label for="exampleInputEmail1" class="text-uppercase">Username</label>
-								<input type="text" class="form-control" placeholder="">
-								
+								<label for="username" class="text-uppercase">Username</label>
+								<input type="text" name="username" class="form-control" placeholder="User Akun" data-sanitize="trim" required="required" id="username">
 							</div>
 							<div class="form-group">
-								<label for="exampleInputPassword1" class="text-uppercase">Password</label>
-								<input type="password" class="form-control" placeholder="">
-							</div>
-							
-							
-							<div class="form-check">
+								<label for="password-field" class="text-uppercase">Password</label>
+								<input type="password" name="pwd" autocomplete="off" id="password-field" class="form-control" placeholder="Password" data-sanitize="trim" required="required">
+							</div>							
+							<div class="form-check show_pass">
 								<label class="form-check-label">
-									<input type="checkbox" class="form-check-input">
-									<small>Remember Me</small>
+									<span toggle="#password-field" class="fa fa-fw fa-eye-slash toggle-password"></span>
+									<small class="text_pw">Show Password</small>
 								</label>
-								<button type="submit" class="btn btn-login float-right">Submit</button>
+								<button type="submit" class="btn btn-login float-right">Masuk</button>
 							</div>
 							
-						</form>
+						<?= form_close(); ?>
 						<div class="copy-text">Created with <i class="fa fa-heart"></i> by e-Survei</div>
 					</div>
 					<div class="col-md-8 banner-sec d-none d-md-block">
@@ -63,12 +63,15 @@
 									</div>
 								</div>
 							</div>
-							
 						</div>
 					</div>
 				</div>
 			</section>
 			<script src="<?= base_url('assets/js/jquery-3.3.1.min.js') ?>"></script>
 			<script src="<?= base_url('assets/plugins/bootstrap-4/js/bootstrap.min.js') ?>"></script>
+			<script src="<?= base_url('assets/plugins/blockUI/jquery.blockUI.js') ?>"></script>
+			<script src="<?= base_url('template/v1/plugin/jquery-form-validator/form-validator/jquery.form-validator.min.js') ?>"></script>
+			<script src="<?= base_url('assets/js/route.js') ?>"></script>
+			<script src="<?= base_url('assets/js/console_login.js') ?>"></script>
 		</body>
 	</html>

@@ -13,6 +13,13 @@ class Skm extends CI_Model {
 	{
 		return $this->db->order_by('id','desc')->get('skm_periode');
 	}
+	public function skm_total_periode() {
+		return $this->db->select('id')->group_by('tahun')->get('skm_periode')->num_rows();
+	}
+	public function skm_target_periode($periode=null)
+	{
+		return $this->db->get_where('skm_periode',  ['id' => $periode])->row();
+	}
 	public function skm_periode()
 	{
 		return $this->db->order_by('id','desc')->get('skm_periode', 1);
@@ -57,6 +64,17 @@ class Skm extends CI_Model {
 	{
 		return $this->db->get_where('skm')->num_rows();
 	}
+	public function skm_total_responden_card($card)
+	{
+		return $this->db->get_where('skm', ['card_responden' => $card])->num_rows();
+	}
+	public function skm_total_responden_per_tahun($tahun)
+	{
+		return $this->db->select_sum('target')
+		->from('skm_periode')
+		->where('tahun', $tahun)
+		->get()->row()->target;
+	}
 	public function get_responden($periode=null)
 	{
 		return $this->db->get_where('skm', ['fid_periode' => $periode]);
@@ -69,6 +87,7 @@ class Skm extends CI_Model {
 	{
 		return $this->db->get_where('skm',  ['fid_periode' => $periode])->num_rows();
 	}
+	
 	public function skm_total_responden_l($periode=null)
 	{
 		// return $this->db->get_where('skm', ['jns_kelamin' => 'L', 'fid_periode' => $periode]); //Laki-laki
