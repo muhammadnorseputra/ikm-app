@@ -11,6 +11,9 @@ class Console extends CI_Controller
 
     public function index()
     {
-        $this->load->view('Backend/layout/app');
+        $data = [
+            'title' => 'Welcome Dashboard'
+        ];
+        $this->load->view('Backend/layout/app', $data);
     }
 }
