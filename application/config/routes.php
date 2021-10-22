@@ -61,6 +61,9 @@ $route['finish/(:any)'] = 'frontend/skm/skmProses/selesai/$1';
 $route['invalid/(:any)'] = 'frontend/skm/skmProses/invalid/$1';
 $route['closed'] = 'frontend/skm/skmIndex/closed';
 
+// BACKEND
+ 
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
