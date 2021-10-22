@@ -48,8 +48,8 @@
 									<img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="First slide">
 									<div class="carousel-caption d-none d-md-block">
 										<div class="banner-text">
-											<h2>This is Heaven</h2>
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+											<h2>Akses Data Otomatis dan Real-time</h2>
+											<p>esponden memasukan data mereka, dan saat itu juga secara otomatis akan disimpan ke dalam software dalam bentuk data elektronik. Dengan demikian analisis data menjadi lebih mudah dan efisien karena data langsung tersedia.</p>
 										</div>
 									</div>
 								</div>
@@ -57,8 +57,8 @@
 									<img class="d-block img-fluid" src="https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" alt="First slide">
 									<div class="carousel-caption d-none d-md-block">
 										<div class="banner-text">
-											<h2>This is Heaven</h2>
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+											<h2>Waktu yang Cepat</h2>
+											<p>Pendistribusian kuesioner dan feed back data online dilakukan sedemikian cepat. Hal ini tidak bisa dilakukan dengan menggunakan model survey konvensional. Dalam banyak kasus, pengiriman kertas kuesioner baik pendistribusian maupun kirim kembali ke pusat data sering mengalami kendala.</p>
 										</div>
 									</div>
 								</div>
