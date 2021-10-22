@@ -62,6 +62,8 @@ $route['invalid/(:any)'] = 'frontend/skm/skmProses/invalid/$1';
 $route['closed'] = 'frontend/skm/skmIndex/closed';
 
 // BACKEND
+$route['console'] = 'backend/login';
+$route['dashboard'] = 'backend/console';
  
 
 $route['404_override'] = '';
