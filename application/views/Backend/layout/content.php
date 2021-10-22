@@ -42,7 +42,7 @@
             <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
               <!-- Dropdown header -->
               <div class="px-3 py-3">
-                <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">13</strong> notifications.</h6>
+                <h6 class="text-sm text-muted m-0">Daftar responden hari ini, ada <strong class="text-primary">13</strong> orang.</h6>
               </div>
               <!-- List group -->
               <div class="list-group list-group-flush">
@@ -50,7 +50,7 @@
                   <div class="row align-items-center">
                     <div class="col-auto">
                       <!-- Avatar -->
-                      <img alt="Image placeholder" src="assets/img/theme/team-1.jpg" class="avatar rounded-circle">
+                      <i class="ni ni-satisfied"></i>
                     </div>
                     <div class="col ml--2">
                       <div class="d-flex justify-content-between align-items-center">

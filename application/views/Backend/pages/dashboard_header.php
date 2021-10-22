@@ -6,10 +6,6 @@
           <div class="col-lg-6 col-7">
             <h6 class="h2 text-white d-inline-block mb-0">Dashboard</h6>
           </div>
-          <div class="col-lg-6 col-5 text-right">
-            <a href="#" class="btn btn-sm btn-neutral">New</a>
-            <a href="#" class="btn btn-sm btn-neutral">Filters</a>
-          </div>
         </div>
         <!-- Card stats -->
         <div class="row">
@@ -52,7 +48,7 @@
                 </div>
                 <p class="mt-3 mb-0 text-sm">
                   <span class="text-success mr-2"><i class="fa fa-check-circle"></i> <?= $_d->tahun ?></span>
-                  <span class="text-nowrap">(<?= $this->skm->skm_total_responden_per_tahun($_d->tahun); ?> Target)</span>
+                  <span class="text-nowrap">(Target: <?= $this->skm->skm_total_responden_per_tahun($_d->tahun); ?> )</span>
                 </p>
               </div>
             </div>
