@@ -15,7 +15,7 @@
 			<span class="fw-bold">DEMO VERSION</span>
 		</a>
 		<a class="btn btn-secondary btn-block ms-auto d-block d-sm-block d-md-block d-lg-none"  href="<?= base_url('console') ?>">
-		Masuk Console</a>
+		Console</a>
 		<span class="text-secondary mx-2"></span>
 		<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -49,7 +49,7 @@
 				<?php endif ?>
 				<?php if(empty($this->session->userdata('user_name'))): ?>
 				<a class="btn btn-secondary me-2 d-none d-md-block position-relative " href="<?= base_url('console') ?>">
-					  Masuk Console
+					  Console
 					<span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger rounded-circle animate__animated animate__flash animate__infinite">
 							<span class="visually-hidden">New alerts</span>
 						</span>

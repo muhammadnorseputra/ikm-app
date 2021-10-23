@@ -16,7 +16,7 @@ class Login extends CI_Controller
         endif;
         
         $data = [
-            'title' => 'Masuk Console'
+            'title' => 'Masuk Console | e-Survei'
         ];
         $this->load->view('Backend/login', $data);
     }

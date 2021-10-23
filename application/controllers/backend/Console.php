@@ -24,17 +24,19 @@ class Console extends CI_Controller
         echo json_encode(['tahun' => $list_year, 'responden' => $list_respo]);
     }
 
-    // public function chart_responden_bulan()
-    // {
-    //     $month = $this->skm->list_bulan();
-    //     $list_month = []; $list_respo = [];
-    //     foreach($month->result() as $m):
-    //         $respo = $this->skm->list_bulan($m->tahun)->num_rows();
-    //         $list_month[] = $m->tahun;
-    //         $list_respo[] = $respo;
-    //     endforeach;
-    //     echo json_encode(['bulan' => $list_month, 'responden' => $list_respo]);
-    // }
+    public function chart_responden_bulan()
+    {
+        $tahun = date('Y');
+        $month = $this->skm->list_bulan($tahun);
+        $list_month = []; $list_respo = [];
+        foreach($month->result() as $m):
+            $bulan = date("m",strtotime($m->created_at));
+            $respo = $this->skm->jml_list_bulan($tahun, $bulan)->num_rows();
+            $list_month[] = date("F", strtotime($m->created_at));
+            $list_respo[] = $respo;
+        endforeach;
+        echo json_encode(['bulan' => $list_month, 'responden' => $list_respo]);
+    }
 
     public function index()
     {

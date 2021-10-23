@@ -880,7 +880,7 @@ var SalesChart = (function() {
 
   function init($chart) {
   	// if($chart.attr('periode') == 'tahun') {
-	  	$.getJSON(`${_uri}/backend/console/chart_responden_tahun`, function(res) {
+	  	$.getJSON(`${_uri}/backend/console/chart_responden_bulan`, function(res) {
 	  		console.log(res);	
 		    var respoChart = new Chart($chart, {
 		      type: 'line',
@@ -919,7 +919,7 @@ var SalesChart = (function() {
 		        }
 		      },
 		      data: {
-		        labels: res.tahun,
+		        labels: res.bulan,
 		        datasets: [{
 		          label: 'Responden',
 		          data: res.responden

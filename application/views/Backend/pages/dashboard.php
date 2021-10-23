@@ -17,7 +17,7 @@
               </li> -->
               <li class="nav-item" data-toggle="chart" periode="tahun" data-target="#chart-sales-dark">
                 <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                  <span class="d-none d-md-block">Tahun</span>
+                  <span class="d-none d-md-block"><?= date('Y') ?></span>
                   <span class="d-md-none">W</span>
                 </a>
               </li>

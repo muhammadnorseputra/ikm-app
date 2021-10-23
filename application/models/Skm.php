@@ -169,6 +169,28 @@ class Skm extends CI_Model {
 		return $this->db->get_where('skm', ['nipnik' => $n, 'fid_periode' => $periode_id]);
 	}
 
+	public function list_bulan($year=null)
+	{
+		$this->db->select('*');
+		$this->db->from('skm');
+		$this->db->where('tahun', $year);
+		$this->db->group_by("created_at");
+		$q = $this->db->get();
+		return $q;
+	}
+
+	public function jml_list_bulan($year=null, $month=null)
+	{
+		$this->db->select('*');
+		$this->db->from('skm');
+		$this->db->where('tahun', $year);
+		if(!empty($month)) {
+			$this->db->where("DATE_FORMAT(created_at,'%m')", $month);
+		}
+		$q = $this->db->get();
+		return $q;
+	}
+
 	public function list_year($year=null)
 	{
 		$this->db->select('tahun');
