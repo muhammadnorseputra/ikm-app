@@ -64,6 +64,10 @@ class Skm extends CI_Model {
 	{
 		return $this->db->get_where('skm')->num_rows();
 	}
+	public function skm_periode_by_tahun($tahun)
+	{
+		return $this->db->get_where('skm_periode', ['tahun' => $tahun]);
+	}
 	public function skm_total_responden_card($card)
 	{
 		return $this->db->get_where('skm', ['card_responden' => $card])->num_rows();
@@ -87,7 +91,24 @@ class Skm extends CI_Model {
 	{
 		return $this->db->get_where('skm',  ['fid_periode' => $periode])->num_rows();
 	}
-	
+	public function list_responden()
+	{
+		$this->db->select('*');
+		$this->db->from('skm');
+		$this->db->where('created_at', date('Y-m-d'));
+		$this->db->limit(7);
+		$this->db->order_by('id', 'desc');
+		$q = $this->db->get();
+		return $q->result();
+	}
+	public function jml_list_responden()
+	{
+		$this->db->select('*');
+		$this->db->from('skm');
+		$this->db->where('created_at', date('Y-m-d'));
+		$q = $this->db->get();
+		return $q->num_rows();	
+	}
 	public function skm_total_responden_l($periode=null)
 	{
 		// return $this->db->get_where('skm', ['jns_kelamin' => 'L', 'fid_periode' => $periode]); //Laki-laki
@@ -146,6 +167,19 @@ class Skm extends CI_Model {
 	public function ceknipnik($n,$periode_id)
 	{
 		return $this->db->get_where('skm', ['nipnik' => $n, 'fid_periode' => $periode_id]);
+	}
+
+	public function list_year($year=null)
+	{
+		$this->db->select('tahun');
+		$this->db->from('skm');
+		if(!empty($year)) {
+			$this->db->where('tahun', $year);
+		} else {
+			$this->db->group_by('tahun');
+		}
+		$q = $this->db->get();
+		return $q;
 	}
 
 	public function predikat($ikm) {

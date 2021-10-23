@@ -42,108 +42,34 @@
             <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
               <!-- Dropdown header -->
               <div class="px-3 py-3">
-                <h6 class="text-sm text-muted m-0">Daftar responden hari ini, ada <strong class="text-primary">13</strong> orang.</h6>
+                <h6 class="text-sm text-muted m-0">Daftar responden hari ini, ada <strong class="text-primary"><?= $list_responden_jml; ?></strong> orang.</h6>
               </div>
               <!-- List group -->
               <div class="list-group list-group-flush">
-                <a href="#!" class="list-group-item list-group-item-action">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <i class="ni ni-satisfied"></i>
-                    </div>
-                    <div class="col ml--2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
-                        </div>
-                        <div class="text-right text-muted">
-                          <small>2 hrs ago</small>
-                        </div>
+                <?php foreach($list_responden as $r): ?>
+                  <a href="#!" class="list-group-item list-group-item-action">
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        <!-- Avatar -->
+                        <i class="ni ni-satisfied"></i>
                       </div>
-                      <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                    </div>
-                  </div>
-                </a>
-                <a href="#!" class="list-group-item list-group-item-action">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <img alt="Image placeholder" src="assets/img/theme/team-2.jpg" class="avatar rounded-circle">
-                    </div>
-                    <div class="col ml--2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
+                      <div class="col ml--2">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <h4 class="mb-0 text-sm"><?= ucwords($r->nama_lengkap); ?></h4>
+                          </div>
+                          <div class="text-right text-muted">
+                            <small><?= longdate_indo($r->created_at); ?></small>
+                          </div>
                         </div>
-                        <div class="text-right text-muted">
-                          <small>3 hrs ago</small>
-                        </div>
+                        <p class="text-sm mb-0">Form <span class="font-weight-bold"><?= ucwords($r->card_responden); ?></span></p>
                       </div>
-                      <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
                     </div>
-                  </div>
-                </a>
-                <a href="#!" class="list-group-item list-group-item-action">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <img alt="Image placeholder" src="assets/img/theme/team-3.jpg" class="avatar rounded-circle">
-                    </div>
-                    <div class="col ml--2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
-                        </div>
-                        <div class="text-right text-muted">
-                          <small>5 hrs ago</small>
-                        </div>
-                      </div>
-                      <p class="text-sm mb-0">Your posts have been liked a lot.</p>
-                    </div>
-                  </div>
-                </a>
-                <a href="#!" class="list-group-item list-group-item-action">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <img alt="Image placeholder" src="assets/img/theme/team-4.jpg" class="avatar rounded-circle">
-                    </div>
-                    <div class="col ml--2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
-                        </div>
-                        <div class="text-right text-muted">
-                          <small>2 hrs ago</small>
-                        </div>
-                      </div>
-                      <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                    </div>
-                  </div>
-                </a>
-                <a href="#!" class="list-group-item list-group-item-action">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <img alt="Image placeholder" src="assets/img/theme/team-5.jpg" class="avatar rounded-circle">
-                    </div>
-                    <div class="col ml--2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
-                        </div>
-                        <div class="text-right text-muted">
-                          <small>3 hrs ago</small>
-                        </div>
-                      </div>
-                      <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
-                    </div>
-                  </div>
-                </a>
+                  </a>
+                <?php endforeach; ?>
               </div>
               <!-- View all -->
-              <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
+              <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">Lihat Semua</a>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -152,41 +78,17 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
               <div class="row shortcuts px-4">
-                <a href="#!" class="col-4 shortcut-item">
+                <a href="<?= base_url('skm') ?>" target="_blank" class="col-4 shortcut-item">
                   <span class="shortcut-media avatar rounded-circle bg-gradient-red">
                     <i class="ni ni-calendar-grid-58"></i>
                   </span>
-                  <small>Calendar</small>
+                  <small>Situs</small>
                 </a>
-                <a href="#!" class="col-4 shortcut-item">
+                <a href="<?= base_url('laporan') ?>" target="_blank" class="col-4 shortcut-item">
                   <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
                     <i class="ni ni-email-83"></i>
                   </span>
-                  <small>Email</small>
-                </a>
-                <a href="#!" class="col-4 shortcut-item">
-                  <span class="shortcut-media avatar rounded-circle bg-gradient-info">
-                    <i class="ni ni-credit-card"></i>
-                  </span>
-                  <small>Payments</small>
-                </a>
-                <a href="#!" class="col-4 shortcut-item">
-                  <span class="shortcut-media avatar rounded-circle bg-gradient-green">
-                    <i class="ni ni-books"></i>
-                  </span>
-                  <small>Reports</small>
-                </a>
-                <a href="#!" class="col-4 shortcut-item">
-                  <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
-                    <i class="ni ni-pin-3"></i>
-                  </span>
-                  <small>Maps</small>
-                </a>
-                <a href="#!" class="col-4 shortcut-item">
-                  <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
-                    <i class="ni ni-basket"></i>
-                  </span>
-                  <small>Shop</small>
+                  <small>Laporan</small>
                 </a>
               </div>
             </div>

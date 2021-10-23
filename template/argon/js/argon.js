@@ -838,20 +838,21 @@ var BarsChart = (function() {
 	// Init chart
 	function initChart($chart) {
 
-		// Create chart
-		var ordersChart = new Chart($chart, {
-			type: 'bar',
-			data: {
-				labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-				datasets: [{
-					label: 'Sales',
-					data: [25, 20, 30, 22, 17, 29]
-				}]
-			}
+		$.getJSON(`${_uri}/backend/console/chart_responden_periode`, function(res) {
+			// Create chart
+			var ordersChart = new Chart($chart, {
+				type: 'bar',
+				data: {
+					labels: res.labels,
+					datasets: [{
+						label: 'Responden',
+						data: res.respondens
+					}]
+				}
+			});
+			// Save to jQuery object
+			$chart.data('chart', ordersChart);	
 		});
-
-		// Save to jQuery object
-		$chart.data('chart', ordersChart);
 	}
 
 
@@ -878,61 +879,58 @@ var SalesChart = (function() {
   // Methods
 
   function init($chart) {
+  	// if($chart.attr('periode') == 'tahun') {
+	  	$.getJSON(`${_uri}/backend/console/chart_responden_tahun`, function(res) {
+	  		console.log(res);	
+		    var respoChart = new Chart($chart, {
+		      type: 'line',
+		      options: {
+		        scales: {
+		          yAxes: [{
+		            gridLines: {
+		              lineWidth: 1,
+		              color: Charts.colors.gray[900],
+		              zeroLineColor: Charts.colors.gray[900]
+		            },
+		            ticks: {
+		              callback: function(value) {
+		                if (!(value % 5)) {
+		                  return 'R. ' + value + '';
+		                }
+		              }
+		            }
+		          }]
+		        },
+		        tooltips: {
+		          callbacks: {
+		            label: function(item, data) {
+		              var label = data.datasets[item.datasetIndex].label || '';
+		              var yLabel = item.yLabel;
+		              var content = '';
 
-    var salesChart = new Chart($chart, {
-      type: 'line',
-      options: {
-        scales: {
-          yAxes: [{
-            gridLines: {
-              lineWidth: 1,
-              color: Charts.colors.gray[900],
-              zeroLineColor: Charts.colors.gray[900]
-            },
-            ticks: {
-              callback: function(value) {
-                if (!(value % 10)) {
-                  return '$' + value + 'k';
-                }
-              }
-            }
-          }]
-        },
-        tooltips: {
-          callbacks: {
-            label: function(item, data) {
-              var label = data.datasets[item.datasetIndex].label || '';
-              var yLabel = item.yLabel;
-              var content = '';
+		              if (data.datasets.length > 1) {
+		                content +=  label ;
+		              }
 
-              if (data.datasets.length > 1) {
-                content += '<span class="popover-body-label mr-auto">' + label + '</span>';
-              }
-
-              content += '<span class="popover-body-value">$' + yLabel + 'k</span>';
-              return content;
-            }
-          }
-        }
-      },
-      data: {
-        labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        datasets: [{
-          label: 'Performance',
-          data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
-        }]
-      }
-    });
-
-    // Save to jQuery object
-
-    $chart.data('chart', salesChart);
-
+		              content += 'Responden: ' + yLabel;
+		              return content;
+		            }
+		          }
+		        }
+		      },
+		      data: {
+		        labels: res.tahun,
+		        datasets: [{
+		          label: 'Responden',
+		          data: res.responden
+		        }]
+		      }
+		    });
+    	$chart.data('chart', respoChart);
+		});
+	// }
   };
-
-
   // Events
-
   if ($chart.length) {
     init($chart);
   }

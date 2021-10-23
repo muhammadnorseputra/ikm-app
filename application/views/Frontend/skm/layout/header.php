@@ -42,17 +42,23 @@
 				<li class="nav-item">
 					<a class="nav-link fw-bold" href="#cetak" tabindex="-1" aria-disabled="true" data-bs-toggle="offcanvas" role="button" aria-controls="offcanvasExample">Cetak Formulir</a>
 				</li>
-				<?php //if(!empty($this->session->userdata('user_portal_log')['id'])): ?>
+				<?php if(!empty($this->session->userdata('user_name'))): ?>
 				<li class="nav-item">
 					<a class="nav-link fw-bold" href="<?= base_url('laporan'); ?>" tabindex="-1" aria-disabled="true">Laporan</a>
 				</li>
-				<?php //endif ?>
+				<?php endif ?>
+				<?php if(empty($this->session->userdata('user_name'))): ?>
 				<a class="btn btn-secondary me-2 d-none d-md-block position-relative " href="<?= base_url('console') ?>">
 					  Masuk Console
 					<span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger rounded-circle animate__animated animate__flash animate__infinite">
 							<span class="visually-hidden">New alerts</span>
 						</span>
 				</a>
+				<?php else: ?>
+					<a href="<?= base_url('console') ?>">
+					    <img src="<?= base_url("assets/images/pic/".$this->session->userdata('pic')); ?>" width="40" class="rounded-circle" alt="<?= $this->session->userdata('nama'); ?>">		
+					</a>
+				<?php endif ?>
 				</ul>
 			</div>
 		</div>

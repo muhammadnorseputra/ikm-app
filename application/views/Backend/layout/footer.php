@@ -9,6 +9,7 @@
   <script src="<?= base_url('template/argon/vendor/chart.js/dist/Chart.min.js') ?>"></script>
   <script src="<?= base_url('template/argon/vendor/chart.js/dist/Chart.extension.js') ?>"></script>
   <!-- Argon JS -->
+  <script src="<?= base_url('assets/js/route.js') ?>"></script>
   <script src="<?= base_url('template/argon/js/argon.js?v=1.2.0') ?>"></script>
 </body>
 </html>
