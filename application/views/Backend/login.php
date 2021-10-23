@@ -7,13 +7,15 @@
 		<link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap-4/css/bootstrap.min.css') ?>">
 		<link rel="stylesheet" href="<?= base_url('assets/css/b_login.css') ?>">
 		<link rel="stylesheet" href="<?= base_url('template/v1/plugin/jquery-form-validator/form-validator/theme-default.min.css') ?>">
+		<link rel="stylesheet" href="<?= base_url('template/argon/vendor/@fortawesome/fontawesome-free/css/all.min.css') ?>">
 	</head>
 	<body>
 		<section class="login-block px-md-0 px-3">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 login-sec">
-						<h2 class="text-center">Console e-Survei</h2>
+						<h2 class="text-center">
+							<i class="fas fa-project-diagram fa-2x text-primary"></i> e-Survei</h2>
 						<?php  
 							$urlRef = isset($_GET['continue']) ? $_GET['continue'] : ''; 
 						?>
@@ -35,17 +37,17 @@
 							</div>
 							
 						<?= form_close(); ?>
-						<div class="copy-text">Created with <i class="fa fa-heart"></i> by e-Survei</div>
+						<div class="copy-text">Created with <i class="fa fa-heart"></i> by Laptop</div>
 					</div>
 					<div class="col-md-8 banner-sec d-none d-md-block">
 						<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 							<ol class="carousel-indicators">
-								<li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 							</ol>
 							<div class="carousel-inner" role="listbox">
-								<div class="carousel-item">
-									<img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="First slide">
+								<div class="carousel-item active">
+									<img class="d-block img-fluid" src="<?= base_url('assets/images/bg/pexels-photo.jpg'); ?>" alt="Second slide">
 									<div class="carousel-caption d-none d-md-block">
 										<div class="banner-text">
 											<h2>Akses Data Otomatis dan Real-time</h2>
@@ -53,8 +55,8 @@
 										</div>
 									</div>
 								</div>
-								<div class="carousel-item active">
-									<img class="d-block img-fluid" src="https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" alt="First slide">
+								<div class="carousel-item">
+									<img class="d-block img-fluid" src="<?= base_url('assets/images/bg/people-coffee-tea-meeting.jpg') ?>" alt="First slide">
 									<div class="carousel-caption d-none d-md-block">
 										<div class="banner-text">
 											<h2>Waktu yang Cepat</h2>

@@ -1084,3 +1084,28 @@ var Scrollbar = (function() {
 	}
 
 })();
+
+var SearchAutocomplete = (function() {
+	// Variabels
+	var $search = $('#navbar-search-main');
+	
+	// Methods
+	function init() {
+		let $input = $search.find('input[type="text"]');
+		var countries = [
+		    { value: 'Dashboard', url: `${_uri}/dashboard` },
+		    { value: 'Responden', url: `${_uri}/responden` },
+		    { value: 'Periode', url: `${_uri}/periode` }
+		];
+		$input.autocomplete({
+		    lookup: countries,
+		    onSelect: function (suggestion) {
+		    	window.location.href = suggestion.url;
+		    }
+		});
+	}
+
+	if ($search.length) {
+		init();
+	}
+})();

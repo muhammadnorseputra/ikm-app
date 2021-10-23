@@ -1,51 +1,51 @@
 $(document).ready(function() {
     // $("input[name='nama_lengkap'], input[name='umur'], select[name='jns_kelamin']").prop('disabled', true);
-    $("input[name='cek_nipnik']").on('blur', function() {
+    // $("input[name='cek_nipnik']").on('blur', function() {
         // let value = $("input[name='cek_nipnik']").val();
-        let value = $(this).val();
-        $("#msg-asn-data").removeClass('text-success text-danger');
-        $.getJSON(`${_uri}/frontend/skm/skmIndex/getAsn/${value}`, function(res) {
-            let r = res[0];
-            console.log(res);
-            if (value != '') {
-                if (r.kind == true) {
-                    $("input[name='nama_lengkap'], input[name='umur'], select[name='jns_kelamin']").prop('disabled', false);
-                    $("input[name='nama_lengkap']").val(r.nama)
-                        .removeClass('error')
-                        .addClass('valid')
-                        .parent()
-                        .removeClass('has-error')
-                        .addClass('has-success');
-                    $("input[name='umur']").val(r.umur)
-                        .removeClass('error')
-                        .addClass('valid')
-                        .parent()
-                        .removeClass('has-error')
-                        .addClass('has-success');
-                    $("select[name='jns_kelamin']").val(r.jk)
-                        .removeClass('error')
-                        .addClass('valid')
-                        .parent()
-                        .removeClass('has-error')
-                        .addClass('has-success');
-                    // $("#msg-asn-data").html(`${r.message}`).addClass('text-success');
-                }
-                if (r.kind == false) {
-                    $("input[name='umur']").val('').addClass('error').removeClass('valid');
-                    $("input[name='nama_lengkap']").val('').addClass('error').removeClass('valid');
-                    $("select[name='jns_kelamin']").val('').addClass('error').removeClass('valid');
-                    // $("#msg-asn-data").html(`${r.message}`).addClass('text-danger');
-                    $("input[name='nama_lengkap'], input[name='umur'], select[name='jns_kelamin']").prop('disabled', false);
-                }
-            } else {
-                $("input[name='nama_lengkap']").val('').addClass('error').removeClass('valid');
-                $("input[name='umur']").val('').addClass('error').removeClass('valid');
-                $("select[name='jns_kelamin']").val('').addClass('error').removeClass('valid');
-                $("input[name='nama_lengkap'], input[name='umur'], select[name='jns_kelamin']").prop('disabled', true);
-                // $("#msg-asn-data").html('');
-            }
-        });
-    });
+    //     let value = $(this).val();
+    //     $("#msg-asn-data").removeClass('text-success text-danger');
+    //     $.getJSON(`${_uri}/frontend/skm/skmIndex/getAsn/${value}`, function(res) {
+    //         let r = res[0];
+    //         console.log(res);
+    //         if (value != '') {
+    //             if (r.kind == true) {
+    //                 $("input[name='nama_lengkap'], input[name='umur'], select[name='jns_kelamin']").prop('disabled', false);
+    //                 $("input[name='nama_lengkap']").val(r.nama)
+    //                     .removeClass('error')
+    //                     .addClass('valid')
+    //                     .parent()
+    //                     .removeClass('has-error')
+    //                     .addClass('has-success');
+    //                 $("input[name='umur']").val(r.umur)
+    //                     .removeClass('error')
+    //                     .addClass('valid')
+    //                     .parent()
+    //                     .removeClass('has-error')
+    //                     .addClass('has-success');
+    //                 $("select[name='jns_kelamin']").val(r.jk)
+    //                     .removeClass('error')
+    //                     .addClass('valid')
+    //                     .parent()
+    //                     .removeClass('has-error')
+    //                     .addClass('has-success');
+    //                 // $("#msg-asn-data").html(`${r.message}`).addClass('text-success');
+    //             }
+    //             if (r.kind == false) {
+    //                 $("input[name='umur']").val('').addClass('error').removeClass('valid');
+    //                 $("input[name='nama_lengkap']").val('').addClass('error').removeClass('valid');
+    //                 $("select[name='jns_kelamin']").val('').addClass('error').removeClass('valid');
+    //                 // $("#msg-asn-data").html(`${r.message}`).addClass('text-danger');
+    //                 $("input[name='nama_lengkap'], input[name='umur'], select[name='jns_kelamin']").prop('disabled', false);
+    //             }
+    //         } else {
+    //             $("input[name='nama_lengkap']").val('').addClass('error').removeClass('valid');
+    //             $("input[name='umur']").val('').addClass('error').removeClass('valid');
+    //             $("select[name='jns_kelamin']").val('').addClass('error').removeClass('valid');
+    //             $("input[name='nama_lengkap'], input[name='umur'], select[name='jns_kelamin']").prop('disabled', true);
+    //             // $("#msg-asn-data").html('');
+    //         }
+    //     });
+    // });
     // Add validator
     // $.formUtils.addValidator({
     //     name: 'cek_asn',
@@ -66,7 +66,7 @@ $(document).ready(function() {
         onError: function($form) {
             $.notify({
                 icon: `fas fa-times`,
-                title: '<strong>Gagal!</strong>',
+                title: '<strong>Galat!</strong>',
                 message: 'Formulir ' + $form.attr('id') + ' gagal, cek kembali kelengkapan survei!',
             }, {
                 type: 'danger'

@@ -82,7 +82,7 @@
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">Kinerja</h5>
-                    <span class="h2 font-weight-bold mb-0">IKM - <?= $ikm['data']['nilai_ikm'] ?></span>
+                    <span class="h2 font-weight-bold mb-0">IKM - <?= number_format($ikm['data']['nilai_ikm'],2) ?></span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">

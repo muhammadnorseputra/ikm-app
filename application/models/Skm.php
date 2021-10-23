@@ -60,6 +60,10 @@ class Skm extends CI_Model {
 	{
 		return $this->db->insert($tbl, $data);
 	}
+	public function skm_get_responden()
+	{
+		return $this->db->get('skm');
+	}
 	public function skm_total_responden_all()
 	{
 		return $this->db->get_where('skm')->num_rows();
@@ -67,6 +71,10 @@ class Skm extends CI_Model {
 	public function skm_periode_by_tahun($tahun)
 	{
 		return $this->db->get_where('skm_periode', ['tahun' => $tahun]);
+	}
+	public function skm_all_card()
+	{
+		return $this->db->group_by('card_responden')->get('skm');
 	}
 	public function skm_total_responden_card($card)
 	{
@@ -204,6 +212,14 @@ class Skm extends CI_Model {
 		return $q;
 	}
 
+	public function get_pertanyaan($tbl)
+	{
+		return $this->db->get($tbl, 4,0);
+	}
+	public function get_jawaban($id)
+	{
+		return $this->db->get_where('skm_jawaban', ['fid_pertanyaan' => $id]);
+	}
 	public function predikat($ikm) {
         if($ikm >= '1.00' && $ikm <= '2.5996'):
             $c = 'danger';

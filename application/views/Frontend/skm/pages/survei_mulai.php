@@ -145,4 +145,4 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 	</div>
 	<?= form_close(); ?>
 </section>
-<script src="<?= base_url('template/v1/js/route.js') ?>"></script>
+<script src="<?= base_url('assets/js/route.js') ?>"></script>

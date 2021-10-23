@@ -1,10 +1,10 @@
   <!-- Sidenav -->
-  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+  <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white shadow-xl" id="sidenav-main">
     <div class="scrollbar-inner">
       <!-- Brand -->
-      <div class="sidenav-header  align-items-center">
+      <div class="sidenav-header align-items-center">
         <a class="navbar-brand" href="javascript:void(0)">
-          e-Survei
+          <i class="fas fa-project-diagram mr-2 fa-2x text-primary"></i>e-<span class="text-primary">Survei</span>
         </a>
       </div>
       <div class="navbar-inner">
@@ -13,7 +13,7 @@
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="<?= base_url('dashboard') ?>">
+              <a class="nav-link <?= $this->uri->segment(1) == 'dashboard' ? "active" : ""; ?>" href="<?= base_url('dashboard') ?>">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">Dashboard</span>
               </a>
@@ -28,9 +28,15 @@
           <!-- Navigation -->
           <ul class="navbar-nav mb-md-3">
             <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html" target="_blank">
-                <i class="ni ni-spaceship"></i>
+              <a class="nav-link <?= $this->uri->segment(1) == 'responden' ? "active" : ""; ?>" href="<?= base_url('responden') ?>">
+                <i class="ni ni-circle-08"></i>
                 <span class="nav-link-text">Responden</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <?= $this->uri->segment(1) == 'periode' ? "active" : ""; ?>" href="<?= base_url('periode') ?>">
+                <i class="ni ni-chart-bar-32"></i>
+                <span class="nav-link-text">Periode</span>
               </a>
             </li>
             <li class="nav-item">
@@ -55,12 +61,6 @@
               <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html" target="_blank">
                 <i class="ni ni-chart-pie-35"></i>
                 <span class="nav-link-text">Pendidikan</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html" target="_blank">
-                <i class="ni ni-chart-pie-35"></i>
-                <span class="nav-link-text">Periode</span>
               </a>
             </li>
             <li class="nav-item">

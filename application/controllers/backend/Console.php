@@ -6,7 +6,6 @@ class Console extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('skm');
         if($this->session->userdata('user_id') == ''):
             redirect(base_url('console'));
         endif;
@@ -51,8 +50,7 @@ class Console extends CI_Controller
             '_card_responden' => $card_responden,
             'total_periode' => $this->skm->skm_total_periode(),
             '_d' => $this->skm->skm_target_periode($last_periode),
-            'list_responden' => $this->skm->list_responden(),
-            'list_responden_jml' => $this->skm->jml_list_responden(),
+            'responden_per_pertanyaan' => $this->responden_per_pertanyaan(),
             'ikm' => api_client(base_url('api/ikm'))
         ];
         $this->load->view('Backend/layout/app', $data);
@@ -72,7 +70,30 @@ class Console extends CI_Controller
         foreach($periode_id as $p => $v) {
             $responden[] = $this->skm->skm_total_responden($v);
         }
-
+        $this->output->set_content_type('application/json');
         echo json_encode(['labels' => $label, 'respondens' => $responden]);
     }
+
+    public function responden_per_pertanyaan()
+    {
+        $respondens = $this->skm->skm_get_responden();
+        $tanya = $this->skm->get_pertanyaan('skm_pertanyaan');
+        $data_tanya = [];
+        $data_jawab = [];
+        $j_responden = [];
+        
+        foreach($respondens->result() as $u):
+            $j_responden[] = $this->skm->_get_jawaban_responden($u->id);
+        endforeach;
+        
+        foreach($tanya->result() as $t) {
+            $jawaban[] = $this->skm->get_jawaban($t->id)->result();
+            $data_jawab[] = $jawaban;
+            $data_tanya[] = $t->jdl_pertanyaan;
+        }
+
+        // $this->output->set_content_type('application/json');
+        return (['pertanyaan' => $data_tanya, 'jawaban' => $jawaban, 'jawaban_responden' => $j_responden]);
+    }
+
 }

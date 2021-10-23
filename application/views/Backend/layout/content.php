@@ -42,11 +42,11 @@
             <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
               <!-- Dropdown header -->
               <div class="px-3 py-3">
-                <h6 class="text-sm text-muted m-0">Daftar responden hari ini, ada <strong class="text-primary"><?= $list_responden_jml; ?></strong> orang.</h6>
+                <h6 class="text-sm text-muted m-0">Daftar responden hari ini, ada <strong class="text-primary"><?= $this->skm->jml_list_responden(); ?></strong> orang.</h6>
               </div>
               <!-- List group -->
               <div class="list-group list-group-flush">
-                <?php foreach($list_responden as $r): ?>
+                <?php foreach($this->skm->list_responden() as $r): ?>
                   <a href="#!" class="list-group-item list-group-item-action">
                     <div class="row align-items-center">
                       <div class="col-auto">
@@ -56,7 +56,7 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm"><?= ucwords($r->nama_lengkap); ?></h4>
+                            <h4 class="mb-0 text-sm"><?= sensor(ucwords($r->nama_lengkap)); ?></h4>
                           </div>
                           <div class="text-right text-muted">
                             <small><?= longdate_indo($r->created_at); ?></small>
@@ -69,7 +69,7 @@
                 <?php endforeach; ?>
               </div>
               <!-- View all -->
-              <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">Lihat Semua</a>
+              <a href="<?= base_url('responden?date='.date('Y-m-d')) ?>" class="dropdown-item text-center text-primary font-weight-bold py-3">Lihat Semua</a>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -131,8 +131,20 @@
   </nav>
   <?php if($this->uri->segment(1) == 'dashboard'): ?>
     <?php $this->load->view('Backend/pages/dashboard_header'); ?>
+  <?php else: ?>
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0"><?= ucwords($this->uri->segment(1)) ?></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <?php endif; ?>
-  
+
   <!-- Page content -->
   <div class="container-fluid mt--6">
     <?php  
@@ -145,7 +157,7 @@
       <div class="row align-items-center justify-content-lg-between">
         <div class="col-lg-6">
           <div class="copyright text-center  text-lg-left  text-muted">
-            &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+            &copy; <?= date('Y') ?> <a href="/web.bkppd-balangankab.info/" class="font-weight-bold ml-1" target="_blank">e-Survei</a>
           </div>
         </div>
         <div class="col-lg-6">

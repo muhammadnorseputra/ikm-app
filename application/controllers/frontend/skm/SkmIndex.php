@@ -180,7 +180,7 @@ class SkmIndex extends CI_Controller
             // echo json_encode($j);
             return $j;
     }
-
+    
     public function hasil_ikm()
     {
         echo json_encode($this->hitung());
