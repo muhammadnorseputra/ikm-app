@@ -40,8 +40,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html" target="_blank">
-                <i class="ni ni-palette"></i>
+              <a class="nav-link <?= $this->uri->segment(1) == 'pertanyaan' ? "active" : ""; ?>" href="<?= base_url('pertanyaan') ?>">
+                <i class="ni ni-books"></i>
                 <span class="nav-link-text">Daftar Pertanyaan</span>
               </a>
             </li>

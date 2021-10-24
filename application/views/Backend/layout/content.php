@@ -110,11 +110,11 @@
               <div class="dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
-              <a href="#!" class="dropdown-item">
+              <a href="<?= base_url('profile') ?>" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
-              <a href="#!" class="dropdown-item">
+              <a href="<?= base_url('setting') ?>" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Settings</span>
               </a>
@@ -137,7 +137,14 @@
       <div class="header-body">
         <div class="row align-items-center py-4">
           <div class="col-lg-6 col-7">
-            <h6 class="h2 text-white d-inline-block mb-0"><?= ucwords($this->uri->segment(1)) ?></h6>
+            <h6 class="h2 text-white d-inline-block mb-0">
+              <!-- Title Headers -->
+              <?= ucwords($this->uri->segment(1)) ?>
+              <!-- Info Pertanyaan -->
+              <?php if($this->uri->segment(1) == 'pertanyaan'): ?>
+                <button type="button" data-toggle="modal" data-target="#modal-notification" class="btn btn-danger rounded-circle py-1 px-2"><i class="fas fa-question-circle"></i></button>
+              <?php endif; ?>  
+            </h6>
           </div>
         </div>
       </div>

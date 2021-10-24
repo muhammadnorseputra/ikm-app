@@ -68,6 +68,9 @@ $route['dashboard'] = 'backend/console';
 $route['responden'] = 'backend/responden';
 $route['periode'] = 'backend/periode';
 $route['periode/edit/(:any)'] = 'backend/periode/edit/$1';
+$route['pertanyaan'] = 'backend/pertanyaan';
+$route['pertanyaan/baru'] = 'backend/pertanyaan/baru';
+$route['pertanyaan/edit/(:any)'] = 'backend/pertanyaan/edit/$1';
  
 
 $route['404_override'] = '';
