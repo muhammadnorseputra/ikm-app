@@ -118,6 +118,7 @@
           </thead>
           <tbody>
             <?php 
+            if($ikm['data']['presentase'] != null): 
               foreach($ikm['data']['presentase'] as $key => $val): 
                 if($key == 'A'): 
                   $col = 'success'; 
@@ -144,7 +145,12 @@
                 </div>
               </td>
             </tr>
-            <?php endforeach; ?>
+            <?php endforeach; else: ?> 
+              <div class="font-weight-bold d-flex justify-content-center align-items-center flex-column pb-5">
+                <i class="fas fa-shapes fa-5x my-5 text-light"></i>
+                <h3>Tidak ada data</h3>
+              </div>
+            <?php endif;?>
           </tbody>
         </table>
       </div>

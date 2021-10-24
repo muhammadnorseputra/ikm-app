@@ -4,10 +4,15 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title><?= $title ?></title>
+    	<link rel="icon" href="<?= base_url('assets/images/logo.png') ?>" type="image/png">
 		<link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap-4/css/bootstrap.min.css') ?>">
 		<link rel="stylesheet" href="<?= base_url('assets/css/b_login.css') ?>">
 		<link rel="stylesheet" href="<?= base_url('template/v1/plugin/jquery-form-validator/form-validator/theme-default.min.css') ?>">
 		<link rel="stylesheet" href="<?= base_url('template/argon/vendor/@fortawesome/fontawesome-free/css/all.min.css') ?>">
+		<link rel="dns-prefetch" href="//fonts.googleapis.com">
+		<link rel="prefetch" href="<?= base_url('assets/images/bg/pexels-photo.jpg'); ?>">
+		<link rel="prefetch" href="<?= base_url('assets/images/bg/people-coffee-tea-meeting.jpg') ?>">
+		<link rel="prefetch" href="<?= base_url('assets/images/logo.png') ?>">
 	</head>
 	<body>
 		<section class="login-block px-md-0 px-3">
@@ -21,11 +26,11 @@
 						?>
 						<?= form_open(base_url('backend/login/cek_akun'), ['autocomplete' => 'off', 'id' => 'f_login'], ['token' => encrypt_url('esurvei@#123'.date('d')), 'continue' => $urlRef]); ?>
 							<div class="form-group">
-								<label for="username" class="text-uppercase">Username</label>
+								<label for="username" class="font-weight-bold">Username</label>
 								<input type="text" name="username" class="form-control" placeholder="User Akun" data-sanitize="trim" required="required" id="username">
 							</div>
 							<div class="form-group">
-								<label for="password-field" class="text-uppercase">Password</label>
+								<label for="password-field" class="font-weight-bold">Password</label>
 								<input type="password" name="pwd" autocomplete="off" id="password-field" class="form-control" placeholder="Password" data-sanitize="trim" required="required">
 							</div>							
 							<div class="form-check show_pass">
@@ -51,7 +56,7 @@
 									<div class="carousel-caption d-none d-md-block">
 										<div class="banner-text">
 											<h2>Akses Data Otomatis dan Real-time</h2>
-											<p>esponden memasukan data mereka, dan saat itu juga secara otomatis akan disimpan ke dalam software dalam bentuk data elektronik. Dengan demikian analisis data menjadi lebih mudah dan efisien karena data langsung tersedia.</p>
+											<p>Responden memasukan data mereka, dan saat itu juga secara otomatis akan disimpan ke dalam software dalam bentuk data elektronik. Dengan demikian analisis data menjadi lebih mudah dan efisien karena data langsung tersedia.</p>
 										</div>
 									</div>
 								</div>
