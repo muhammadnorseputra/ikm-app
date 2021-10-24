@@ -18,6 +18,18 @@
                 <span class="nav-link-text">Dashboard</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link <?= $this->uri->segment(1) == 'users' ? "active" : ""; ?>" href="<?= base_url('users') ?>">
+                <i class="ni ni-satisfied text-warning"></i>
+                <span class="nav-link-text">Users</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <?= $this->uri->segment(1) == 'report' ? "active" : ""; ?>" href="<?= base_url('report') ?>">
+                <i class="ni ni-single-copy-04 text-success"></i>
+                <span class="nav-link-text">Report IKM</span>
+              </a>
+            </li>
           </ul>
           <!-- Divider -->
           <hr class="my-3">
@@ -40,33 +52,39 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link <?= $this->uri->segment(1) == 'unsur' ? "active" : ""; ?>" href="<?= base_url('unsur') ?>">
+                <i class="ni ni-atom"></i>
+                <span class="nav-link-text">Unsur</span>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link <?= $this->uri->segment(1) == 'pertanyaan' ? "active" : ""; ?>" href="<?= base_url('pertanyaan') ?>">
                 <i class="ni ni-books"></i>
                 <span class="nav-link-text">Daftar Pertanyaan</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html" target="_blank">
-                <i class="ni ni-palette"></i>
+              <a class="nav-link <?= $this->uri->segment(1) == 'jawaban' ? "active" : ""; ?>" href="<?= base_url('jawaban') ?>">
+                <i class="ni ni-ui-04"></i>
+                <span class="nav-link-text">Daftar Jawaban</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
+                <i class="ni ni-book-bookmark"></i>
                 <span class="nav-link-text">Jenis Layanan</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html" target="_blank">
-                <i class="ni ni-ui-04"></i>
-                <span class="nav-link-text">Pekerjaan</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html" target="_blank">
-                <i class="ni ni-chart-pie-35"></i>
+              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html">
+                <i class="ni ni-badge"></i>
                 <span class="nav-link-text">Pendidikan</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active active-pro" href="examples/upgrade.html">
-                <i class="ni ni-send text-dark"></i>
-                <span class="nav-link-text">Hubungi Developer</span>
+              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
+                <i class="ni ni-single-02"></i>
+                <span class="nav-link-text">Pekerjaan</span>
               </a>
             </li>
           </ul>

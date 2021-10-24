@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-12 col-xl-6">
+	<div class="col-12 col-xl-6 offset-xl-3">
 		<div class="card">
 			<?= form_open(base_url('backend/periode/update'), ['id' => "f_periode", 'class' => 'toggle-disabled'], ['id' => encrypt_url($d->id)]); ?>
 			<div class="card-header rounded-top">

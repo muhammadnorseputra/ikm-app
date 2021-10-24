@@ -1092,13 +1092,16 @@ var SearchAutocomplete = (function() {
 	// Methods
 	function init() {
 		let $input = $search.find('input[type="text"]');
-		var countries = [
+		var menus = [
 		    { value: 'Dashboard', url: `${_uri}/dashboard` },
 		    { value: 'Responden', url: `${_uri}/responden` },
-		    { value: 'Periode', url: `${_uri}/periode` }
+		    { value: 'Periode', url: `${_uri}/periode` },
+		    { value: 'Pertanyaan', url: `${_uri}/pertanyaan` },
+		    { value: 'Pertanyaan Baru', url: `${_uri}/pertanyaan/baru` },
+		    { value: 'Jawaban', url: `${_uri}/jawaban` }
 		];
 		$input.autocomplete({
-		    lookup: countries,
+		    lookup: menus,
 		    onSelect: function (suggestion) {
 		    	window.location.href = suggestion.url;
 		    }

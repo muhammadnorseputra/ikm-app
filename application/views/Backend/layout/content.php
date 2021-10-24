@@ -136,7 +136,8 @@
     <div class="container-fluid">
       <div class="header-body">
         <div class="row align-items-center py-4">
-          <div class="col-lg-6 col-7">
+          <?php $center = ($this->uri->segment(2) == 'edit') || ($this->uri->segment(2) == 'baru') ? 'text-center' : ''; ?>
+          <div class="col-lg-12 col-7 <?= $center ?>">
             <h6 class="h2 text-white d-inline-block mb-0">
               <!-- Title Headers -->
               <?= ucwords($this->uri->segment(1)) ?>

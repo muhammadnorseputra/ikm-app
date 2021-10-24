@@ -1,5 +1,16 @@
 <div class="row">
 	<div class="col-xl-12">
+      <?php if($this->session->flashdata('msg') <> '' ): ?>
+      <div class="alert alert-<?= $this->session->flashdata('msg_type') ?> alert-dismissible fade show" role="alert">
+          <span class="alert-icon"><i class="ni ni-bell-55"></i></span>
+          <span class="alert-text"><?= $this->session->flashdata('msg') ?></span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <?php endif; ?>
+   </div>
+	<div class="col-xl-12">
 		<div class="card" id="list_pertanyaan">
 			<div class="card-header">
 				<div class="row">
@@ -12,26 +23,21 @@
 					</div>
 					</div>
 					<div class="col-xl-3">
-						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-			                <label class="btn btn-secondary">
+						<div class="btn-group btn-group-toggle border rounded" data-toggle="buttons">
+			                <label class="btn btn-secondary shadow-none">
 			                  <input type="radio" class="sort" data-sort="unsur" name="options" id="option1" autocomplete="off"> Unsur
 			                </label>
-			                <label class="btn btn-secondary active">
+			                <label class="btn btn-secondary active shadow-none">
 			                  <input type="radio" class="sort" data-sort="pertanyaan" name="options" id="option2" autocomplete="off" checked> Pertanyaan
 			                </label>
 			              </div>
 					</div>
-					<div class="col-xl-3">
-						<nav aria-label="pagination">
-							<ul class="pagination"></ul>
-						</nav>
-					</div>
-					<div class="col-xl-3 text-right">
-						<a href="<?= base_url('pertanyaan/baru') ?>" type="button" class="btn btn-primary btn-lg"><i class="fas fa-plus mr-2"></i>Baru</a>
+					<div class="col-xl-6 text-right">
+						<a href="<?= base_url('pertanyaan/baru') ?>" type="button" class="btn btn-primary"><i class="fas fa-plus mr-2"></i>Baru</a>
 					</div>
 				</div>
 			</div>
-			<div class="card-body">
+			<div class="card-body p-0">
 				<div class="table-responsive">
 					<table class="table align-items-center">
 				        <thead class="thead-light">
@@ -43,12 +49,15 @@
 				        </thead>
 				        <tbody class="list">
 				        	<?php if($list_pertanyaan->num_rows() > 0): ?>
-				        		<?php foreach($list_pertanyaan->result() as $p): ?>
-				        			<tr>
+				        		<?php 
+				        			foreach($list_pertanyaan->result() as $p): 
+				        			$active = $p->status == 'N' ? 'bg-gradient-danger text-white' : '';
+				        		?>
+				        			<tr class="<?= $active ?>">
 				        					<td>
 				        						<!-- Default dropright button -->
 												<div class="dropdown">
-							                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							                        <a class="btn btn-sm btn-icon-only text-light bg-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							                          <i class="fas fa-ellipsis-v"></i>
 							                        </a>
 							                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
@@ -65,6 +74,11 @@
 				        </tbody>
 				    </table>
 				</div>
+			</div>
+			<div class="card-footer">
+				<nav aria-label="pagination">
+					<ul class="pagination"></ul>
+				</nav>
 			</div>
 		</div>
 	</div>
