@@ -1,5 +1,6 @@
-<div class="container mb-2">
-	<div class="row">
+<!-- <div class="container"> -->
+<div class="row mb-2">
+	<div class="col-xl-12">
 		<div class="input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text bg-gradient-warning text-white"><i class="fa fa-filter"></i></span>
@@ -34,6 +35,7 @@
 		</div>
 	</div>
 </div>
+<!-- </div> -->
 <div class="row">
 	<div class="col-xl-12">
 		<div class="card">
@@ -76,14 +78,13 @@
 <link rel="stylesheet" href="<?= base_url('template/argon/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css') ?>">
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatable/inc_tablesold.css') ?>">
 <link rel="stylesheet" href="<?= base_url('template/argon/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.min.css') ?>">
-
 <script>
 	$(function() {
 		/*Date Range*/
 		$('.input-daterange').datepicker({
-			    todayBtn: "linked",
-			    format: "yyyy-mm-dd",
-	    		clearBtn: true
+			todayBtn: "linked",
+			format: "yyyy-mm-dd",
+			clearBtn: true
 		});
 		// Filters
 		$("select[name='f_year'],select[name='f_periode'],select[name='f_form']").on('change', function(e) {
@@ -107,7 +108,7 @@
 		"responsive": true,
 		"datatype": "json",
 		"scrollY": "400px",
-		 "scrollCollapse": true,
+		"scrollCollapse": true,
 		"lengthMenu": [
 			[10, 25, 50, -1],
 			[10, 25, 50, "All"]
@@ -123,7 +124,6 @@
 					q.filter_start = $("input[name='start']").val(),
 					q.order_date = order_date,
 					q.filter_end = $("input[name='end']").val()
-
 			},
 		},
 		"columnDefs": [{

@@ -1,5 +1,14 @@
 <div class="row">
-	<div class="col-xl-8 offset-xl-2">
+	<div class="col-xl-8">
+		<?php if($this->session->flashdata('msg') <> '' ): ?>
+	      <div class="alert alert-<?= $this->session->flashdata('msg_type') ?> alert-dismissible fade show" role="alert">
+	          <span class="alert-icon"><i class="ni ni-bell-55"></i></span>
+	          <span class="alert-text"><?= $this->session->flashdata('msg') ?></span>
+	          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	              <span aria-hidden="true">&times;</span>
+	          </button>
+	      </div>
+	      <?php endif; ?>
 		<div class="card" id="list_unsur">
 			<div class="card-header">
 				<div class="row">
@@ -12,7 +21,10 @@
 						</div>
 					</div>
 					<div class="col-xl-6 text-right">
-						<a href="<?= base_url('unsur/baru') ?>" type="button" class="btn btn-primary"><i class="fas fa-plus mr-2"></i>Baru</a>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#unsur"><i class="fas fa-plus mr-2"></i>Baru</button>
+						<?php if(isset($_GET['uid']) != null): ?>
+							<a class="btn btn-link" href="<?= base_url('unsur') ?>"><i class="fas fa-retweet mr-2"></i>Reload</a>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>
@@ -32,9 +44,9 @@
 				        		?>
 				        			<tr>
 				        					<td>
-				        						<a class="btn btn-sm btn-icon-only text-light" href="#" role="button">
+				        						<button id="edit-unsur" class="btn btn-sm btn-icon-only text-light" data-href="<?= base_url('unsur/edit/'.encrypt_url($p->id)) ?>" role="button">
 							                          <i class="fas fa-edit"></i>
-							                    </a>
+							                    </button>
 				        					</td>
 					        				<td class="unsur"><?= $p->jdl_unsur ?></td>
 				        			</tr>
@@ -51,6 +63,29 @@
 			</div>
 		</div>
 	</div>
+</div>
+<!-- Unsur baru -->
+<div class="modal fade" id="unsur" tabindex="-1" role="dialog" aria-labelledby="unsurLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom">
+        <h5 class="modal-title" id="unsurLabel">Unsur Baru</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<?= form_open(base_url('backend/unsur/insert'), ['class' => 'form-horizontal', 'autocomplete' => 'off', 'id' => 'f_unsur'], ['id' => null]); ?>
+    	<div class="form-group">
+    		<label for="nama_unsur">Nama Unsur</label>
+    		<input type="text" autocomplete="off" class="form-control form-control-alternative text-primary font-weight-bold" id="nama_unsur" name="nama_unsur" placeholder="Nama Unsur">
+		</div>		
+		<button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="button" class="btn btn-link" data-dismiss="modal">Batal</button>
+        <?= form_close() ?>
+      </div>
+    </div>
+  </div>
 </div>
 <style>
 .pagination li a {
@@ -70,6 +105,33 @@
 </style>
 <script>
 	$(function() {
+		var $modal = $("#unsur");
+		var $form = $("#f_unsur");
+		// Edit
+		$("button#edit-unsur").on("click", function(e) {
+			e.preventDefault();
+
+			var $this = $(this);
+			var $url = $this.data('href');
+
+			$.post($url, function(res) {
+				$modal.modal('show');
+				$modal.find('#unsurLabel').text('Update Unsur');
+				$form.find('input[name="nama_unsur"]').val(res.jdl_unsur);
+				$form.find('button[type="submit"]').text('Update');
+				$form.attr('action', `${_uri}/backend/unsur/update`);
+				$form.find('input[name="id"]').attr('value', res.id);
+			}, 'json');
+
+		});
+		// Close modal edit
+		$modal.on('hidden.bs.modal', function (e) {
+		  $modal.find('#unsurLabel').text('Unsur Baru');
+		  $form.find('button[type="submit"]').text('Simpan');
+		  $form.attr('action', `${_uri}/backend/unsur/insert`);
+		  $form.find('input[name="id"]').val('');
+		  $form.get(0).reset();
+		})
 		// List
 		var options = {
 		  valueNames: [ 'unsur' ],

@@ -3,7 +3,7 @@
 class M_pertanyaan extends CI_Model {
 	public function get_pertanyaan()
 	{
-		$this->db->select('p.*,u.jdl_unsur');
+		$this->db->select('p.*,u.jdl_unsur,u.id AS unsur_id');
 		$this->db->from('skm_pertanyaan AS p');
 		$this->db->join('skm_unsur AS u', 'p.fid_unsur = u.id');
 		$q = $this->db->get();

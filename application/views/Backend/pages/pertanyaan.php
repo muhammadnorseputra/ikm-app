@@ -66,7 +66,7 @@
 							                        </div>
 							                    </div>
 				        					</td>
-					        				<td class="unsur"><?= $p->jdl_unsur ?></td>
+					        				<td class="unsur"><a class="btn btn-link" href="<?= base_url('unsur?uid='.encrypt_url($p->unsur_id)) ?>"><?= $p->jdl_unsur ?></a></td>
 					        				<td class="pertanyaan"><?= $p->jdl_pertanyaan ?></td>
 				        			</tr>
 				        		<?php endforeach; ?>
