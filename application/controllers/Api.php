@@ -61,6 +61,7 @@ class Api extends RestController {
             ],
             'data' => api_client(base_url('frontend/skm/skmIndex/hasil_ikm'))
         ];
+        
         if($responden > 0):
             // Set the response and exit
             $this->response( $data, 200 );
@@ -71,6 +72,14 @@ class Api extends RestController {
                 'message' => 'Not Found Data'
             ], 404 );
         endif;
+        
+        if(count($data) == 0) {
+            $this->response( [
+                'status' => false,
+                'message' => 'Data is empty on server'
+            ], 410 );
+            return;
+        }
     }
 
 }
