@@ -72,6 +72,7 @@ $route['pertanyaan'] = 'backend/pertanyaan';
 $route['pertanyaan/baru'] = 'backend/pertanyaan/baru';
 $route['pertanyaan/edit/(:any)'] = 'backend/pertanyaan/edit/$1';
 $route['jawaban'] = 'backend/jawaban';
+$route['jawaban/edit/(:any)'] = 'backend/jawaban/edit/$1';
 $route['unsur'] = 'backend/unsur';
 $route['unsur/edit/(:any)'] = 'backend/unsur/edit/$1';
  

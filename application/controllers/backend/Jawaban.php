@@ -36,4 +36,13 @@ class Jawaban extends CI_Controller
         }
         echo json_encode($msg);
     }
+    public function edit($pertanyaan_id)
+    {
+        $data = [
+            'title' => 'e-Survei | Edit Jawaban',
+            'content' => 'Backend/pages/jawaban_edit',
+            'list_jawaban' => $this->jawaban->get_jawaban(decrypt_url($pertanyaan_id))
+        ];
+        $this->load->view('Backend/layout/app', $data);
+    }
 }

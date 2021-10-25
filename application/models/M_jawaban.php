@@ -12,6 +12,11 @@ class M_jawaban extends CI_Model {
 	{
 		return $this->db->insert($tbl, $data);
 	}
+
+	public function get_jawaban($pertanyaan_id)
+	{
+		return $this->db->get_where('skm_jawaban', ['fid_pertanyaan' => $pertanyaan_id]);
+	}
 }
 
 /* End of file M_jawaban.php */
