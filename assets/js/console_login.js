@@ -77,8 +77,9 @@ $(document).ready(function() {
   }
 
   function call_error(error) {
+    console.log(error);
     $('html').block({ 
-        message: 'Oppss! sepertinya ada kesalaah nih, coba reload browser kamu', 
+        message: 'Auth Failed 500 (Internal Server Error)', 
         overlayCSS: { backgroundColor: '#fff' },
         css: { 
             padding:        10, 
