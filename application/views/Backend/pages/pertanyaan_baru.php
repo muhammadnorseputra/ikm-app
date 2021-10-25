@@ -15,7 +15,7 @@
 				</div>
 				<div>
 					<button type="submit" class="btn btn-primary">Simpan</button>
-					<button onclick="window.history.back(-1)" class="btn btn-link rounded">Batal</button>
+					<button type="button" onclick="window.history.back(-1)" class="btn btn-link rounded">Batal</button>
 				</div>
 			</div>
 			<div class="card-body">
