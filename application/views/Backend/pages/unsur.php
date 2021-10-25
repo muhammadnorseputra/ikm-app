@@ -12,7 +12,7 @@
 		<div class="card" id="list_unsur">
 			<div class="card-header">
 				<div class="row">
-					<div class="col-xl-6">
+					<div class="col-8 col-xl-6">
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<div class="input-group-text"><i class="fas fa-search"></i></div>
@@ -20,7 +20,7 @@
 							<input type="text" class="form-control search" placeholder="Cari Unsur">
 						</div>
 					</div>
-					<div class="col-xl-6 text-right">
+					<div class="col-4 col-xl-6 text-right">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#unsur"><i class="fas fa-plus mr-2"></i>Baru</button>
 						<?php if(isset($_GET['uid']) != null): ?>
 							<a class="btn btn-link" href="<?= base_url('unsur') ?>"><i class="fas fa-retweet mr-2"></i>Reload</a>
@@ -30,7 +30,7 @@
 			</div>
 			<div class="card-body p-0">
 				<div class="table-responsive">
-					<table class="table align-items-center">
+					<table class="table">
 				        <thead class="thead-light">
 				            <tr>
 				                <th scope="col" width="10"></th>

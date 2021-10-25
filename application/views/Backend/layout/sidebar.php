@@ -70,19 +70,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
+              <a class="nav-link <?= $this->uri->segment(1) == 'jenis_layanan' ? "active" : ""; ?>" href="<?= base_url('jenis_layanan') ?>">
                 <i class="ni ni-book-bookmark"></i>
                 <span class="nav-link-text">Jenis Layanan</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html">
+              <a class="nav-link <?= $this->uri->segment(1) == 'pendidikan' ? "active" : ""; ?>" href="<?= base_url('pendidikan') ?>">
                 <i class="ni ni-badge"></i>
                 <span class="nav-link-text">Pendidikan</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
+              <a class="nav-link <?= $this->uri->segment(1) == 'pekerjaan' ? "active" : ""; ?>" href="<?= base_url('pekerjaan') ?>">
                 <i class="ni ni-single-02"></i>
                 <span class="nav-link-text">Pekerjaan</span>
               </a>

@@ -1,10 +1,20 @@
 <div class="row">
-			<div class="card-body bg-transparent border rounded pb-0">
+	<div class="col-xl-12">
+		<?php if($this->session->flashdata('msg') <> '' ): ?>
+	      <div class="alert alert-<?= $this->session->flashdata('msg_type') ?> alert-dismissible fade show" role="alert">
+	          <span class="alert-icon"><i class="ni ni-bell-55"></i></span>
+	          <span class="alert-text"><?= $this->session->flashdata('msg') ?></span>
+	          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	              <span aria-hidden="true">&times;</span>
+	          </button>
+	      </div>
+	      <?php endif; ?>
+	</div>
+			<div class="card-body bg-transparent">
 				<div class="row">
 					<div class="card-columns">
 						<?php foreach ($list_pertanyaan->result() as $p):?>
-
-							<div class="card card-stats shadow-none">
+							<div class="card card-stats shadow-lg">
 								<!-- Card body -->
 								<div class="card-body">
 									<div class="row">
@@ -12,19 +22,9 @@
 											<!-- <h5 class="card-title text-uppercase text-muted mb-0">New users</h5> -->
 											<span class="h2 font-weight-bold mb-0"><?= $p->jdl_pertanyaan ?></span>
 										</div>
-										<div class="col-2 text-center">
-											<a href="<?= base_url('jawaban/edit/'.encrypt_url($p->id)) ?>">
-												<div  data-toggle="tooltip" data-placement="top" title="Edit Jawaban" class="icon icon-shape bg-orange text-white rounded-circle shadow mb-3">
-													<i class="fas fa-pen-square"></i>
-												</div>
-											</a>
-											<button type="button" class="btn btn-sm btn-icon-only text-white icon icon-shape bg-success rounded-circle shadow" id="btn-tambah-jawaban" data-uid="<?= encrypt_url($p->id) ?>">
-													<i class="fas fa-plus"></i>
-											</button>
-										</div>
 									</div>
 
-									<ol class="mb-0 ml-0 pl-4" type="A">
+									<ol class="mb-0 mt-3 ml-0 pl-4" type="A">
 										<?php 
 											$jawabans = $this->jawaban->skm_all_jawaban($p->id);
 											foreach ($jawabans->result() as $j): 
@@ -34,6 +34,16 @@
 											</li>
 										<?php endforeach; ?>
 									</ol>
+								</div>
+								<div class="card-footer d-flex justify-content-between align-items-center">
+									<a class="btn btn-block btn-primary" href="<?= base_url('jawaban/edit/'.encrypt_url($p->id)) ?>">
+										<div  data-toggle="tooltip" data-placement="top" title="Edit Jawaban" class="text-white rounded shadow">
+											<i class="fas fa-pen-square"></i>
+										</div>
+									</a>
+									<button type="button" class="btn btn-success text-white icon icon-shape rounded shadow" id="btn-tambah-jawaban" data-uid="<?= encrypt_url($p->id) ?>">
+											<i class="fas fa-plus"></i>
+									</button>
 								</div>
 							</div>
 						<?php endforeach ?>

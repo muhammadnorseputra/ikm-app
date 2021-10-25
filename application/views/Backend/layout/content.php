@@ -145,6 +145,9 @@
               <?php if($this->uri->segment(1) == 'pertanyaan'): ?>
                 <button type="button" data-toggle="modal" data-target="#modal-notification" class="btn btn-danger rounded-circle py-1 px-2"><i class="fas fa-question-circle"></i></button>
               <?php endif; ?>  
+              <?php if($this->uri->segment(1) == 'jenis_layanan'): ?>
+                <button type="button" data-toggle="modal" data-target="#modal-default" class="btn btn-info rounded"><i class="fas fa-plus mr-2"></i> Tambah Layanan</button>
+              <?php endif; ?>
             </h6>
           </div>
         </div>

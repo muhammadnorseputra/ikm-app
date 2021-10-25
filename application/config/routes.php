@@ -73,8 +73,12 @@ $route['pertanyaan/baru'] = 'backend/pertanyaan/baru';
 $route['pertanyaan/edit/(:any)'] = 'backend/pertanyaan/edit/$1';
 $route['jawaban'] = 'backend/jawaban';
 $route['jawaban/edit/(:any)'] = 'backend/jawaban/edit/$1';
+$route['hapus/(:any)'] = 'backend/jawaban/hapus/$1';
 $route['unsur'] = 'backend/unsur';
 $route['unsur/edit/(:any)'] = 'backend/unsur/edit/$1';
+$route['jenis_layanan'] = 'backend/jenis_layanan';
+$route['pendidikan'] = 'backend/pendidikan';
+$route['pekerjaan'] = 'backend/pekerjaan';
  
 
 $route['404_override'] = '';

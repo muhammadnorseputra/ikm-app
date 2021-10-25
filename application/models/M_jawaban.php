@@ -17,6 +17,19 @@ class M_jawaban extends CI_Model {
 	{
 		return $this->db->get_where('skm_jawaban', ['fid_pertanyaan' => $pertanyaan_id]);
 	}
+
+	public function update_batch($tbl,$data)
+	{
+		$this->db->update_batch($tbl, $data, 'id');
+		return true;
+	}
+
+	public function hapus($tbl,$whr) 
+	{
+		$this->db->where($whr);
+		$this->db->delete($tbl);
+		return true;
+	}
 }
 
 /* End of file M_jawaban.php */
