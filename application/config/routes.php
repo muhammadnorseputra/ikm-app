@@ -77,6 +77,7 @@ $route['hapus/(:any)'] = 'backend/jawaban/hapus/$1';
 $route['unsur'] = 'backend/unsur';
 $route['unsur/edit/(:any)'] = 'backend/unsur/edit/$1';
 $route['jenis_layanan'] = 'backend/jenis_layanan';
+$route['jenis_layanan/baru'] = 'backend/jenis_layanan/baru';
 $route['pendidikan'] = 'backend/pendidikan';
 $route['pekerjaan'] = 'backend/pekerjaan';
  

@@ -73,6 +73,26 @@ class M_jenis_layanan extends CI_Model {
   }
   // -------------------------------- end-datatable --------------------------//
 
+  public function insert($tbl,$data)
+  {
+    return $this->db->insert($tbl, $data);
+  }
+  public function detail($id)
+  {
+    return $this->db->get_where('skm_jenis_layanan', $id);
+  }
+  public function update($tbl,$data,$whr)
+  {
+    $this->db->where($whr);
+    $this->db->update($tbl, $data);
+    return true;
+  }
+  public function delete($tbl,$whr)
+  {
+    $this->db->where($whr);
+    $this->db->delete($tbl);
+    return true;
+  }
 }
 
 /* End of file M_jenis_layanan.php */
