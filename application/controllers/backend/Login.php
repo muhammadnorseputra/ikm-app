@@ -23,9 +23,10 @@ class Login extends CI_Controller
 
     public function cek_akun()
     {
-        $true_token = "esurvei@#123".date('d');
-        if($this->input->post('token') == '' || decrypt_url($this->input->post('token')) != $true_token):
-            return $json_msg = ['valid' => false, 'msg' => 'Token Invalid', 'redirect' => base_url('console')];
+        $true_token = $this->session->csrf_token;
+        if($this->input->post('token') != $true_token):
+            $json_msg = ['valid' => false, 'msg' => 'Token Invalid', 'redirect' => base_url('console')];
+            return false;
         endif;
 
         if(!empty($this->session->userdata('user_id'))):

@@ -23,8 +23,11 @@
 							<i class="fas fa-project-diagram fa-2x text-primary"></i> e-Survei</h2>
 						<?php  
 							$urlRef = isset($_GET['continue']) ? $_GET['continue'] : ''; 
+							if(!$this->session->csrf_token) {
+								$this->session->csrf_token = hash('sha1', time());
+							}
 						?>
-						<?= form_open(base_url('backend/login/cek_akun'), ['autocomplete' => 'off', 'id' => 'f_login'], ['token' => encrypt_url('esurvei@#123'.date('d')), 'continue' => $urlRef]); ?>
+						<?= form_open(base_url('backend/login/cek_akun'), ['autocomplete' => 'off', 'id' => 'f_login'], ['token' => $this->session->csrf_token, 'continue' => $urlRef]); ?>
 							<div class="form-group">
 								<label for="username" class="font-weight-bold">Username</label>
 								<input type="text" name="username" class="form-control" placeholder="User Akun" data-sanitize="trim" required="required" id="username">
