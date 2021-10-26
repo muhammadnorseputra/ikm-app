@@ -39,7 +39,49 @@ class Pendidikan extends CI_Controller {
     {
         $id = decrypt_url($pendidikan_id);
         $db = $this->pendidikan->detail($id)->row();
-        echo json_encode($db);
+        $data = ['id' => encrypt_url($db->id), 'tp' => $db->tingkat_pendidikan];
+        echo json_encode($data);
+    }
+
+    public function update()
+    {
+        $p = $this->input->post();
+        $whr = ['id' => decrypt_url($p['id'])];
+        $data = ['tingkat_pendidikan' => $p['tp']];
+        $db = $this->pendidikan->update('skm_pendidikan', $data, $whr);
+        if($db)
+        {
+            $msg = ['valid' => true, 
+                    'msg' => 'Tingkat Pendidikan Behasil Diupdate.', 
+                        "data" => [
+                            'id' => $p['id'],
+                            'tp' => $p['tp']
+                        ]
+                    ];
+        } else {
+            $msg = ['valid' => false, 
+                    'msg' => 'Tingkat Pendidikan Gagal Diupdate.', 
+                        "data" => [
+                            'id' => $p['id'],
+                            'tp' => $p['tp']
+                        ]
+                    ];
+        }
+        echo json_encode($msg);
+    }
+
+    public function delete($id)
+    {
+        $pendidikan_id = decrypt_url($id);
+        $whr = ['id' => $pendidikan_id];
+        $db = $this->pendidikan->delete('skm_pendidikan', $whr);
+        if($db)
+        {
+            $msg = ['valid' => true, 'msg' => 'Tingkat Pendidikan Behasil Dihapus.', 'item' => [ 'id' => $id]];
+        } else {
+            $msg = ['valid' => false, 'msg' => 'Tingkat Pendidikan Gagal Dihapus.', 'item' => [ 'id' => $id]];
+        }
+        echo json_encode($msg);
     }
 }
 

@@ -29,12 +29,13 @@
 								foreach($list_pendidikan->result() as $p):
 							?>
 							<tr>
+								<td class="id d-none"><?= encrypt_url($p->id) ?></td>
 								<td>
-									<button id="edit-pendidikan" class="btn btn-sm btn-icon-only text-primary" data-href="<?= base_url('backend/pendidikan/detail/'.encrypt_url($p->id)) ?>" role="button" type="button">
+									<button id="edit-pendidikan" class="btn btn-sm btn-icon-only text-primary" role="button" type="button" data-href="<?= base_url('backend/pendidikan/detail/'.encrypt_url($p->id)) ?>">
 									<i class="fas fa-edit"></i>
 									</button>
 								</td>
-								<td><button class="btn btn-sm btn-icon-only text-danger"><i class="fas fa-trash"></i></button></td>
+								<td><button id="hapus-pendidikan" class="btn btn-sm btn-icon-only text-danger" data-href="<?= base_url('backend/pendidikan/delete/'.encrypt_url($p->id)) ?>"><i class="fas fa-trash"></i></button></td>
 								<td class="jdl_pendidikan"><?= $p->tingkat_pendidikan ?></td>
 							</tr>
 							<?php endforeach; ?>
@@ -53,7 +54,7 @@
 	<div class="col-xl-4">
 		<div class="card">
 			<div class="card-header font-weight-bold text-primary">
-				Tambah Tingkat Pendidikan
+				Tambah
 			</div>
 			<div class="card-body">
 				<div class="form-group">
@@ -105,20 +106,9 @@ line-height: 1.25;
 </style>
 <script>
 	$(function() {
-		// List
-		var options = {
-			valueNames: [ 'jdl_pendidikan' ],
-			searchColumns: ['jdl_pendidikan'],
-			page: 4,
-			pagination: [{
-				item: "<li class='page-item'><a class='page page-link' href='#'></a></li>"
-			}],
-		};
-		var pendidikanList = new List('list_pendidikan', options);
 
 		var nameField = $("input[name='tp']");
 		var btnAdd = $("#simpan");
-
 		btnAdd.click(function() {
 			var data = {tp: nameField.val()};
 			$.post(`${_uri}/backend/pendidikan/insert`, data, response, 'json');
@@ -132,6 +122,7 @@ line-height: 1.25;
 			    jdl_pendidikan: nameField.val(),
 			  });	
 			  clearFields();
+			  window.location.reload();
 			}
 		}
 
@@ -139,19 +130,66 @@ line-height: 1.25;
 		  nameField.val('');
 		}
 
+		let removeBtns = $("button#hapus-pendidikan");
+		removeBtns.click(function() {
+		    // let itemId = $(this).closest('tr').find('.id').text();
+			let $this = $(this);
+			let $url = $this.data('href');
+			if(confirm("Apakah anda yakin akan menghapus pendidikan tersebut ?")) {
+				$.getJSON($url, act_delete);
+			}
+		});
+
+		function act_delete(res) {
+			if(res.valid == true)
+			{
+				alert(res.msg);
+		    	pendidikanList.remove('id', res.item.id);
+			}
+		}
+
 		var btnEdit = $("button#edit-pendidikan");
 		var modalEdit = $("#model-default");
 		var form = $("#f_pendidikan");
+
 		btnEdit.on("click", function(e) {
 			e.preventDefault();
 			modalEdit.modal('show');
 			var $this = $(this);
 			var $url = $this.data('href');
 			$.getJSON($url, function(res) {
-				console.log(res);
-				form.find('input[name="tp"]').val(res.tingkat_pendidikan);
+				form.find('input[name="id"]').val(res.id);
+				form.find('input[name="tp"]').val(res.tp);
 			})
 		});
+
+		form.submit(function(e) {
+			e.preventDefault();
+			var $this = $(this);
+			var $url = $this.attr('action');
+			var $field = $this.serialize();
+			$.post($url, $field, act_update, 'json');
+		})
+
+		function act_update(res) {
+    		var item = pendidikanList.get('id', res.data.id)[0];
+			if(res.valid == true)
+			{
+				alert(res.msg);
+				item.values({
+				    id: res.data.id,
+				    jdl_pendidikan: res.data.tp
+				  });
+			}
+		}
+		// List
+		var options = {
+			valueNames: [ 'id','jdl_pendidikan' ],
+			searchColumns: ['jdl_pendidikan'],
+			page: 4,
+			pagination: true
+		};
+		var pendidikanList = new List('list_pendidikan', options);
 	});
 </script>
 <script src="<?= base_url('template/argon/vendor/list.js/dist/list.min.js') ?>"></script>

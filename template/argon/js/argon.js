@@ -1098,7 +1098,11 @@ var SearchAutocomplete = (function() {
 		    { value: 'Periode', url: `${_uri}/periode` },
 		    { value: 'Pertanyaan', url: `${_uri}/pertanyaan` },
 		    { value: 'Pertanyaan Baru', url: `${_uri}/pertanyaan/baru` },
-		    { value: 'Jawaban', url: `${_uri}/jawaban` }
+		    { value: 'Jawaban', url: `${_uri}/jawaban` },
+		    { value: 'Jenis Layanan', url: `${_uri}/jenis_layanan` },
+		    { value: 'Jenis Layanan Baru', url: `${_uri}/jenis_layanan/baru` },
+		    { value: 'Pendidikan', url: `${_uri}/pendidikan` },
+		    { value: 'Pekerjaan', url: `${_uri}/pekerjaan` },
 		];
 		$input.autocomplete({
 		    lookup: menus,
