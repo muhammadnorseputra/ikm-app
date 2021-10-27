@@ -24,6 +24,7 @@ class M_pendidikan extends CI_Model {
 		$this->db->update($tbl, $data);
 		return true;
 	}
+	
 	public function delete($tbl, $whr)
 	{
 		return $this->db->where($whr)->delete($tbl);

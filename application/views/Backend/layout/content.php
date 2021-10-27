@@ -110,7 +110,7 @@
               <div class="dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
-              <a href="<?= base_url('profile') ?>" class="dropdown-item">
+              <a href="<?= base_url('profile/'.$this->session->userdata('user_name')) ?>" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>

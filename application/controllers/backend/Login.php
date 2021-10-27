@@ -25,8 +25,12 @@ class Login extends CI_Controller
     {
         $true_token = $this->session->csrf_token;
         if($this->input->post('token') != $true_token):
-            $json_msg = ['valid' => false, 'msg' => 'Token Invalid', 'redirect' => base_url('console')];
+            $this->output->set_status_header('403');
+            $this->session->unset_userdata('csrf_token');
+            show_error('This request rejected');
             return false;
+            // $json_msg = ['valid' => false, 'msg' => 'Token Invalid', 'redirect' => base_url('console')];
+            // return false;   
         endif;
 
         if(!empty($this->session->userdata('user_id'))):
@@ -44,6 +48,8 @@ class Login extends CI_Controller
         );
         $cek = $this->login->cek_login('t_users', $where);
         if ($cek->num_rows() > 0) {
+            
+
             foreach ($cek->result() as $key) {
                 $row = $key;
             }
@@ -66,7 +72,7 @@ class Login extends CI_Controller
 
     public function sign_out()
     {
-        $data = array('user_name', 'user_id');
+        $data = array('user_name', 'user_id','csrf_token');
         $this->session->unset_userdata($data);
         $this->session->sess_destroy();
         redirect(base_url('console'));

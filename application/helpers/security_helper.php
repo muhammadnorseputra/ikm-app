@@ -61,3 +61,14 @@ function decrypt_url($string) {
     $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
     return $output;
 }
+
+if ( ! function_exists('cek_session'))
+  {
+      function cek_session()
+      {
+          $ci = get_instance();
+          if($ci->session->userdata('user_id') == '' || !$ci->session->csrf_token):
+            redirect(base_url('console'));
+          endif;
+      }
+ }

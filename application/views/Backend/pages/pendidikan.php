@@ -20,7 +20,7 @@
 							<tr>
 								<th scope="col" width="10"></th>
 								<th scope="col" width="10"></th>
-								<th scope="col" class="sort" data-sort="jdl_pendidikan">Tingakt Pendidikan</th>
+								<th scope="col" class="sort" data-sort="jdl_pendidikan">Tingkat Pendidikan</th>
 							</tr>
 						</thead>
 						<tbody class="list">
@@ -180,6 +180,9 @@ line-height: 1.25;
 				    id: res.data.id,
 				    jdl_pendidikan: res.data.tp
 				  });
+				setTimeout(function(){
+					modalEdit.modal('hide');
+				}, 400);
 			}
 		}
 		// List

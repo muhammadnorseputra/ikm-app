@@ -77,9 +77,8 @@ $(document).ready(function() {
   }
 
   function call_error(error) {
-    console.log(error.statusText);
     $('html').block({ 
-        message: 'Auth Failed 500 (Internal Server Error)', 
+        message: `${error.status} (${error.statusText})`, 
         overlayCSS: { backgroundColor: '#fff' },
         css: { 
             padding:        10, 

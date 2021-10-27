@@ -80,6 +80,7 @@ $route['jenis_layanan'] = 'backend/jenis_layanan';
 $route['jenis_layanan/baru'] = 'backend/jenis_layanan/baru';
 $route['pendidikan'] = 'backend/pendidikan';
 $route['pekerjaan'] = 'backend/pekerjaan';
+$route['profile/(:any)'] = 'backend/users/profile/$1';
  
 
 $route['404_override'] = '';
