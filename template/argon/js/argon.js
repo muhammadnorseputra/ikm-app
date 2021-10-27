@@ -1092,22 +1092,23 @@ var SearchAutocomplete = (function() {
 	// Methods
 	function init() {
 		let $input = $search.find('input[type="text"]');
-		var menus = [
-		    { value: 'Dashboard', url: `${_uri}/dashboard` },
-		    { value: 'Responden', url: `${_uri}/responden` },
-		    { value: 'Periode', url: `${_uri}/periode` },
-		    { value: 'Pertanyaan', url: `${_uri}/pertanyaan` },
-		    { value: 'Pertanyaan Baru', url: `${_uri}/pertanyaan/baru` },
-		    { value: 'Jawaban', url: `${_uri}/jawaban` },
-		    { value: 'Jenis Layanan', url: `${_uri}/jenis_layanan` },
-		    { value: 'Jenis Layanan Baru', url: `${_uri}/jenis_layanan/baru` },
-		    { value: 'Pendidikan', url: `${_uri}/pendidikan` },
-		    { value: 'Pekerjaan', url: `${_uri}/pekerjaan` },
-		];
-		$input.autocomplete({
-		    lookup: menus,
+
+		$input.devbridgeAutocomplete({
+		    serviceUrl: `${_uri}/backend/console/auto_complete`,
+		    type: 'post',
+		    paramName: 'q',
+		    dataType: 'json',
+		    noCache: true,
+		    preserveInput: true,
+		    minChars: 2,
+		    maxHeight: 350,
+		    deferRequestBy: 300,
+		    autoSelectFirst: true,
 		    onSelect: function (suggestion) {
 		    	window.location.href = suggestion.url;
+		    },
+		    onSearchError: function(query, jqXHR, textStatus, errorThrown) {
+		    	console.log(query);
 		    }
 		});
 	}

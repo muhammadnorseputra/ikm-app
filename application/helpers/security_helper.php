@@ -72,3 +72,19 @@ if ( ! function_exists('cek_session'))
           endif;
       }
  }
+
+if ( ! function_exists('privileges'))
+  {
+      function privileges($priv_name)
+      {
+          $ci = get_instance();
+          $user_id = $ci->session->userdata('user_id');
+          $priv = $ci->users->get_privileges($user_id);
+          if($priv[$priv_name] == 'Y') {
+            $p = true;
+          } else {
+            $p = false;
+          }
+          return $p;
+      }
+ }

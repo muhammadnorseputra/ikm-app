@@ -1,4 +1,4 @@
-<div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url(<?= base_url('assets/images/pic/'.$this->session->userdata('pic')) ?>); background-size: cover; background-position: center top;">
+<div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url(<?= base_url('template/argon/img/theme/img-1-1000x600.jpg') ?>); background-size: cover; background-position: center top;">
   <!-- Mask -->
   <span class="mask bg-gradient-dark opacity-8"></span>
   <!-- Header container -->
