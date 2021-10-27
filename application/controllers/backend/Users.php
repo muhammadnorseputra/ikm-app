@@ -19,7 +19,11 @@ class Users extends CI_Controller {
 
 	public function profile($username)
 	{
-		echo $username;
+		$data = [
+            'title' => 'e-Survei | '.ucwords($username),
+            'content' => 'Backend/pages/profile'
+        ];
+        $this->load->view('Backend/layout/app', $data);	
 	}
 }
 

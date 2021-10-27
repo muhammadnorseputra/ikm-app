@@ -131,6 +131,8 @@
   </nav>
   <?php if($this->uri->segment(1) == 'dashboard'): ?>
     <?php $this->load->view('Backend/pages/dashboard_header'); ?>
+  <?php elseif($this->uri->segment(1) == 'profile'): ?> 
+    <?php $this->load->view('Backend/pages/profile_header'); ?>
   <?php else: ?>
   <div class="header bg-primary pb-6">
     <div class="container-fluid">
