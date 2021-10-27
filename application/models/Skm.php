@@ -182,7 +182,8 @@ class Skm extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('skm');
 		$this->db->where('tahun', $year);
-		$this->db->group_by("tahun");
+		// $this->db->order_by("created_at", 'desc');	
+		$this->db->group_by("DATE_FORMAT(created_at,'%m')");
 		$q = $this->db->get();
 		return $q;
 	}
