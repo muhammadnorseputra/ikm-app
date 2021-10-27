@@ -44,12 +44,10 @@ class Login extends CI_Controller
         $where = array(
             'username' => $username,
             'password' => $pwd,
-            'is_block' => 'N'
+            // 'is_block' => 'N'
         );
         $cek = $this->login->cek_login('t_users', $where);
         if ($cek->num_rows() > 0) {
-            
-
             foreach ($cek->result() as $key) {
                 $row = $key;
             }
@@ -63,7 +61,9 @@ class Login extends CI_Controller
                 'check_in_waktu' => date('H:i:s'),
             );
             $this->session->set_userdata($data_session);
-            $json_msg = ['valid' => true, 'msg' => 'Auth success, akun ditemukan.', 'redirect' => base_url('dashboard')];
+            $p_continue = $this->input->post('continue');
+            $continue = isset($p_continue) ? $p_continue : base_url('dashboard');
+            $json_msg = ['valid' => true, 'msg' => 'Auth success, akun ditemukan.', 'redirect' => $continue];
         } else {
             $json_msg = ['valid' => false, 'msg' => 'Auth gagal, akun tidak ditemukan.', 'redirect' => base_url('console')];
         }

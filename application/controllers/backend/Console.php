@@ -96,55 +96,65 @@ class Console extends CI_Controller
 
     public function auto_complete()
     {
+        // $data = [
+        //     "query" => "Unit",
+        //     "suggestions" => [
+        //         [
+        //             "value" => 'Dashboard', 
+        //             "url" => base_url("dashboard"),
+        //         ],
+        //         [
+        //              "value" => 'Responden', 
+        //              "url" =>  base_url("responden"),
+        //         ],
+        //         [
+
+        //             "value" => 'Periode', 
+        //             "url" =>  base_url("periode"),
+        //         ],
+        //         [
+
+        //             "value" => 'Pertanyaan', 
+        //             "url" =>  base_url("pertanyaan"),
+        //         ],
+        //         [
+
+        //             "value" => 'Pertanyaan Baru', 
+        //             "url" =>  base_url("pertanyaan/baru"),
+        //         ],
+        //         [
+        //             "value" => 'Jawaban', 
+        //             "url" =>  base_url("jawaban"),
+        //         ],
+        //         [
+        //             "value" => 'Jenis Layanan', 
+        //             "url" =>  base_url("jenis_layanan"),
+        //         ],
+        //         [
+        //             "value" => 'Jenis Layanan Baru', 
+        //             "url" =>  base_url("jenis_layanan/baru"),
+        //         ],
+        //         [
+        //             "value" => 'Pendidikan', 
+        //             "url" =>  base_url("pendidikan"),
+        //         ],
+        //         [
+        //             "value" => 'Pekerjaan', 
+        //             "url" =>  base_url("pekerjaan")
+        //         ]
+
+        //     ]
+             
+        // ];
+        $q = $this->input->post('q');
+        $db = $this->users->get_menus_all($q)->result();
+        $list = [];
+        foreach ($db as $m) {
+            $list[] = ['value' => ucwords($m->nama_menu), 'url' => base_url($m->url)];
+        }
         $data = [
             "query" => "Unit",
-            "suggestions" => [
-                [
-                    "value" => 'Dashboard', 
-                    "url" => base_url("dashboard"),
-                ],
-                [
-                     "value" => 'Responden', 
-                     "url" =>  base_url("responden"),
-                ],
-                [
-
-                    "value" => 'Periode', 
-                    "url" =>  base_url("periode"),
-                ],
-                [
-
-                    "value" => 'Pertanyaan', 
-                    "url" =>  base_url("pertanyaan"),
-                ],
-                [
-
-                    "value" => 'Pertanyaan Baru', 
-                    "url" =>  base_url("pertanyaan/baru"),
-                ],
-                [
-                    "value" => 'Jawaban', 
-                    "url" =>  base_url("jawaban"),
-                ],
-                [
-                    "value" => 'Jenis Layanan', 
-                    "url" =>  base_url("jenis_layanan"),
-                ],
-                [
-                    "value" => 'Jenis Layanan Baru', 
-                    "url" =>  base_url("jenis_layanan/baru"),
-                ],
-                [
-                    "value" => 'Pendidikan', 
-                    "url" =>  base_url("pendidikan"),
-                ],
-                [
-                    "value" => 'Pekerjaan', 
-                    "url" =>  base_url("pekerjaan")
-                ]
-
-            ]
-             
+            "suggestions" => $list
         ];
         echo json_encode($data);
     }

@@ -1102,7 +1102,7 @@ var SearchAutocomplete = (function() {
 		    preserveInput: true,
 		    minChars: 2,
 		    maxHeight: 350,
-		    deferRequestBy: 300,
+		    deferRequestBy: 600,
 		    autoSelectFirst: true,
 		    onSelect: function (suggestion) {
 		    	window.location.href = suggestion.url;

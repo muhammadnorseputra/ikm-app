@@ -42,6 +42,7 @@
       </div>
    </div>
    <?php endforeach; ?>
+
    <div class="col-xl-4">
       <div class="card bg-default">
          <div class="card-body align-self-center">
@@ -65,6 +66,11 @@
             <span aria-hidden="true">×</span>
             </button>
          </div>
+         <?php 
+            if(sub_privilege('sub_periode', 0) !== 'c'): 
+              $this->load->view('Backend/pages/notif_mod_dibatasi');
+            else:
+          ?>
          <div class="modal-body">
             <div class="row mt--4">
                 <div class="col-4">
@@ -105,7 +111,9 @@
                  </div>
               </div>
          </div>
-         
+          <?php 
+            endif;
+          ?>
          <div class="modal-footer d-flex justify-content-around">
             <div class="w-75">
                <button type="submit" class="btn btn-primary rounded-pill btn-block">Simpan</button>

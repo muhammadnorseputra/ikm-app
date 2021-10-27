@@ -36,6 +36,12 @@
 	</div>
 </div>
 <!-- </div> -->
+<?php 
+	if(sub_privilege('sub_responden', 0) !== 'r'): 
+		$this->load->view('Backend/pages/notif_mod_dibatasi');
+		return false;
+	endif;
+?>
 <div class="row">
 	<div class="col-xl-12">
 		<div class="card">
@@ -54,6 +60,7 @@
 				</div>
 			</div>
 			<div class="card-body px-0 py-4">
+								
 				<!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 				<div class="table-responsive">
 					<table class="table align-items-center dt-responsive nowrap table-hover" id="table-responden">

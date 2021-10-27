@@ -75,16 +75,27 @@ if ( ! function_exists('cek_session'))
 
 if ( ! function_exists('privileges'))
   {
-      function privileges($priv_name)
+      function privileges($priv_name = false)
       {
           $ci = get_instance();
           $user_id = $ci->session->userdata('user_id');
           $priv = $ci->users->get_privileges($user_id);
-          if($priv[$priv_name] == 'Y') {
+          $priv_name = isset($priv[$priv_name]) ? $priv[$priv_name] : "N"; 
+          if(($priv != 0) && ($priv_name == 'Y')) {
             $p = true;
           } else {
             $p = false;
           }
           return $p;
+      }
+ }
+
+ if ( ! function_exists('sub_privilege'))
+  {
+      function sub_privilege($col,$key)
+      {
+          $ci = get_instance();
+          $r = $ci->users->get_privileges_sub($ci->session->userdata('user_id'), $col, $key);
+          return $r;
       }
  }

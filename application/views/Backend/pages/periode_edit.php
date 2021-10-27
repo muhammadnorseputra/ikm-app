@@ -1,6 +1,11 @@
 <div class="row">
 	<div class="col-12 col-xl-6 offset-xl-3">
 		<div class="card">
+      <?php 
+        if(sub_privilege('sub_periode', 2) !== 'u'): 
+          $this->load->view('Backend/pages/notif_mod_dibatasi');
+        else:
+      ?>
 			<?= form_open(base_url('backend/periode/update'), ['id' => "f_periode", 'class' => 'toggle-disabled'], ['id' => encrypt_url($d->id)]); ?>
 			<div class="card-header rounded-top">
 				<span class="font-weight-bold"><?= $d->tahun ?> (<?= date('F', strtotime($d->tgl_mulai)) ?> / <?= date('F', strtotime($d->tgl_selesai)) ?>)</span>
@@ -48,18 +53,24 @@
                  </div>
               </div>
               <div class="row">
+                <?php 
+                  if(sub_privilege('sub_periode', 3) !== 'd'): 
+                    $this->load->view('Backend/pages/notif_mod_dibatasi', ['pesan' => 'Fitur hapus tidak di ijinkan']);
+                  else:
+                ?>
                  <div class="col">
                  	<div class="alert bg-white border-danger" role="alert">
-					    <strong>Hapus Periode</strong> 
-					    <p class="mt-3"> Apakah anda yakin akan menghapus periode ini ? semua responden yang terkait akan ikut terhapus.</p>
-					    <p>
-					    	<button class="btn btn-icon btn-danger shadow" type="button" data-toggle="modal" data-target="#modal-notification">
-								<span class="btn-inner--icon"><i class="ni ni-basket"></i></span>
-							    <span class="btn-inner--text">Hapus Sekarang</span>
-							</button>
-					    </p>
-					</div>
+        					    <strong>Hapus Periode</strong> 
+        					    <p class="mt-3"> Apakah anda yakin akan menghapus periode ini ? semua responden yang terkait akan ikut terhapus.</p>
+        					    <p>
+        					    	<button class="btn btn-icon btn-danger shadow" type="button" data-toggle="modal" data-target="#modal-notification">
+        								<span class="btn-inner--icon"><i class="ni ni-basket"></i></span>
+        							    <span class="btn-inner--text">Hapus Sekarang</span>
+        							</button>
+        					    </p>
+        					</div>
                  </div>
+               <?php endif; ?>
               </div>
 			</div>
 			<div class="card-footer d-flex rounded-bottom">
@@ -71,6 +82,7 @@
 	            </div>
 			</div>
 			<?= form_close(); ?>
+      <?php endif; ?>
 		</div>
 	</div>
 </div>

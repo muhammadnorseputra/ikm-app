@@ -42,11 +42,11 @@
 				<li class="nav-item">
 					<a class="nav-link fw-bold" href="#cetak" tabindex="-1" aria-disabled="true" data-bs-toggle="offcanvas" role="button" aria-controls="offcanvasExample">Cetak Formulir</a>
 				</li>
-				<?php if(!empty($this->session->userdata('user_name'))): ?>
+				<?php //if(!empty($this->session->userdata('user_name'))): ?>
 				<li class="nav-item">
 					<a class="nav-link fw-bold" href="<?= base_url('laporan'); ?>" tabindex="-1" aria-disabled="true">Laporan</a>
 				</li>
-				<?php endif ?>
+				<?php //endif ?>
 				<?php if(empty($this->session->userdata('user_name'))): ?>
 				<a class="btn btn-secondary me-2 d-none d-md-block position-relative " href="<?= base_url('console') ?>">
 					  Console

@@ -1,7 +1,7 @@
 <!-- Main content -->
 <div class="main-content" id="panel">
   <!-- Topnav -->
-  <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+  <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary shadow-lg sticky-top">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Search form -->
@@ -129,6 +129,18 @@
       </div>
     </div>
   </nav>
+  <?php 
+    $akun = $this->users->profile(decrypt_url($this->session->userdata('user_id')))->row();
+    // var_dump($is_block);
+    if($akun->is_block === 'Y'):
+      $this->load->view('Backend/pages/notif_block');
+      return false;
+    endif;
+    if(($akun->is_restricted === 'Y') || ($akun->role === 'TAMU')):
+      $this->load->view('Backend/pages/notif_dibatasi');
+    endif;
+  ?>
+
   <?php if($this->uri->segment(1) == 'dashboard'): ?>
     <?php $this->load->view('Backend/pages/dashboard_header'); ?>
   <?php elseif($this->uri->segment(1) == 'profile'): ?> 
