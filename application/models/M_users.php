@@ -2,7 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_users extends CI_Model {
-
+	public function is_session() {
+		$user_id = $this->session->userdata('user_id');
+		if(empty($user_id)) return $this->db->where('id', decrypt_url($user_id))->update('t_users', ['check_out' => date('Y-m-d H:i:s')]);
+	}
 	public function profile($user_id)
 	{
 		return $this->db->get('t_users');
@@ -47,11 +50,16 @@ class M_users extends CI_Model {
 		return $result;
 	}
 
-	public function update($data,$whr){
+	public function update($data,$whr)
+	{
         $result= $this->db->where($whr)->update('t_users',$data);
         return $result;
     }
 
+    public function update_pwd($tbl,$data,$whr)
+    {
+    	return $this->db->where($whr)->update($tbl, $data);
+    }
 }
 
 /* End of file M_users.php */

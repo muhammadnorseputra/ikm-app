@@ -73,10 +73,11 @@ class Login extends CI_Controller
 
     public function sign_out()
     {
+        $redirectTo = isset($_GET['continue']) ? "?continue=".$_GET['continue'] : '';
         $data = array('user_name', 'user_id','csrf_token');
         $this->db->update('t_users', ['check_out' => date('Y-m-d H:i:s')], ['id' => decrypt_url($this->session->userdata('user_id'))]);
         $this->session->unset_userdata($data);
         $this->session->sess_destroy();
-        redirect(base_url('console'));
+        redirect(base_url('console/'.$redirectTo));
     }
 }

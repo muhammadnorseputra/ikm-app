@@ -6,7 +6,7 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="#">
-                    <img src="<?= base_url('assets/images/pic/'.$this->session->userdata('pic')) ?>" class="rounded-circle">
+                    <img src="<?= base_url('assets/images/pic/'.$this->session->userdata('pic')) ?>" class="rounded-circle" width="90">
                   </a>
                 </div>
               </div>
@@ -22,7 +22,6 @@
                 <h5 class="h3 text-center">
                   <?= $this->session->userdata('nama'); ?><span class="font-weight-light"> (<?= $this->session->userdata('user_name'); ?>) </span>
                 </h5>
-                Privileges
                 <hr>
                 <div class="h5 mt-4">
                   <i class="ni business_briefcase-24 mr-2"></i><?= $this->session->userdata('role'); ?> - e-Survei
@@ -65,7 +64,7 @@
                           <label for="img_pic" class="form-control-label">Photo Profile</label>
                       <div class="form-group d-flex align-items-center">
                           <span class="mr-3">
-                            <img src="<?= base_url('assets/images/pic/'.$this->session->userdata('pic')) ?>" class="rounded-circle">
+                            <img src="<?= base_url('assets/images/pic/'.$this->session->userdata('pic')) ?>" class="rounded-circle" width="50">
                           </span>
                           <div class="custom-file">
                             <input type="file" name="file" class="custom-file-input" id="customFile">
@@ -87,6 +86,12 @@
                 <!-- Address -->
                 <h6 class="heading-small text-muted mb-4">Akun information</h6>
                 <div class="pl-lg-4">
+                  <?php  
+                    if(!$this->session->csrf_token) {
+                      $this->session->csrf_token = hash('sha1', time());
+                    }
+                  ?>
+                  <?= form_open(base_url('backend/users/update_profile_pwd'), ['id' => 'f_pwd', 'autocomplete' => 'off'], ['token' => $this->session->csrf_token]); ?>
                   <div class="row">
                     <div class="col-lg-3">
                       <div class="form-group">
@@ -97,51 +102,72 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-old-pwd">Old Password</label>
-                        <input type="password" name="old_pwd" id="input-old-pwd" class="form-control" placeholder="Masukan Password Lama">
+                        <input type="password" autocomplete="off" name="old_pwd" id="input-old-pwd" class="form-control" placeholder="Masukan Password Lama">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-old-pwd">New Password</label>
-                        <input type="password" name="new_pwd" id="input-old-pwd" class="form-control" placeholder="Masukan Password Baru">
+                        <label class="form-control-label" for="input-new-pwd">New Password</label>
+                        <input type="password" autocomplete="off" name="new_pwd" id="input-new-pwd" class="form-control" placeholder="Masukan Password Baru">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary" type="submit">Reset Password</button>
                       </div>
                     </div>
                   </div>
+                <?= form_close(); ?>
                 </div>
             </div>
           </div>
         </div>
       </div>
 
-      <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function(){
-      var $form = $("#f_profile");
+      var $form_profile = $("#f_profile");
+      var $form_pwd = $("#f_pwd");
 
-        $form.submit(function(e){
-            e.preventDefault();
-            var $this = $(this); 
-            var $url = $this.attr('action');
-             $.ajax({
-               url: $url,
-               type:"post",
-               data:new FormData(this),
-               dataType: 'json',
-               processData:false,
-               contentType:false,
-               cache:false,
-               async:false,
-               success: function(res) {
-                 alert(res.pesan);
-                 console.log(res) ;
+      $form_profile.submit(function(e){
+          e.preventDefault();
+          var $this = $(this); 
+          var $url = $this.attr('action');
+           $.ajax({
+             url: $url,
+             type:"post",
+             data:new FormData(this),
+             dataType: 'json',
+             processData:false,
+             contentType:false,
+             cache:false,
+             async:false,
+             success: function(res) {
+               alert(res.pesan);
+               if(res.valid == true) {
+                window.location.href = `${_uri}/logout?continue=${res.redirectTo}`
                }
-             });
-        });
+             }
+          });
+      });
+
+      $form_pwd.submit(function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        var $url = $this.attr('action');
+        var $data = $this.serialize();
+        $.post($url,$data, response, 'json');
+      })
+
+      function response(res) {
+        alert(res.pesan);
+        if(res.valid == true)
+        {
+          window.location.href = `${_uri}/logout?continue=${res.redirectTo}`
+        }
+      }
+
     });
 </script>

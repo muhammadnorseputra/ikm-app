@@ -6,8 +6,8 @@
     <div class="row">
       <div class="col-lg-7 col-md-10">
         <h1 class="display-2 text-white">Hello <?= $this->session->userdata('nama'); ?></h1>
-        <p class="text-white mt-0 mb-5">Ini adalah halaman profile anda. Kamu bisa melihat roles apa yang dapat kamu akses dan meupdate profile mu.</p>
-        <a href="#!" class="btn btn-neutral">Edit profile</a>
+        <p class="text-white mt-0 mb-5">Ini adalah halaman profile anda. Kamu bisa melihat role akses dan meupdate profile mu. Kamu juga dapat merubah preferensi sesuai keinginan kamu.</p>
+        <a href="<?= base_url('preferensi/'.$this->session->userdata('user_name')) ?>" class="btn btn-neutral"><i class="ni ni-settings-gear-65 mr-2"></i> Pengaturan Preferensi</a>
       </div>
     </div>
   </div>
