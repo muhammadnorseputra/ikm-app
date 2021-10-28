@@ -6,9 +6,13 @@ class M_users extends CI_Model {
 		$user_id = $this->session->userdata('user_id');
 		if(empty($user_id)) return $this->db->where('id', decrypt_url($user_id))->update('t_users', ['check_out' => date('Y-m-d H:i:s')]);
 	}
-	public function profile($user_id)
+	public function profile()
 	{
 		return $this->db->get('t_users');
+	}
+	public function profile_id($user_id)
+	{
+		return $this->db->get_where('t_users', ['id' => decrypt_url($user_id)]);
 	}
 
 	public function get_menus($position)
@@ -60,6 +64,11 @@ class M_users extends CI_Model {
     {
     	return $this->db->where($whr)->update($tbl, $data);
     }
+
+    public function user_preferensi($user_id)
+   {
+      return $this->db->get_where('t_preferensi', ['fid_user' => decrypt_url($user_id)]);
+   }
 }
 
 /* End of file M_users.php */

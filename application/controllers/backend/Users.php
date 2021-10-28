@@ -24,11 +24,22 @@ class Users extends CI_Controller {
 	public function profile($username)
 	{
 		$data = [
-            'title' => 'e-Survei | '.ucwords($username),
+            'title' => 'e-Survei | Profile '.ucwords($username),
             'content' => 'Backend/pages/profile'
         ];
         $this->load->view('Backend/layout/app', $data);	
 	}
+
+    public function preferensi($username)
+    {
+        $user_id = $this->session->userdata('user_id');
+        $data = [
+            'title' => 'e-Survei | Preferensi '.ucwords($username),
+            'content' => 'Backend/pages/preferensi',
+            'list_theme' => $this->users->user_preferensi($user_id)->row()
+        ];
+        $this->load->view('Backend/layout/app', $data); 
+    }
 
     function update_profile_basic()  
     {  

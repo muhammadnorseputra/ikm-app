@@ -1,7 +1,7 @@
 <!-- Main content -->
 <div class="main-content" id="panel">
   <!-- Topnav -->
-  <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary shadow-lg sticky-top">
+  <nav class="navbar navbar-top navbar-expand <?= theme(['bg','navbar'], 'top_bar') ?> shadow-lg sticky-top">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Search form -->
@@ -114,7 +114,7 @@
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
-              <a href="<?= base_url('setting') ?>" class="dropdown-item">
+              <a href="<?= base_url('preferensi/'.$this->session->userdata('user_name')) ?>" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Settings</span>
               </a>
@@ -145,14 +145,16 @@
     <?php $this->load->view('Backend/pages/dashboard_header'); ?>
   <?php elseif($this->uri->segment(1) == 'profile'): ?> 
     <?php $this->load->view('Backend/pages/profile_header'); ?>
+   <?php elseif($this->uri->segment(1) == 'preferensi'): ?> 
+    <?php $this->load->view('Backend/pages/preferensi_header'); ?>
   <?php else: ?>
-  <div class="header bg-primary pb-6">
+  <div class="header <?= theme(['bg'], 'main_bg') ?> pb-6">
     <div class="container-fluid">
       <div class="header-body">
         <div class="row align-items-center py-4">
           <?php $center = ($this->uri->segment(2) == 'edit') || ($this->uri->segment(2) == 'baru') ? 'text-center' : ''; ?>
           <div class="col-lg-12 col-7 <?= $center ?>">
-            <h6 class="h2 text-white d-inline-block mb-0">
+            <h6 class="h2 <?= theme(['text'], 'main_bg') ?> d-inline-block mb-0">
               <!-- Title Headers -->
               <?= ucwords($this->uri->segment(1)) ?>
               <!-- Info Pertanyaan -->
