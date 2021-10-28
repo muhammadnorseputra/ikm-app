@@ -1,3 +1,9 @@
+<?php 
+   if(privileges('priv_pendidikan') == false): 
+      $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
+      return false;
+   endif;
+?>
 <div class="row">
 	<div class="col-xl-6">
 		<div class="card" id="list_pendidikan">
@@ -23,24 +29,48 @@
 								<th scope="col" class="sort" data-sort="jdl_pendidikan">Tingkat Pendidikan</th>
 							</tr>
 						</thead>
-						<tbody class="list">
-							<?php if($list_pendidikan->num_rows() > 0): ?>
-							<?php
-								foreach($list_pendidikan->result() as $p):
-							?>
-							<tr>
-								<td class="id d-none"><?= encrypt_url($p->id) ?></td>
-								<td>
-									<button id="edit-pendidikan" class="btn btn-sm btn-icon-only text-primary" role="button" type="button" data-href="<?= base_url('backend/pendidikan/detail/'.encrypt_url($p->id)) ?>">
-									<i class="fas fa-edit"></i>
-									</button>
-								</td>
-								<td><button id="hapus-pendidikan" class="btn btn-sm btn-icon-only text-danger" data-href="<?= base_url('backend/pendidikan/delete/'.encrypt_url($p->id)) ?>"><i class="fas fa-trash"></i></button></td>
-								<td class="jdl_pendidikan"><?= $p->tingkat_pendidikan ?></td>
-							</tr>
-							<?php endforeach; ?>
-							<?php endif; ?>
-						</tbody>
+							<tbody class="list">
+						<?php 
+				            if(sub_privilege('sub_pendidikan', 1) !== 'r'): 
+				              echo "<tr><td colspan='4'>";
+				              $this->load->view('Backend/pages/notif_mod_dibatasi');
+				              echo "</td></tr>";
+				            else:
+				        ?>
+								<?php if($list_pendidikan->num_rows() > 0): ?>
+								<?php
+									foreach($list_pendidikan->result() as $p):
+								?>
+								<tr>
+									<td class="id d-none"><?= encrypt_url($p->id) ?></td>
+									<td>
+									<?php 
+							            if(sub_privilege('sub_pendidikan', 2) !== 'u'): 
+							              echo '<button class="btn btn-sm btn-icon-only text-primary" title="Disabled" role="button" type="button" disabled>
+										<i class="fas fa-edit"></i>
+										</button>';
+							            else:
+							        ?>	
+										<button id="edit-pendidikan" class="btn btn-sm btn-icon-only text-primary" role="button" type="button" data-href="<?= base_url('backend/pendidikan/detail/'.encrypt_url($p->id)) ?>">
+										<i class="fas fa-edit"></i>
+										</button>
+									<?php endif; ?>
+									</td>
+									<td>
+									<?php 
+							            if(sub_privilege('sub_pendidikan', 3) !== 'd'): 
+							              echo '<button class="btn btn-sm btn-icon-only text-danger" title="Disabled" disabled><i class="fas fa-trash"></i></button>';
+							            else:
+							        ?>
+										<button id="hapus-pendidikan" class="btn btn-sm btn-icon-only text-danger" data-href="<?= base_url('backend/pendidikan/delete/'.encrypt_url($p->id)) ?>"><i class="fas fa-trash"></i></button>
+									<?php endif; ?>
+									</td>
+									<td class="jdl_pendidikan"><?= $p->tingkat_pendidikan ?></td>
+								</tr>
+								<?php endforeach; ?>
+								<?php endif; ?>
+						<?php endif; ?>
+							</tbody>
 					</table>
 				</div>
 			</div>
@@ -57,11 +87,17 @@
 				Tambah
 			</div>
 			<div class="card-body">
-				<div class="form-group">
-					<label for="tp" class="small">Tingkat Pendidikan</label>
-					<input type="text" id="tp" name="tp" class="form-control form-control-muted" placeholder="Masukan Tingkat Pendidikan Disini ...">
-				</div>
-				<button type="button" class="btn btn-primary" id="simpan">Simpan</button>
+				<?php 
+		            if(sub_privilege('sub_pendidikan', 0) !== 'c'): 
+		              $this->load->view('Backend/pages/notif_mod_dibatasi');
+		            else:
+		        ?>
+					<div class="form-group">
+						<label for="tp" class="small">Tingkat Pendidikan</label>
+						<input type="text" id="tp" name="tp" class="form-control form-control-muted" placeholder="Masukan Tingkat Pendidikan Disini ...">
+					</div>
+					<button type="button" class="btn btn-primary" id="simpan">Simpan</button>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

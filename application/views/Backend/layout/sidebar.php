@@ -24,13 +24,6 @@
                   <span class="nav-link-text"><?= ucwords($m->nama_menu) ?></span>
                 </a>
               </li>
-          <?php else: ?>
-              <li class="nav-item">
-                <a class="nav-link <?= $this->uri->segment(1) == $m->url ? "active" : ""; ?>" href="<?= base_url($m->url) ?>">
-                  <i class="<?= $m->icon ?> <?= $m->icon_class ?>"></i>
-                  <span class="nav-link-text"><?= ucwords($m->nama_menu) ?></span>
-                </a>
-              </li>  
           <?php endif; ?>
           <?php endforeach; ?>
           </ul>
@@ -47,13 +40,6 @@
               foreach ($secondary->result() as $m):
             ?>
             <?php if(privileges($m->privilege)): ?>
-              <li class="nav-item">
-                <a class="nav-link <?= $this->uri->segment(1) == $m->url ? "active" : ""; ?>" href="<?= base_url($m->url) ?>">
-                  <i class="<?= $m->icon ?> <?= $m->icon_class ?>"></i>
-                  <span class="nav-link-text"><?= ucwords($m->nama_menu) ?></span>
-                </a>
-              </li>
-            <?php else: ?>
               <li class="nav-item">
                 <a class="nav-link <?= $this->uri->segment(1) == $m->url ? "active" : ""; ?>" href="<?= base_url($m->url) ?>">
                   <i class="<?= $m->icon ?> <?= $m->icon_class ?>"></i>

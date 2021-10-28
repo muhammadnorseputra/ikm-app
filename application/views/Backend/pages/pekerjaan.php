@@ -1,3 +1,9 @@
+<?php 
+   if(privileges('priv_pekerjaan') == false): 
+      $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
+      return false;
+   endif;
+?>
 <div class="row">
 	<div class="col-xl-6">
 		<div class="card" id="list_pekerjaan">
@@ -24,6 +30,13 @@
 							</tr>
 						</thead>
 						<tbody class="list">
+						<?php 
+				            if(sub_privilege('sub_pekerjaan', 1) !== 'r'): 
+				              echo "<tr><td colspan='4'>";
+				              $this->load->view('Backend/pages/notif_mod_dibatasi');
+				              echo "</td></tr>";
+				            else:
+				        ?>
 							<?php if($list_pekerjaan->num_rows() > 0): ?>
 							<?php
 								foreach($list_pekerjaan->result() as $p):
@@ -31,15 +44,32 @@
 							<tr>
 								<td class="id d-none"><?= encrypt_url($p->id) ?></td>
 								<td>
+									<?php 
+							            if(sub_privilege('sub_pekerjaan', 2) !== 'u'): 
+							              echo '<button class="btn btn-sm btn-icon-only text-primary" title="Disabled" role="button" type="button" disabled>
+										<i class="fas fa-edit"></i>
+										</button>';
+							            else:
+							        ?>	
 									<button id="edit-pekerjaan" class="btn btn-sm btn-icon-only text-primary" role="button" type="button" data-href="<?= base_url('backend/pekerjaan/detail/'.encrypt_url($p->id)) ?>">
 									<i class="fas fa-edit"></i>
 									</button>
+									<?php endif; ?>
 								</td>
-								<td><button id="hapus-pekerjaan" class="btn btn-sm btn-icon-only text-danger" data-href="<?= base_url('backend/pekerjaan/delete/'.encrypt_url($p->id)) ?>"><i class="fas fa-trash"></i></button></td>
+								<td>
+								<?php 
+						            if(sub_privilege('sub_pekerjaan', 3) !== 'd'): 
+						              echo '<button class="btn btn-sm btn-icon-only text-danger" title="Disabled" disabled><i class="fas fa-trash"></i></button>';
+						            else:
+						        ?>
+									<button id="hapus-pekerjaan" class="btn btn-sm btn-icon-only text-danger" data-href="<?= base_url('backend/pekerjaan/delete/'.encrypt_url($p->id)) ?>"><i class="fas fa-trash"></i></button>
+								<?php endif; ?>	
+								</td>
 								<td class="jns_pekerjaan"><?= $p->jenis_pekerjaan ?></td>
 							</tr>
 							<?php endforeach; ?>
 							<?php endif; ?>
+						<?php endif; ?>
 						</tbody>
 					</table>
 				</div>
@@ -57,11 +87,17 @@
 				Tambah
 			</div>
 			<div class="card-body">
+			<?php 
+	            if(sub_privilege('sub_pekerjaan', 0) !== 'c'): 
+	              $this->load->view('Backend/pages/notif_mod_dibatasi');
+	            else:
+	        ?>
 				<div class="form-group">
 					<label for="jp" class="small">Jenis Pekerjaan</label>
 					<input type="text" id="jp" name="jp" class="form-control form-control-muted" placeholder="Masukan Jenis Pekerjaan Disini ...">
 				</div>
 				<button type="button" class="btn btn-primary" id="simpan">Simpan</button>
+			<?php endif; ?>
 			</div>
 		</div>
 	</div>

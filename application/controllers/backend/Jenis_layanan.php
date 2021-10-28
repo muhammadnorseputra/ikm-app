@@ -30,9 +30,17 @@ class Jenis_layanan extends CI_Controller {
         	$button = '<button id="edit-layanan" class="btn btn-sm rounded-circle btn-icon-only text-light" data-uid="'.encrypt_url($r->id).'" role="button">
                       <i class="fas fa-edit"></i>
                 </button>';
+        
+            if(sub_privilege('sub_jenis_layanan', 3) !== 'd'): 
+            $button .= '<button class="btn btn-sm btn-danger rounded-circle btn-icon-only text-white" title="Disabled" role="button" disabled>
+                      <i class="fas fa-trash"></i>
+                </button>';   
+            else:
             $button .= '<button id="hapus-layanan" class="btn btn-sm btn-danger rounded-circle btn-icon-only text-white" data-uid="'.encrypt_url($r->id).'" role="button">
                       <i class="fas fa-trash"></i>
                 </button>';
+            endif;
+
             $no++;
             $row = array();
             $row[] = $no;

@@ -1,3 +1,9 @@
+<?php 
+   if(privileges('priv_unsur') == false): 
+      $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
+      return false;
+   endif;
+?>
 <div class="row">
 	<div class="col-xl-8">
 		<?php if($this->session->flashdata('msg') <> '' ): ?>
@@ -21,7 +27,13 @@
 						</div>
 					</div>
 					<div class="col-4 col-xl-6 text-right">
+						<?php 
+				            if(sub_privilege('sub_unsur', 0) !== 'c'): 
+				              echo '<button type="button" class="btn btn-primary" title="Fitur Tambah Di Nonaktifkan" disabled><i class="fas fa-plus mr-2"></i>Baru</button>';	
+				            else:
+				        ?>
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#unsur"><i class="fas fa-plus mr-2"></i>Baru</button>
+						<?php endif; ?>
 						<?php if(isset($_GET['uid']) != null): ?>
 						<a class="btn btn-link" href="<?= base_url('unsur') ?>"><i class="fas fa-retweet mr-2"></i>Reload</a>
 						<?php endif; ?>
@@ -38,19 +50,35 @@
 							</tr>
 						</thead>
 						<tbody class="list">
+							<?php 
+					            if(sub_privilege('sub_unsur', 1) !== 'r'): 
+					            echo "<tr><td colspan='2'>";
+					               $this->load->view('Backend/pages/notif_mod_dibatasi');
+					            echo "</td></tr>";
+					            else:
+					        ?>
 							<?php if($list_unsur->num_rows() > 0): ?>
 							<?php
 								foreach($list_unsur->result() as $p):
 							?>
 							<tr>
 								<td>
-									<button id="edit-unsur" class="btn btn-sm btn-icon-only text-light" data-href="<?= base_url('unsur/edit/'.encrypt_url($p->id)) ?>" role="button">
-									<i class="fas fa-edit"></i>
-									</button>
+									<?php 
+							            if(sub_privilege('sub_unsur', 2) !== 'u'): 
+							              echo '<button id="edit-unsur" title="Disabled" class="btn btn-sm btn-icon-only text-light" role="button" disabled>
+										<i class="fas fa-edit"></i>
+										</button>';	
+							            else:
+							        ?>
+										<button id="edit-unsur" class="btn btn-sm btn-icon-only text-light" data-href="<?= base_url('unsur/edit/'.encrypt_url($p->id)) ?>" role="button">
+										<i class="fas fa-edit"></i>
+										</button>
+									<?php endif; ?>
 								</td>
 								<td class="unsur"><?= $p->jdl_unsur ?></td>
 							</tr>
 							<?php endforeach; ?>
+							<?php endif; ?>
 							<?php endif; ?>
 						</tbody>
 					</table>
@@ -74,16 +102,17 @@
 			<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
-		<div class="modal-body">
-			<?= form_open(base_url('backend/unsur/insert'), ['class' => 'form-horizontal', 'autocomplete' => 'off', 'id' => 'f_unsur'], ['id' => null]); ?>
-			<div class="form-group">
-				<label for="nama_unsur">Nama Unsur</label>
-				<input type="text" autocomplete="off" class="form-control form-control-alternative text-primary font-weight-bold" id="nama_unsur" name="nama_unsur" placeholder="Nama Unsur">
+		
+			<div class="modal-body">
+				<?= form_open(base_url('backend/unsur/insert'), ['class' => 'form-horizontal', 'autocomplete' => 'off', 'id' => 'f_unsur'], ['id' => null]); ?>
+				<div class="form-group">
+					<label for="nama_unsur">Nama Unsur</label>
+					<input type="text" autocomplete="off" class="form-control form-control-alternative text-primary font-weight-bold" id="nama_unsur" name="nama_unsur" placeholder="Nama Unsur">
+				</div>
+				<button type="submit" class="btn btn-primary">Simpan</button>
+				<button type="button" class="btn btn-link" data-dismiss="modal">Batal</button>
+				<?= form_close() ?>
 			</div>
-			<button type="submit" class="btn btn-primary">Simpan</button>
-			<button type="button" class="btn btn-link" data-dismiss="modal">Batal</button>
-			<?= form_close() ?>
-		</div>
 	</div>
 </div>
 </div>

@@ -47,6 +47,11 @@ class M_users extends CI_Model {
 		return $result;
 	}
 
+	public function update($data,$whr){
+        $result= $this->db->where($whr)->update('t_users',$data);
+        return $result;
+    }
+
 }
 
 /* End of file M_users.php */

@@ -97,11 +97,19 @@ class Console extends CI_Controller
     public function auto_complete()
     {
         $q = $this->input->post('q');
-        $db = $this->users->get_menus_all($q)->result();
+        $db = $this->users->get_menus_all($q);
         $list = [];
-        foreach ($db as $m) {
-            $list[] = ['value' => ucwords($m->nama_menu), 'url' => base_url($m->url)];
-        }
+        if($db->num_rows() > 0):
+            foreach ($db->result() as $m) {
+                if(privileges($m->privilege)):
+                    $list[] = ['value' => ucwords($m->nama_menu), 'url' => base_url($m->url)];
+                else:
+                    $list[] = ['value' => "Navigasi tidak ditemukan.", 'url' => "#"];
+                endif;
+            }
+        else:
+            $list[] = ['value' => "Navigasi tidak ditemukan.", 'url' => "#"];
+        endif;
         $data = [
             "query" => "Unit",
             "suggestions" => $list

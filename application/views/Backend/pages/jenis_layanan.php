@@ -1,3 +1,9 @@
+<?php 
+   if(privileges('priv_jenis_layanan') == false || sub_privilege('sub_jenis_layanan', 1) !== 'r'): 
+      $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
+      return false;
+   endif;
+?>
 <div class="row">
 	<div class="col-xl-12">
 		<?php if($this->session->flashdata('msg') <> '' ): ?>
@@ -38,6 +44,11 @@
 <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
 	<div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
 		<div class="modal-content">
+			<?php 
+                if(sub_privilege('sub_jenis_layanan', 2) !== 'u'): 
+                  $this->load->view('Backend/pages/notif_mod_dibatasi', ['pesan' => 'Anda tidak dapat mengakses fitur ini']);	
+                else:
+            ?>
 			<?= form_open(base_url('backend/jenis_layanan/update'), ['class' => 'form-horizontal', 'id' => 'f_jenis_layanan'], ['id' => null]); ?>
 			<div class="modal-header">
 				<h6 class="modal-title" id="modal-title-default"></h6>
@@ -58,7 +69,7 @@
 				<button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Batal</button>
 			</div>
 			<?= form_close(); ?>
-			
+			<?php endif; ?>
 		</div>
 	</div>
 </div>

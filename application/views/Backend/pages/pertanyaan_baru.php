@@ -15,9 +15,14 @@
 				</div>
 				<div>
 					<button type="submit" class="btn btn-primary">Simpan</button>
-					<button type="button" onclick="window.history.back(-1)" class="btn btn-link rounded">Batal</button>
+					<button type="button" onclick="window.location.href= '<?= base_url('pertanyaan') ?>'" class="btn btn-link rounded">Batal</button>
 				</div>
 			</div>
+			 <?php 
+	            if(sub_privilege('sub_pertanyaan', 0) !== 'c'): 
+	              $this->load->view('Backend/pages/notif_mod_dibatasi');
+	            else:
+	          ?>
 			<div class="card-body">
 				<div class="form-group">
 				    <label for="unsur">Pilih Unsur</label>
@@ -44,6 +49,7 @@
 						</div>
 				  </div>
 			</div>
+			<?php endif; ?>
 		<?= form_close(); ?>
 		</div>
 	</div>

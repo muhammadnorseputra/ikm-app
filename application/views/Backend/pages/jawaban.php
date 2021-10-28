@@ -1,3 +1,9 @@
+<?php 
+   if(privileges('priv_daftar_jawaban') == false): 
+      $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
+      return false;
+   endif;
+?>
 <div class="row">
 	<div class="col-xl-12">
 		<?php if($this->session->flashdata('msg') <> '' ): ?>
@@ -10,7 +16,13 @@
 	      </div>
 	      <?php endif; ?>
 	</div>
-			<div class="card-body bg-transparent">
+		<?php 
+            if(sub_privilege('sub_jawaban', 1) !== 'r'): 
+              $this->load->view('Backend/pages/notif_mod_dibatasi');
+            else:
+        ?>
+	<div class="card bg-transparent">
+			<div class="card-body">
 				<div class="row">
 					<div class="card-columns">
 						<?php foreach ($list_pertanyaan->result() as $p):?>
@@ -49,7 +61,9 @@
 						<?php endforeach ?>
 					</div>
 				</div>
+			</div>
 	</div>
+		<?php endif; ?>
 </div>
 <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
@@ -61,7 +75,11 @@
 	                <span aria-hidden="true">×</span>
 	            </button>
 	        </div>
-	        
+	        <?php 
+	            if(sub_privilege('sub_jawaban', 0) !== 'c'): 
+	              $this->load->view('Backend/pages/notif_mod_dibatasi');
+	            else:
+	          ?>
 	        <div class="modal-body bg-secondary">
 	        	<?= form_open(base_url('backend/jawaban/insert'), ['class' => 'form-horizontal', 'id' => 'f_jawaban']); ?>
 	        		<div class="form-group">
@@ -73,6 +91,7 @@
 	        		<button type="submit" class="btn btn-block btn-primary rounded-pill">Simpan</button>
 	        	<?= form_close(); ?>
 	        </div>
+	   		<?php endif; ?>
 	    </div>
 	</div>
 </div>

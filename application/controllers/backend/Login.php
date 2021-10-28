@@ -57,9 +57,10 @@ class Login extends CI_Controller
                 'nama' => $row->nama,
                 'pic' => $row->pic,
                 'role' => $row->role,
-                'check_in_tgl' => date('Y-m-d'),
-                'check_in_waktu' => date('H:i:s'),
+                'check_in' => date('Y-m-d H:i:s'),
+                'check_out' => $row->check_out,
             );
+            $this->db->update('t_users', ['check_in' => date('Y-m-d H:i:s')], ['id' => $row->id]);
             $this->session->set_userdata($data_session);
             $p_continue = $this->input->post('continue');
             $continue = isset($p_continue) ? $p_continue : base_url('dashboard');
@@ -73,6 +74,7 @@ class Login extends CI_Controller
     public function sign_out()
     {
         $data = array('user_name', 'user_id','csrf_token');
+        $this->db->update('t_users', ['check_out' => date('Y-m-d H:i:s')], ['id' => decrypt_url($this->session->userdata('user_id'))]);
         $this->session->unset_userdata($data);
         $this->session->sess_destroy();
         redirect(base_url('console'));

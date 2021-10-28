@@ -1,3 +1,9 @@
+<?php 
+   if(privileges('priv_periode') == false): 
+      $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
+      return false;
+   endif;
+?>
 <div class="row">
 	<div class="col-12 col-xl-6 offset-xl-3">
 		<div class="card">

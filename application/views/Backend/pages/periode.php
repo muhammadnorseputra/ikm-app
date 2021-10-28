@@ -1,3 +1,9 @@
+<?php 
+   if(privileges('priv_periode') == false): 
+      $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
+      return false;
+   endif;
+?>
 <div class="row align-content-center">
    <div class="col-xl-12">
       <?php if($this->session->flashdata('msg') <> '' ): ?>
@@ -43,7 +49,7 @@
    </div>
    <?php endforeach; ?>
 
-   <div class="col-xl-4">
+   <div class="col-xl-2">
       <div class="card bg-default">
          <div class="card-body align-self-center">
             <button class="btn btn-icon btn-default rounded-pill" type="button" data-toggle="modal" data-target="#modal-periode">
