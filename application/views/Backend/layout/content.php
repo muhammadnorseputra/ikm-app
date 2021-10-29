@@ -116,7 +116,7 @@
               </a>
               <a href="<?= base_url('preferensi/'.$this->session->userdata('user_name')) ?>" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
+                <span>Preferensi</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="<?= base_url('logout'); ?>" class="dropdown-item">

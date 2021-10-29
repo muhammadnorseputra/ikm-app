@@ -83,6 +83,7 @@ $route['pekerjaan'] = 'backend/pekerjaan';
 $route['users'] = 'backend/users';
 $route['profile/(:any)'] = 'backend/users/profile/$1';
 $route['preferensi/(:any)'] = 'backend/users/preferensi/$1';
+$route['preferensi/(:any)/update'] = 'backend/users/preferensi/$1/update';
  
 
 $route['404_override'] = '';
