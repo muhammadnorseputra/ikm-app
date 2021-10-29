@@ -21,7 +21,7 @@
           $is_active = $color == $theme_base_current ? 'checked' : '';
           ?>
             <li class="d-flex flex-column align-items-center mb-3">
-              <label data-toggle="tooltip" title="<?= ucwords($color) ?>" for="<?= $color ?>" class="bg-<?= $color ?> p-5 mb-3 w-100 rounded" style="cursor: pointer;"></label>
+              <label data-toggle="tooltip" title="<?= ucwords($color) ?>" for="<?= $color ?>" class="bg-<?= $color ?> p-4 mb-3 rounded" style="cursor: pointer;"></label>
               <div class="form-check">
                 <input name="theme[$key]" class="form-check-input position-static" type="radio" name="blankRadio" id="<?= $color ?>" value="<?= $color ?>" aria-label="Theme Base" <?= $is_active ?>>
               </div>
