@@ -11,6 +11,14 @@
       </div>
       <div class="col-lg-5 col-md-4">
         <h1 class="display-2 text-white">Theme</h1>
+        <div class="alert alert-default alert-dismissible fade show" role="alert">
+            <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+            <span class="alert-text"><strong>Default!</strong> This is a default alert—check it out!</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <?= form_open(base_url('preferensi/'.$this->session->userdata('user_name').'/update')); ?>
         <ul class="list-unstyled d-flex justify-content-between flex-wrap">
           <?php  
           $theme_base = $list_theme->theme_base;
@@ -28,6 +36,8 @@
             </li>
           <?php endforeach; ?>
         </ul>
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        <?= form_close() ?>
       </div>
     </div>
   </div>

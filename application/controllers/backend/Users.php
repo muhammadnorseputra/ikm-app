@@ -30,15 +30,32 @@ class Users extends CI_Controller {
         $this->load->view('Backend/layout/app', $data);	
 	}
 
-    public function preferensi($username)
+    public function preferensi($username,$method=null)
     {
         $user_id = $this->session->userdata('user_id');
-        $data = [
-            'title' => 'e-Survei | Preferensi '.ucwords($username),
-            'content' => 'Backend/pages/preferensi',
-            'list_theme' => $this->users->user_preferensi($user_id)->row()
-        ];
-        $this->load->view('Backend/layout/app', $data); 
+        switch($method) {
+            case "update":
+                $p = $this->input->post();
+                $whr = ['fid_user' => decrypt_url($user_id)];
+                $data = ['theme' => $p['theme']];
+                $db = $this->users->preferensi_update('t_preferensi', $data, $whr);
+                if($db)
+                {
+                    $msg = ['valid' => true, 'pesan' => 'Preferensi Berhasil Telah Dirubah'];
+                } else {
+                    $msg = ['valid' => true, 'pesan' => 'Preferensi Gagal Telah Dirubah'];
+                }
+                echo json_encode($msg);
+            break;
+            default:
+                $user_id = $this->session->userdata('user_id');
+                $data = [
+                    'title' => 'e-Survei | Preferensi '.ucwords($username),
+                    'content' => 'Backend/pages/preferensi',
+                    'list_theme' => $this->users->user_preferensi($user_id)->row()
+                ];
+                $this->load->view('Backend/layout/app', $data); 
+        }
     }
 
     function update_profile_basic()  

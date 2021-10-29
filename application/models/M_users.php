@@ -66,10 +66,14 @@ class M_users extends CI_Model {
     }
 
     public function user_preferensi($user_id)
-   {
+    {
       return $this->db->get_where('t_preferensi', ['fid_user' => decrypt_url($user_id)]);
-   }
-}
+    }
+    public function preferensi_update($tbl,$data,$whr)
+    {
+    	return $this->db->where($whr)->update($tbl, $data);
+    }
+} 
 
 /* End of file M_users.php */
 /* Location: ./application/models/M_users.php */
