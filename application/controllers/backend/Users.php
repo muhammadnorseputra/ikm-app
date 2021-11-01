@@ -97,7 +97,6 @@ class Users extends CI_Controller {
     {
         // Req post
         $p = $this->input->post();
-        $row = $this->users->profile_username($p['username'])->row();
         
         // Valid Form
         // $this->form_validation->set_rules('photo', 'Photo', 'required');
@@ -111,13 +110,12 @@ class Users extends CI_Controller {
         } else {
             // Config Image
             $user_nama = strtolower($p['nama']);
-            $user_id = hash('sha1', time());
             $path = './assets/images/pic';
             $config['upload_path'] = $path;  
             $config['allowed_types'] = 'jpg|jpeg|png'; 
             $config['max_size'] = 1000; // 1MB
             $config['file_ext_tolower'] = TRUE;
-            $config['file_name'] = $user_nama."_".$user_id;
+            $config['file_name'] = $user_nama."_";
             $config['overwrite'] = TRUE;
 
             $this->load->library('upload', $config); 
@@ -133,21 +131,28 @@ class Users extends CI_Controller {
                     'nama' => $p['nama'],
                     'username' => $p['username'],
                     'password' => sha1($p['pwd']),
-                    'role' => $p['role']
+                    'role' => $p['role'],
+                    'created_at' => date('Y-m-d H:i:s')
                 ];
                 $db = $this->users->insert('t_users', $data_insert);
                 if($db)
                 {
-                 $msg = ['valid' => true, 'pesan' => 'User baru berhasil ditambahkan.', 'redirectTo' => base_url('users')];
-                 $this->users->insert('t_privileges', ['priv_default' => 'N','priv_responden' => 'N','priv_periode' => 'N','priv_unsur' => 'N','priv_daftar_pertanyaan' => 'N','priv_daftar_jawaban' => 'N', 'priv_jenis_layanan' => 'N','priv_pendidikan' => 'N', 'priv_pekerjaan' => 'N']);
-                 $this->users->insert('t_sub_privileges', ['sub_responden' => 'N','sub_periode' => 'N','sub_unsur' => 'N','sub_pertanyaan' => 'N','sub_jawaban' => 'N', 'sub_jenis_layanan' => 'N','sub_pendidikan' => 'N', 'sub_pekerjaan' => 'N']);
-                 $this->users->insert('t_preferensi', ['theme' => 'white','top_bar' => 'primary','main_bg' => 'primary']);
+                 $row = $this->users->profile_username($data_insert['username'])->row();
+                 $msg = ['valid' => true, 'pesan' => 'User baru berhasil ditambahkan.', 'redirectTo' => base_url('privileges/'.encrypt_url($row->id)];
+                 // $this->users->insert('t_privileges', ['priv_default' => 'N','priv_responden' => 'N','priv_periode' => 'N','priv_unsur' => 'N','priv_daftar_pertanyaan' => 'N','priv_daftar_jawaban' => 'N', 'priv_jenis_layanan' => 'N','priv_pendidikan' => 'N', 'priv_pekerjaan' => 'N']);
+                 // $this->users->insert('t_sub_privileges', ['sub_responden' => 'N','sub_periode' => 'N','sub_unsur' => 'N','sub_pertanyaan' => 'N','sub_jawaban' => 'N', 'sub_jenis_layanan' => 'N','sub_pendidikan' => 'N', 'sub_pekerjaan' => 'N']);
+                 // $this->users->insert('t_preferensi', ['theme' => 'white','top_bar' => 'primary','main_bg' => 'primary']);
                 } else {
-                    $msg = ['valid' => false, 'pesan' => 'User Gagal Ditambahkan, server tidak meresponse'];    
+                    $msg = ['valid' => false, 'pesan' => 'User Gagal Ditambahkan, server tidak meresponse'];  
                 }
             }
         }
         echo json_encode($msg);
+    }
+
+    public function privileges($uid)
+    {
+        echo $uid;
     }
 
     public function role($id)

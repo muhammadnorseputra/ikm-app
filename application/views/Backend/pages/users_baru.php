@@ -52,7 +52,7 @@
 	                	</div>
 	                	<div class="col-lg-6"></div>
 	                </div>
-	                <button type="submit" class="btn btn-primary">Simpan</button>
+	                <button type="submit" class="btn btn-info">Lanjutkan</button>
 	                <?= form_close(); ?>
 				</div>
 			</div>
