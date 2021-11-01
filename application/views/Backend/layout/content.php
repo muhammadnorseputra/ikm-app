@@ -132,6 +132,9 @@
   <?php 
     $akun = $this->users->profile(decrypt_url($this->session->userdata('user_id')))->row();
     // var_dump($is_block);
+    if(($akun->is_restricted === 'Y') || ($akun->role === 'TAMU')):
+      $this->load->view('Backend/pages/notif_dibatasi');
+    endif;
     if($akun->is_block === 'Y'):
       $this->load->view('Backend/pages/notif_block');
       return false;
