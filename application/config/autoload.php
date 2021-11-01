@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('nominal','url','form','number','tgl_indo','rand','security','cookie');
+$autoload['helper'] = array('nominal','url','form','number','tgl_indo','rand','security','cookie','apiclient','tgl_sql','sensor','baseurl','theme');
 
 /*
 | -------------------------------------------------------------------
@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array();
+$autoload['model'] = array('skm', 'm_users' => 'users');

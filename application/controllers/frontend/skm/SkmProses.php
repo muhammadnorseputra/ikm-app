@@ -31,7 +31,8 @@ class SkmProses extends CI_Controller
                     'fid_pendidikan' => $post['pendidikan'],
                     'fid_pekerjaan' => $post['pekerjaan'],
                     'card_responden' => $post['card'],
-                    'jawaban_responden' => $jawab
+                    'jawaban_responden' => $jawab,
+                    'created_at' => date('Y-m-d')
                 ];
                 $db = $this->skm->skm_insert('skm', $data);
 

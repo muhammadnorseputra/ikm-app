@@ -1,4 +1,8 @@
 <?php
+if($this->session->userdata('user_id') == ""):
+	$this->load->view('Frontend/skm/pages/restricted');
+	return false;
+endif;
 $tahun_skr = $this->skm->skm_periode()->row()->tahun;
 $periode_skr = $this->skm->skm_periode()->row()->id;
 $tahun = isset($_GET['tahun']) ? $_GET['tahun'] : $tahun_skr;

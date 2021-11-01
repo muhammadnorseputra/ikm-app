@@ -13,6 +13,13 @@ class Skm extends CI_Model {
 	{
 		return $this->db->order_by('id','desc')->get('skm_periode');
 	}
+	public function skm_total_periode() {
+		return $this->db->select('id')->group_by('tahun')->get('skm_periode')->num_rows();
+	}
+	public function skm_target_periode($periode=null)
+	{
+		return $this->db->get_where('skm_periode',  ['id' => $periode])->row();
+	}
 	public function skm_periode()
 	{
 		return $this->db->order_by('id','desc')->get('skm_periode', 1);
@@ -53,9 +60,32 @@ class Skm extends CI_Model {
 	{
 		return $this->db->insert($tbl, $data);
 	}
+	public function skm_get_responden()
+	{
+		return $this->db->get('skm');
+	}
 	public function skm_total_responden_all()
 	{
 		return $this->db->get_where('skm')->num_rows();
+	}
+	public function skm_periode_by_tahun($tahun)
+	{
+		return $this->db->get_where('skm_periode', ['tahun' => $tahun]);
+	}
+	public function skm_all_card()
+	{
+		return $this->db->group_by('card_responden')->get('skm');
+	}
+	public function skm_total_responden_card($card)
+	{
+		return $this->db->get_where('skm', ['card_responden' => $card])->num_rows();
+	}
+	public function skm_total_responden_per_tahun($tahun)
+	{
+		return $this->db->select_sum('target')
+		->from('skm_periode')
+		->where('tahun', $tahun)
+		->get()->row()->target;
 	}
 	public function get_responden($periode=null)
 	{
@@ -68,6 +98,24 @@ class Skm extends CI_Model {
 	public function skm_total_responden($periode=null)
 	{
 		return $this->db->get_where('skm',  ['fid_periode' => $periode])->num_rows();
+	}
+	public function list_responden()
+	{
+		$this->db->select('*');
+		$this->db->from('skm');
+		$this->db->where('created_at', date('Y-m-d'));
+		$this->db->limit(7);
+		$this->db->order_by('id', 'desc');
+		$q = $this->db->get();
+		return $q->result();
+	}
+	public function jml_list_responden()
+	{
+		$this->db->select('*');
+		$this->db->from('skm');
+		$this->db->where('created_at', date('Y-m-d'));
+		$q = $this->db->get();
+		return $q->num_rows();	
 	}
 	public function skm_total_responden_l($periode=null)
 	{
@@ -129,6 +177,50 @@ class Skm extends CI_Model {
 		return $this->db->get_where('skm', ['nipnik' => $n, 'fid_periode' => $periode_id]);
 	}
 
+	public function list_bulan($year=null)
+	{
+		$this->db->select('*');
+		$this->db->from('skm');
+		$this->db->where('tahun', $year);
+		// $this->db->order_by("created_at", 'desc');	
+		$this->db->group_by("DATE_FORMAT(created_at,'%m')");
+		$q = $this->db->get();
+		return $q;
+	}
+
+	public function jml_list_bulan($year=null, $month=null)
+	{
+		$this->db->select('*');
+		$this->db->from('skm');
+		$this->db->where('tahun', $year);
+		if(!empty($month)) {
+			$this->db->where("DATE_FORMAT(created_at,'%m')", $month);
+		}
+		$q = $this->db->get();
+		return $q;
+	}
+
+	public function list_year($year=null)
+	{
+		$this->db->select('tahun');
+		$this->db->from('skm');
+		if(!empty($year)) {
+			$this->db->where('tahun', $year);
+		} else {
+			$this->db->group_by('tahun');
+		}
+		$q = $this->db->get();
+		return $q;
+	}
+
+	public function get_pertanyaan($tbl)
+	{
+		return $this->db->get($tbl, 4,0);
+	}
+	public function get_jawaban($id)
+	{
+		return $this->db->get_where('skm_jawaban', ['fid_pertanyaan' => $id]);
+	}
 	public function predikat($ikm) {
         if($ikm >= '1.00' && $ikm <= '2.5996'):
             $c = 'danger';

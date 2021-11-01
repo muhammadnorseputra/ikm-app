@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url("../../template/argon/vendor/@fortawesome/fontawesome-free/css/all.min.css");
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.login-block{
+background: #DE6262;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #5e72e4, #525f7f);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #5e72e4, #525f7f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+float:left;
+width:100%;
+padding : auto;
+height: 100vh;
+
+}
+.banner-sec{background: #fff; background-size:cover; min-height:500px; border-radius: 0 10px 10px 0; padding:0;}
+.container{background:#fff; border-radius: 10px; box-shadow:15px 20px 0px rgba(0,0,0,0.1); position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);}
+.carousel-inner{border-radius:0 10px 10px 0;}
+.carousel-caption{text-align:left; left:5%;}
+.login-sec{padding: 50px 30px; position:relative;}
+.login-sec .copy-text{position:absolute; width:80%; bottom:20px; font-size:13px; text-align:center;}
+.login-sec .copy-text i{color:#FEB58A;}
+.login-sec .copy-text a{color:#E36262;}
+.login-sec h2{margin-bottom:30px; font-weight:800; font-size:30px; color: #5b6ed1;}
+.login-sec h2:after{content:" "; width:100px; height:5px; background:#FEB58A; display:block; margin-top:20px; border-radius:3px; margin-left:auto;margin-right:auto}
+.btn-login{background: #5c6fd8; color:#fff; font-weight:600; box-shadow: 0 3px 8px #ccc;}
+.show_pass {padding-left: 0px !important;}
+.show_pass .form-check-label {cursor: pointer;}
+.banner-text{width:70%; position:absolute; bottom:40px; padding-left:20px; padding-top: 15px; border-radius: 25px; background: rgba(0,0,0,0.6)}
+.banner-text h2{color:#fff; font-weight:600;}
+.banner-text h2:after{content:" "; width:100px; height:5px; background:#FFF; display:block; margin-top:20px; border-radius:3px;}
+.banner-text p{color:#fff;}
+
+// Loading Small
+.loader_small {
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid teal;
+  
+/* Safari */
+  -webkit-animation: spinIn 0.6s linear infinite; /* Safari */
+  animation: spinIn 0.6s linear infinite;
+}
+@-webkit-keyframes spinIn {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spinIn {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.bg-blur {
+  background-color: rgba(255, 255, 255, .9);
+}
+/* if backdrop support: very transparent and blurred */
+@supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
+  .bg-blur {
+    background-color: rgba(255, 255, 255, .5);
+    -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  -o-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  }
+}

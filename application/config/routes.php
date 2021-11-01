@@ -61,6 +61,32 @@ $route['finish/(:any)'] = 'frontend/skm/skmProses/selesai/$1';
 $route['invalid/(:any)'] = 'frontend/skm/skmProses/invalid/$1';
 $route['closed'] = 'frontend/skm/skmIndex/closed';
 
+// BACKEND
+$route['console'] = 'backend/login';
+$route['logout'] = 'backend/login/sign_out';
+$route['dashboard'] = 'backend/console';
+$route['responden'] = 'backend/responden';
+$route['periode'] = 'backend/periode';
+$route['periode/edit/(:any)'] = 'backend/periode/edit/$1';
+$route['pertanyaan'] = 'backend/pertanyaan';
+$route['pertanyaan/baru'] = 'backend/pertanyaan/baru';
+$route['pertanyaan/edit/(:any)'] = 'backend/pertanyaan/edit/$1';
+$route['jawaban'] = 'backend/jawaban';
+$route['jawaban/edit/(:any)'] = 'backend/jawaban/edit/$1';
+$route['hapus/(:any)'] = 'backend/jawaban/hapus/$1';
+$route['unsur'] = 'backend/unsur';
+$route['unsur/edit/(:any)'] = 'backend/unsur/edit/$1';
+$route['jenis_layanan'] = 'backend/jenis_layanan';
+$route['jenis_layanan/baru'] = 'backend/jenis_layanan/baru';
+$route['pendidikan'] = 'backend/pendidikan';
+$route['pekerjaan'] = 'backend/pekerjaan';
+$route['users'] = 'backend/users';
+$route['users/baru'] = 'backend/users/baru';
+$route['profile/(:any)'] = 'backend/users/profile/$1';
+$route['preferensi/(:any)'] = 'backend/users/preferensi/$1';
+$route['preferensi/(:any)/update'] = 'backend/users/preferensi/$1/update';
+ 
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 

@@ -61,3 +61,41 @@ function decrypt_url($string) {
     $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
     return $output;
 }
+
+if ( ! function_exists('cek_session'))
+  {
+      function cek_session()
+      {
+          $ci = get_instance();
+          if($ci->session->userdata('user_id') == '' || !$ci->session->csrf_token):
+            redirect(base_url('console'));
+          endif;
+      }
+ }
+
+if ( ! function_exists('privileges'))
+  {
+      function privileges($priv_name = false)
+      {
+          $ci = get_instance();
+          $user_id = $ci->session->userdata('user_id');
+          $priv = $ci->users->get_privileges($user_id);
+          $priv_name = isset($priv[$priv_name]) ? $priv[$priv_name] : "N"; 
+          if(($priv != 0) && ($priv_name == 'Y')) {
+            $p = true;
+          } else {
+            $p = false;
+          }
+          return $p;
+      }
+ }
+
+ if ( ! function_exists('sub_privilege'))
+  {
+      function sub_privilege($col,$key)
+      {
+          $ci = get_instance();
+          $r = $ci->users->get_privileges_sub($ci->session->userdata('user_id'), $col, $key);
+          return $r;
+      }
+ }

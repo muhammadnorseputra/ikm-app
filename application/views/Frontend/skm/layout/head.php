@@ -27,7 +27,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 		<?php if($this->uri->segment(1) === 'survei'): ?>
-			<link rel="stylesheet" href="<?= base_url('bower_components/jquery-form-validator/src/theme-default.css') ?>">
+			<link rel="stylesheet" href="<?= base_url('template/v1/plugin/jquery-form-validator/form-validator/theme-default.min.css') ?>">
 		<?php endif; ?>
 		<?php if($this->uri->segment(1) === 'skm'): ?>
 			<link rel="stylesheet" href="<?= base_url('template/v1/plugin/slick/slick/slick-theme.css') ?>">

@@ -28,7 +28,7 @@
 <?php endif; ?>
 
 <?php if($this->uri->segment(1) === 'survei'): ?>
-<script src="<?= base_url('bower_components/jquery-form-validator/form-validator/jquery.form-validator.min.js') ?>"></script>
+<script src="<?= base_url('template/v1/plugin/jquery-form-validator/form-validator/jquery.form-validator.min.js') ?>"></script>
 <script src="<?= base_url('assets/js/skm_validation.js') ?>"></script>
 <?php endif; ?>
 

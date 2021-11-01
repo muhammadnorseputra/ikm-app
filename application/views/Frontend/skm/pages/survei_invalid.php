@@ -4,7 +4,7 @@
 			<div class="col col-md-5">
 				<h3 class="display-6 text-danger">Survei Invalid</h3>
 				<code>
-					No. Ref <?= $nomor ?>
+				Kode-Ref: <?= $nomor ?>
 				</code>
 				<p class="lead mt-4">
 					Hal ini disebabkan untuk menghindari traffic survei yang tidak wajar, menghindari spamming  request ke server.
