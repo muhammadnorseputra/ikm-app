@@ -136,6 +136,9 @@
       $this->load->view('Backend/pages/notif_block');
       return false;
     endif;
+    if(($akun->is_restricted === 'Y') || ($akun->role === 'TAMU')):
+      $this->load->view('Backend/pages/notif_dibatasi');
+    endif;
   ?>
 
   <?php if($this->uri->segment(1) == 'dashboard'): ?>
