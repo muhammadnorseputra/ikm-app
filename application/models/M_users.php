@@ -88,6 +88,16 @@ class M_users extends CI_Model {
   {
     return $this->db->get_where('t_users', ['username' => $user_name]);
   }
+  public function check_username_exists($username)
+  {
+    $query = $this->db->get_where('t_users', ['username' => $username]);
+    if(empty($query->row())){
+       return true;
+    } else {
+      return false;
+    }
+
+  }
 	public function get_menus($position)
 	{
 		$q = $this->db->get_where('t_menus', ['position' => $position, 'status' => 'Y']);
@@ -110,6 +120,12 @@ class M_users extends CI_Model {
 		return $query;
 	}
 
+  public function get_privileges_count($tbl,$user_id)
+  {
+    $q = $this->db->get_where($tbl, ['fid_user' => $user_id]);
+    return $q;
+  }
+
 	public function get_privileges_sub($user_id,$col,$priv_key)
 	{
 		$q = $this->db->get_where('t_sub_privileges', ['fid_user' => decrypt_url($user_id)]);
@@ -127,11 +143,17 @@ class M_users extends CI_Model {
 		return $result;
 	}
 
-	public function update($data,$whr)
-	{
+   public function update_tbl($tbl, $data,$whr)
+   {
+        $result= $this->db->where($whr)->update($tbl,$data);
+        return $result;
+   }
+
+	 public function update($data,$whr)
+	 {
         $result= $this->db->where($whr)->update('t_users',$data);
         return $result;
-    }
+   }
 
     public function update_pwd($tbl,$data,$whr)
     {

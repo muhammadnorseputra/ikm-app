@@ -53,6 +53,7 @@
 	                	<div class="col-lg-6"></div>
 	                </div>
 	                <button type="submit" class="btn btn-info">Lanjutkan</button>
+	                <button type="button" class="btn btn-link" onclick="window.location.href='<?= base_url('users') ?>'">Batal</button>
 	                <?= form_close(); ?>
 				</div>
 			</div>

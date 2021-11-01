@@ -101,7 +101,7 @@ class Users extends CI_Controller {
         // Valid Form
         // $this->form_validation->set_rules('photo', 'Photo', 'required');
         $this->form_validation->set_rules('nama', 'Nama', 'required');
-        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required|callback_check_username_exists');
         $this->form_validation->set_rules('role', 'Role', 'required');
         $this->form_validation->set_rules('pwd', 'Password', 'trim|required|min_length[4]|max_length[12]');
 
@@ -115,7 +115,7 @@ class Users extends CI_Controller {
             $config['allowed_types'] = 'jpg|jpeg|png'; 
             $config['max_size'] = 1000; // 1MB
             $config['file_ext_tolower'] = TRUE;
-            $config['file_name'] = $user_nama."_";
+            $config['file_name'] = $user_nama;
             $config['overwrite'] = TRUE;
 
             $this->load->library('upload', $config); 
@@ -139,15 +139,22 @@ class Users extends CI_Controller {
                 {
                  $row = $this->users->profile_username($data_insert['username'])->row();
                  $msg = ['valid' => true, 'pesan' => 'User baru berhasil ditambahkan.', 'redirectTo' => base_url('privileges/'.encrypt_url($row->id))];
-                 // $this->users->insert('t_privileges', ['priv_default' => 'N','priv_responden' => 'N','priv_periode' => 'N','priv_unsur' => 'N','priv_daftar_pertanyaan' => 'N','priv_daftar_jawaban' => 'N', 'priv_jenis_layanan' => 'N','priv_pendidikan' => 'N', 'priv_pekerjaan' => 'N']);
-                 // $this->users->insert('t_sub_privileges', ['sub_responden' => 'N','sub_periode' => 'N','sub_unsur' => 'N','sub_pertanyaan' => 'N','sub_jawaban' => 'N', 'sub_jenis_layanan' => 'N','sub_pendidikan' => 'N', 'sub_pekerjaan' => 'N']);
-                 // $this->users->insert('t_preferensi', ['theme' => 'white','top_bar' => 'primary','main_bg' => 'primary']);
                 } else {
                     $msg = ['valid' => false, 'pesan' => 'User Gagal Ditambahkan, server tidak meresponse'];  
                 }
             }
         }
         echo json_encode($msg);
+    }
+
+    // Check if username exists
+    public function check_username_exists($username){
+        $this->form_validation->set_message('check_username_exists', 'Username Sudah dipakai. Silahkan gunakan username lain');
+         if($this->users->check_username_exists($username)){
+             return true;
+         } else {
+             return false;
+         }
     }
 
     public function privileges($uid)
@@ -157,21 +164,89 @@ class Users extends CI_Controller {
             'content' => 'Backend/pages/users_privileges',
             'uid' => decrypt_url($uid)
         ];
+        // Update Preferensi
+        $cek_preferensi = $this->users->get_privileges_count('t_preferensi',$data['uid']);
+        if($cek_preferensi->num_rows()==0) {
+            $data_preferensi = [
+                'fid_user' => $data['uid'],
+                'theme_base' => 'default,dark,light,white,primary',
+                'theme' => 'white',
+                'top_bar' => 'primary',
+                'main_bg' => 'primary'
+            ];
+            $this->users->insert('t_preferensi', $data_preferensi);
+        }
         $this->load->view('Backend/layout/app', $data); 
     }
 
     public function privileges_update()
     {
         $p = $this->input->post();
+        $uid = decrypt_url($p['uid']);
         $type = $this->input->post('f_type');
 
         if($type === 'privilege')
         {
-            $data = $p;
+            $data = [
+                'fid_user' => $uid,
+                'priv_default' => !empty($p['priv_default']) ? $p['priv_default'] : "N",
+                'priv_responden' => !empty($p['priv_responden']) ? $p['priv_responden'] : "N",
+                'priv_periode' => !empty($p['priv_periode']) ? $p['priv_periode'] : "N",
+                'priv_unsur' => !empty($p['priv_unsur']) ? $p['priv_unsur'] : "N",
+                'priv_daftar_pertanyaan' => !empty($p['priv_daftar_pertanyaan']) ? $p['priv_daftar_pertanyaan'] : "N",
+                'priv_daftar_jawaban' => !empty($p['priv_daftar_jawaban']) ? $p['priv_daftar_jawaban'] : "N",
+                'priv_jenis_layanan' => !empty($p['priv_jenis_layanan']) ? $p['priv_jenis_layanan'] : "N",
+                'priv_pendidikan' => !empty($p['priv_pendidikan']) ? $p['priv_pendidikan'] : "N",
+                'priv_pekerjaan' => !empty($p['priv_pekerjaan']) ? $p['priv_pekerjaan'] : "N",
+                'priv_users' => !empty($p['priv_users']) ? $p['priv_users'] : "N",
+            ];
+            $tbl = 't_privileges';
+            $cek_privilege = $this->users->get_privileges_count($tbl,$uid);
+            if($cek_privilege->num_rows() == 0) {
+                $db = $this->users->insert($tbl,$data);
+            } else {
+                $db = $this->users->update_tbl($tbl,$data,['fid_user' => $uid]);
+            }
+            if($db)
+            {
+                // $msg = ['valid' => true, 'pesan' => 'Set Privileges Berhasil'];
+                $this->session->set_flashdata(['pesan' => 'Set Privileges Berhasil', 'pesan_type' => 'success']);
+            } else {
+                // $msg = ['valid' => false, 'pesan' => 'Set Privileges Gagal'];
+                $this->session->set_flashdata(['pesan' => 'Set Privileges Gagal', 'pesan_type' => 'danger']);
+            }
+
         } elseif($type === 'sub_privilege') {
-            $data = $p;
+
+            $act = [0 => 'c', 1 => 'r', 2 => 'u', 3 => 'd'];
+            
+            $data = [
+                'fid_user' => $uid,
+                'sub_responden' => implode(",", $p['sub_priv_responden']),
+                'sub_periode' => implode(",", $p['sub_priv_periode']),
+                'sub_unsur' => implode(",", $p['sub_priv_unsur']),
+                'sub_pertanyaan' => implode(",", $p['sub_priv_pertanyaan']),
+                'sub_jawaban' => implode(",", $p['sub_priv_jawaban']),
+                'sub_jenis_layanan' => implode(",", $p['sub_priv_jenis_layanan']),
+                'sub_pendidikan' => implode(",", $p['sub_priv_pendidikan']),
+                'sub_pekerjaan' => implode(",", $p['sub_priv_pekerjaan'])            
+            ];
+            // $tbl = 't_sub_privileges';
+            // $cek_privilege = $this->users->get_privileges_count($tbl,$uid);
+            // if($cek_privilege->num_rows() == 0) {
+            //     $db = $this->users->insert($tbl,$data);
+            // } else {
+            //     $db = $this->users->update_tbl($tbl,$data,['fid_user' => $uid]);
+            // }
+            // if($db)
+            // {
+            //     $this->session->set_flashdata(['pesan' => 'Sub Privileges Berhasil', 'pesan_type' => 'success']);
+            // } else {
+            //     $this->session->set_flashdata(['pesan' => 'Sub Privileges Gagal', 'pesan_type' => 'danger']);
+            // }
         }
         echo json_encode($data);
+        // redirect(base_url('privileges/'.$p['uid']));
     }
 
     public function role($id)
@@ -234,7 +309,7 @@ class Users extends CI_Controller {
     function update_profile_basic()  
     {  
         $user_id = $this->session->userdata('user_id');
-        $profile = $this->users->profile(decrypt_url($user_id))->row();
+        $profile = $this->users->profile_id($user_id)->row();
         $user_nama = $profile->username;
         $nama= $this->input->post('nama');
         $whr = ['id' => decrypt_url($user_id)]; 
@@ -245,7 +320,7 @@ class Users extends CI_Controller {
              $config['allowed_types'] = 'jpg|jpeg|png'; 
              $config['max_size'] = 1000; // 1MB
              $config['file_ext_tolower'] = TRUE;
-             $config['file_name'] = $user_nama."_".$user_id;
+             $config['file_name'] = strtolower($user_nama);
              $config['overwrite'] = TRUE;
              
              $this->load->library('upload', $config);  
