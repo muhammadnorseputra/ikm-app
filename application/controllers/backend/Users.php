@@ -19,7 +19,97 @@ class Users extends CI_Controller {
         if($level !== 'SUPER_USER') {
             return redirect(base_url('profile/'.$username));
         }
+        $data = [
+            'title' => 'e-Survei | Users',
+            'content' => 'Backend/pages/users'
+        ];
+        $this->load->view('Backend/layout/app', $data);
 	}
+
+    public function ajax_users()
+    {
+        $db = $this->users->make_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($db as $r) {
+            $pic = "<img src='".base_url('assets/images/pic/'.$r->pic)."' width='30' class='rounded'>";
+            $button = '<div class="dropdown">
+                            <a class="btn btn-sm btn-icon-only text-light bg-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                              <a class="dropdown-item d-flex justify-content-between" href="#">
+                                Edit <i class="fas fa-edit small"></i> 
+                              </a>
+                              <a class="dropdown-item d-flex justify-content-between" href="#">
+                                Non Active <i class="fas fa-ban"></i>
+                              </a>
+                              <a class="dropdown-item d-flex justify-content-between" href="#">
+                                Restrected <i class="fas fa-star-of-life"></i>
+                              </a>
+                              <a class="dropdown-item d-flex justify-content-between" href="#">
+                                Privileges <i class="fas fa-user-lock"></i>
+                              </a>
+                              <a class="dropdown-item d-flex justify-content-between text-warning" href="#">
+                                Reset Password <i class="fas fa-key"></i>
+                              </a>
+                            </div>
+                        </div>';
+            $is_block = $r->is_block == 'Y' ? '<span class="badge badge-warning">YA</span>' : '<span class="badge badge-success">TIDAK</span>';
+            $is_restrected = $r->is_restricted == 'Y' ? '<span class="badge badge-warning">YA</span>' : '<span class="badge badge-success">TIDAK</span>';
+            $check_in = '<span class="text-sm">'.date("d-m-Y H:i", strtotime($r->check_in)).'</span>';
+            $check_out = '<span class="text-sm">'.date("d-m-Y H:i", strtotime($r->check_out)).'</span>';
+
+            $no++;
+            $row = array();
+            $row[] = $pic;
+            $row[] = ucwords($r->nama);
+            $row[] = $this->role($r->id);
+            $row[] = $is_block;
+            $row[] = $is_restrected;
+            $row[] = $check_in;
+            $row[] = $check_out;
+            $row[] = $button;
+
+            $data[] = $row;
+        }
+
+        $output = array(
+                "draw" => $_POST['draw'],
+                "recordsTotal" => $this->users->make_count_all(),
+                "recordsFiltered" => $this->users->make_count_filtered(),
+                "data" => $data,
+            );
+        //output to json format
+        echo json_encode($output);
+    }
+
+    public function baru()
+    {
+        $data = [
+            'title' => 'e-Survei | User Baru',
+            'content' => 'Backend/pages/users_baru'
+        ];
+        $this->load->view('Backend/layout/app', $data); 
+    }
+
+    public function role($id)
+    {
+        $row = $this->users->profile_id(encrypt_url($id))->row();
+        $role_name = $row->role;
+        if($role_name == 'SUPER_USER'):
+            $role_color = '<span class="badge badge-success">'.$role_name.'</span>';
+        elseif($role_name == 'ADMIN'):
+            $role_color = '<span class="badge badge-info">'.$role_name.'</span>';
+        elseif($role_name == 'USER'):
+            $role_color = '<span class="badge badge-dark">'.$role_name.'</span>';
+        elseif($role_name == 'TAMU'):
+            $role_color = '<span class="badge badge-gray">'.$role_name.'</span>';
+        else:
+            $role_color = '<span class="badge badge-default">'.$role_name.'</span>';
+        endif;
+        return $role_color;
+    }
 
 	public function profile($username)
 	{
@@ -30,14 +120,17 @@ class Users extends CI_Controller {
         $this->load->view('Backend/layout/app', $data);	
 	}
 
-    public function preferensi($username,$method=null)
+    public function preferensi($username,$method='')
     {
         $user_id = $this->session->userdata('user_id');
         switch($method) {
             case "update":
                 $p = $this->input->post();
                 $whr = ['fid_user' => decrypt_url($user_id)];
-                $data = ['theme' => $p['theme']];
+                $data = ['theme' => $p['theme'][0], 
+                         'top_bar' => $p['theme'][0],
+                         'main_bg' => $p['theme'][0]
+                     ];
                 $db = $this->users->preferensi_update('t_preferensi', $data, $whr);
                 if($db)
                 {
@@ -48,7 +141,6 @@ class Users extends CI_Controller {
                 echo json_encode($msg);
             break;
             default:
-                $user_id = $this->session->userdata('user_id');
                 $data = [
                     'title' => 'e-Survei | Preferensi '.ucwords($username),
                     'content' => 'Backend/pages/preferensi',

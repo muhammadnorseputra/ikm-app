@@ -21,3 +21,9 @@
     <script src="<?= base_url('template/argon/vendor/jquery/dist/jquery.min.js') ?>"></script>
   </head>
   <body>
+<?php  
+$akun = $this->users->profile(decrypt_url($this->session->userdata('user_id')))->row();
+if(($akun->is_restricted === 'Y') || ($akun->role === 'TAMU')):
+  $this->load->view('Backend/pages/notif_dibatasi');
+endif;
+?>

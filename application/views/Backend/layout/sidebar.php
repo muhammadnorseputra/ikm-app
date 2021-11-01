@@ -1,5 +1,5 @@
   <!-- Sidenav -->
-  <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs <?= theme(['navbar','bg'], 'theme') ?>" id="sidenav-main">
+  <nav class="sidenav navbar navbar-vertical navbar-expand-xs border-0 <?= theme(['navbar','bg'], 'theme') ?>" id="sidenav-main">
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header align-items-center">

@@ -81,6 +81,7 @@ $route['jenis_layanan/baru'] = 'backend/jenis_layanan/baru';
 $route['pendidikan'] = 'backend/pendidikan';
 $route['pekerjaan'] = 'backend/pekerjaan';
 $route['users'] = 'backend/users';
+$route['users/baru'] = 'backend/users/baru';
 $route['profile/(:any)'] = 'backend/users/profile/$1';
 $route['preferensi/(:any)'] = 'backend/users/preferensi/$1';
 $route['preferensi/(:any)/update'] = 'backend/users/preferensi/$1/update';

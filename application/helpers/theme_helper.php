@@ -26,8 +26,10 @@ if (! function_exists('theme'))
 		 	$theme_component = ['bg' => 'bg-white', 'text' => '', 'navbar' => 'navbar-light'];
 		 elseif($theme_active == 'primary'):
 		 	$theme_component = ['bg' => 'bg-primary', 'text' => 'text-white', 'navbar' => 'navbar-dark'];
+		 elseif($theme_active == 'default'):
+		 	$theme_component = ['bg' => 'bg-default', 'text' => 'text-white', 'navbar' => 'navbar-dark'];
 		 else:
-		 	$theme_component = ['bg' => 'bg-primary', 'text' => 'text-white', 'navbar' => 'navbar-dark'];
+		 	$theme_component = ['bg' => 'bg-white', 'text' => 'text-white', 'navbar' => 'navbar-dark'];
 		 endif;
 
 		 $t_component = '';

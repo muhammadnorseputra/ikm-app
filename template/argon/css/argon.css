@@ -21594,9 +21594,10 @@ textarea[resize='horizontal']
     margin-left: .5rem;
     padding-right: 1rem;
     padding-left: 1rem;
-
+    font-weight: bold;
     border-radius: .375rem; 
-    background: #f6f9fc;
+    background: rgba(0,0,0,0.1);
+    /*box-shadow: 0 1px 2px #000;*/
 }
 .navbar-vertical.navbar-expand-xs .lavalamp-object
 {

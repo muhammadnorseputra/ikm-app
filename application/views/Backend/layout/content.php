@@ -136,9 +136,6 @@
       $this->load->view('Backend/pages/notif_block');
       return false;
     endif;
-    if(($akun->is_restricted === 'Y') || ($akun->role === 'TAMU')):
-      $this->load->view('Backend/pages/notif_dibatasi');
-    endif;
   ?>
 
   <?php if($this->uri->segment(1) == 'dashboard'): ?>
@@ -161,6 +158,10 @@
               <?php if($this->uri->segment(1) == 'pertanyaan' && $this->uri->segment(2) != 'baru'): ?>
                 <button type="button" data-toggle="modal" data-target="#modal-notification" class="btn btn-danger rounded-circle py-1 px-2"><i class="fas fa-question-circle"></i></button>
               <?php endif; ?>  
+              <!-- Info Users -->
+              <?php if($this->uri->segment(1) == 'users' && $this->uri->segment(2) != 'baru'): ?>
+                <a href="<?= base_url('users/baru') ?>" type="button" class="btn btn-info rounded-circle py-1 px-2"><i class="fas fa-plus"></i></a>
+              <?php endif; ?>
               <?php if($this->uri->segment(1) == 'jenis_layanan' && $this->uri->segment(2) != 'baru'): ?>
                 <?php 
                     if(privileges('priv_jenis_layanan') == false): 
@@ -190,22 +191,22 @@
       <div class="row align-items-center justify-content-lg-between">
         <div class="col-lg-6">
           <div class="copyright text-center  text-lg-left  text-muted">
-            &copy; <?= date('Y') ?> <a href="/web.bkppd-balangankab.info/" class="font-weight-bold ml-1" target="_blank">e-Survei</a>
+            &copy; <?= date('Y') ?> <a href="//web.bkppd-balangankab.info/skm" class="font-weight-bold ml-1" target="_blank">e-Survei</a>
           </div>
         </div>
         <div class="col-lg-6">
           <ul class="nav nav-footer justify-content-center justify-content-lg-end">
             <li class="nav-item">
-              <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+              <a href="https://web.facebook.com/muhammadnorsaputra" class="nav-link" target="_blank">Contact Developer</a>
             </li>
             <li class="nav-item">
-              <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
+              <a href="//karyakarsa.com/putrabungsu6" class="nav-link" target="_blank">About Us</a>
             </li>
             <li class="nav-item">
-              <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+              <a href="//nihbuatjajan.com/putra" class="nav-link" target="_blank">Donasi</a>
             </li>
             <li class="nav-item">
-              <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
+              <a href="//web.bkppd-balangankab.info/beranda" class="nav-link" target="_blank">MIT License</a>
             </li>
           </ul>
         </div>

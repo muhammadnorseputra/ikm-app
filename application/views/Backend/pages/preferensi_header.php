@@ -11,14 +11,8 @@
       </div>
       <div class="col-lg-5 col-md-4">
         <h1 class="display-2 text-white">Theme</h1>
-        <div class="alert alert-default alert-dismissible fade show" role="alert">
-            <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-            <span class="alert-text"><strong>Default!</strong> This is a default alert—check it out!</span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <?= form_open(base_url('preferensi/'.$this->session->userdata('user_name').'/update')); ?>
+        <?= form_open(base_url('preferensi/'.$this->session->userdata('user_name').'/update'), ['id' => 'f_theme']); ?>
+        <!-- <b class="text-white pb-2 border-bottom d-block mb-2">Theme</b> -->
         <ul class="list-unstyled d-flex justify-content-between flex-wrap">
           <?php  
           $theme_base = $list_theme->theme_base;
@@ -29,16 +23,37 @@
           $is_active = $color == $theme_base_current ? 'checked' : '';
           ?>
             <li class="d-flex flex-column align-items-center mb-3">
-              <label data-toggle="tooltip" title="<?= ucwords($color) ?>" for="<?= $color ?>" class="bg-<?= $color ?> p-4 mb-3 rounded" style="cursor: pointer;"></label>
+              <label data-toggle="tooltip" title="<?= ucwords($color) ?>" for="<?= $color ?>" class="bg-<?= $color ?> p-4 mb-2 rounded" style="cursor: pointer;"></label>
               <div class="form-check">
-                <input name="theme[$key]" class="form-check-input position-static" type="radio" name="blankRadio" id="<?= $color ?>" value="<?= $color ?>" aria-label="Theme Base" <?= $is_active ?>>
+                <input name="theme[]" class="form-check-input position-static" type="radio" id="<?= $color ?>" value="<?= $color ?>" aria-label="Theme Base" <?= $is_active ?>>
               </div>
             </li>
           <?php endforeach; ?>
         </ul>
-        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        <button type="submit" class="btn btn-primary"><i class="ni ni-palette mr-2"></i>Simpan Perubahan</button>
         <?= form_close() ?>
       </div>
     </div>
   </div>
 </div>
+<script>
+  $(function() {
+    $form = $("#f_theme");
+    $form.submit(function(e) {
+      e.preventDefault();
+      $this = $(this);
+      $url = $this.attr('action');
+      $data = $this.serialize();
+      $.post($url,$data,response, 'json');
+    });
+
+    function response(res)
+    {
+      console.log(res);
+      alert(res.pesan);
+      if(res.valid == true) {
+        window.location.reload();
+      }
+    }
+  })
+</script>
