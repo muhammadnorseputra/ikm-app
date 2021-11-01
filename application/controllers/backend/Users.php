@@ -93,6 +93,63 @@ class Users extends CI_Controller {
         $this->load->view('Backend/layout/app', $data); 
     }
 
+    public function insert()
+    {
+        // Req post
+        $p = $this->input->post();
+        $row = $this->users->profile_username($p['username'])->row();
+        
+        // Valid Form
+        // $this->form_validation->set_rules('photo', 'Photo', 'required');
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('role', 'Role', 'required');
+        $this->form_validation->set_rules('pwd', 'Password', 'trim|required|min_length[4]|max_length[12]');
+
+        if ($this->form_validation->run() == false) {
+            $msg = ['valid' => false, 'pesan' => validation_errors()];
+        } else {
+            // Config Image
+            $user_nama = strtolower($p['nama']);
+            $user_id = hash('sha1', time());
+            $path = './assets/images/pic';
+            $config['upload_path'] = $path;  
+            $config['allowed_types'] = 'jpg|jpeg|png'; 
+            $config['max_size'] = 1000; // 1MB
+            $config['file_ext_tolower'] = TRUE;
+            $config['file_name'] = $user_nama."_".$user_id;
+            $config['overwrite'] = TRUE;
+
+            $this->load->library('upload', $config); 
+            if(!$this->upload->do_upload('photo'))  
+                {  
+                    $msg = ['valid' => false, 'pesan' => $this->upload->    display_errors()];  
+                } 
+            else {
+                $data = array('upload_data' => $this->upload->data());
+                $image= $data['upload_data']['file_name'];
+                $data_insert = [
+                    'pic' => $image,
+                    'nama' => $p['nama'],
+                    'username' => $p['username'],
+                    'password' => sha1($p['pwd']),
+                    'role' => $p['role']
+                ];
+                $db = $this->users->insert('t_users', $data_insert);
+                if($db)
+                {
+                 $msg = ['valid' => true, 'pesan' => 'User baru berhasil ditambahkan.', 'redirectTo' => base_url('users')];
+                 $this->users->insert('t_privileges', ['priv_default' => 'N','priv_responden' => 'N','priv_periode' => 'N','priv_unsur' => 'N','priv_daftar_pertanyaan' => 'N','priv_daftar_jawaban' => 'N', 'priv_jenis_layanan' => 'N','priv_pendidikan' => 'N', 'priv_pekerjaan' => 'N']);
+                 $this->users->insert('t_sub_privileges', ['sub_responden' => 'N','sub_periode' => 'N','sub_unsur' => 'N','sub_pertanyaan' => 'N','sub_jawaban' => 'N', 'sub_jenis_layanan' => 'N','sub_pendidikan' => 'N', 'sub_pekerjaan' => 'N']);
+                 $this->users->insert('t_preferensi', ['theme' => 'white','top_bar' => 'primary','main_bg' => 'primary']);
+                } else {
+                    $msg = ['valid' => false, 'pesan' => 'User Gagal Ditambahkan, server tidak meresponse'];    
+                }
+            }
+        }
+        echo json_encode($msg);
+    }
+
     public function role($id)
     {
         $row = $this->users->profile_id(encrypt_url($id))->row();

@@ -84,7 +84,10 @@ class M_users extends CI_Model {
 	{
 		return $this->db->get_where('t_users', ['id' => decrypt_url($user_id)]);
 	}
-
+  public function profile_username($user_name)
+  {
+    return $this->db->get_where('t_users', ['username' => $user_name]);
+  }
 	public function get_menus($position)
 	{
 		$q = $this->db->get_where('t_menus', ['position' => $position, 'status' => 'Y']);
@@ -142,6 +145,10 @@ class M_users extends CI_Model {
     public function preferensi_update($tbl,$data,$whr)
     {
     	return $this->db->where($whr)->update($tbl, $data);
+    }
+    public function insert($tbl,$data)
+    {
+      return $this->db->insert($tbl, $data);;
     }
 } 
 
