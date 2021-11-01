@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-xl-12">
 		<div class="card">
-			<div class="card-body px-0 pb-0 pt-3">
+			<div class="card-body px-0 py-3">
 				<div class="table-responsive">
 					<table class="table" id="table-users">
 						<thead class="bg-secondary">

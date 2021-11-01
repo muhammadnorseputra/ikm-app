@@ -26,7 +26,7 @@
 			<div class="card-body">
 				<div class="form-group">
 				    <label for="unsur">Pilih Unsur</label>
-				    <select name="unsur_id" class="form-control" id="unsur">
+				    <select name="unsur_id" class="form-control" id="unsur" data-toggle="select" title="Pilih Unsur" data-live-search="true" data-live-search-placeholder="Search ...">
 				      <option value="">Pilih Unsur</option>
 				      <?php foreach($list_unsur->result() as $u): ?>
 				      	<option value="<?= $u->id ?>"><?= $u->jdl_unsur ?></option>

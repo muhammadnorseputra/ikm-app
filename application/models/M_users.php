@@ -150,6 +150,30 @@ class M_users extends CI_Model {
     {
       return $this->db->insert($tbl, $data);;
     }
+    public function cek_privilege($uid)
+    {
+      $q= $this->db->get_where('t_privileges', ['fid_user' => $uid]);
+      if($q->num_rows() > 0)
+      {
+        $r = $q->row();
+      } else {
+        $r = null;
+      }
+      return $r;
+    }
+    public function list_sub_privilege($uid,$col)
+    {
+      $q= $this->db->get_where('t_sub_privileges', ['fid_user' => $uid]);
+      if($q->num_rows() > 0)
+      {
+        $r = $q->row();
+        $subs = $r->$col;
+        $is_sub = explode(",", $subs);
+      } else {
+        $is_sub = [];
+      }
+      return $is_sub;
+    }
 } 
 
 /* End of file M_users.php */

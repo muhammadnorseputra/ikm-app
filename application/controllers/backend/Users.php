@@ -47,7 +47,7 @@ class Users extends CI_Controller {
                               <a class="dropdown-item d-flex justify-content-between" href="#">
                                 Restrected <i class="fas fa-star-of-life"></i>
                               </a>
-                              <a class="dropdown-item d-flex justify-content-between" href="#">
+                              <a class="dropdown-item d-flex justify-content-between" href="'.base_url("privileges/".encrypt_url($r->id)).'">
                                 Privileges <i class="fas fa-user-lock"></i>
                               </a>
                               <a class="dropdown-item d-flex justify-content-between text-warning" href="#">
@@ -138,7 +138,7 @@ class Users extends CI_Controller {
                 if($db)
                 {
                  $row = $this->users->profile_username($data_insert['username'])->row();
-                 $msg = ['valid' => true, 'pesan' => 'User baru berhasil ditambahkan.', 'redirectTo' => base_url('privileges/'.encrypt_url($row->id)];
+                 $msg = ['valid' => true, 'pesan' => 'User baru berhasil ditambahkan.', 'redirectTo' => base_url('privileges/'.encrypt_url($row->id))];
                  // $this->users->insert('t_privileges', ['priv_default' => 'N','priv_responden' => 'N','priv_periode' => 'N','priv_unsur' => 'N','priv_daftar_pertanyaan' => 'N','priv_daftar_jawaban' => 'N', 'priv_jenis_layanan' => 'N','priv_pendidikan' => 'N', 'priv_pekerjaan' => 'N']);
                  // $this->users->insert('t_sub_privileges', ['sub_responden' => 'N','sub_periode' => 'N','sub_unsur' => 'N','sub_pertanyaan' => 'N','sub_jawaban' => 'N', 'sub_jenis_layanan' => 'N','sub_pendidikan' => 'N', 'sub_pekerjaan' => 'N']);
                  // $this->users->insert('t_preferensi', ['theme' => 'white','top_bar' => 'primary','main_bg' => 'primary']);
@@ -152,7 +152,26 @@ class Users extends CI_Controller {
 
     public function privileges($uid)
     {
-        echo $uid;
+        $data = [
+            'title' => 'e-Survei | User Privileges',
+            'content' => 'Backend/pages/users_privileges',
+            'uid' => decrypt_url($uid)
+        ];
+        $this->load->view('Backend/layout/app', $data); 
+    }
+
+    public function privileges_update()
+    {
+        $p = $this->input->post();
+        $type = $this->input->post('f_type');
+
+        if($type === 'privilege')
+        {
+            $data = $p;
+        } elseif($type === 'sub_privilege') {
+            $data = $p;
+        }
+        echo json_encode($data);
     }
 
     public function role($id)
