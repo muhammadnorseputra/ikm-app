@@ -20,4 +20,8 @@
     
     <script src="<?= base_url('template/argon/vendor/jquery/dist/jquery.min.js') ?>"></script>
   </head>
+<<<<<<< HEAD
   <body>
+=======
+  <body>
+>>>>>>> 7bea3706eedece41f32745aa7b328516abbe3bcb
