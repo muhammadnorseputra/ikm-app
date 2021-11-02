@@ -1,12 +1,12 @@
 <div class="row">
-	<div class="col-xl-4">
+	<div class="col-12 col-md-6 col-lg-4 col-xl-6">
 		<div class="card">
 			<div class="card-header">Reset Password</div>
 			<div class="card-body">
-				<?= form_open(base_url('backend/users/resspwd_aksi'), ['class' => 'form-horizontal', 'autocomplete' => 'off'], ['uid' => $uid]); ?>
+				<?= form_open(base_url('backend/users/resspwd_aksi'), ['id' => 'f_new_pwd','class' => 'form-horizontal', 'autocomplete' => 'off'], ['uid' => $uid]); ?>
 					<div class="form-group">
 						<label for="username">Username</label>
-				    	<input type="text" class="form-control" id="username" disabled>
+				    	<input type="text" class="form-control" id="username" value="<?= $profile->username ?>" disabled>
 					</div>
 					<div class="form-group">
 						<label for="password">New Password</label>
@@ -16,16 +16,53 @@
 						<label for="re-password">Re-type Password</label>
 				    	<input name="newpwd_confirm" type="password" class="form-control" id="re-password">
 					</div>
-					
+					<div class="form-group">
+						<label class="form-check-label">
+							<span toggle="#password,#re-password" class="fa fa-fw fa-eye-slash toggle-password mr-2"></span>
+							<small class="text_pw">Lihat Password</small>
+						</label>
+					</div>					
 					<div class="p-4 bg-secondary mb-3 border border-warning rounded">
-						<label for="re-user" class="small">Silahkan masukan username anda untuk mereset password user. Hal ini memastikan bahwa anda dapat wewenang untuk merubah privacy akun pengguna</label>
+						<label for="re-user" class="small">Silahkan masukan username anda untuk mereset password user. Hal ini untuk memastikan bahwa anda mempuyai wewenang untuk merubah privacy akun pengguna</label>
 					    <input name="username_confirm" type="text" id="re-user" class="form-control form-control-alternative" placeholder="Username Anda ...">
 					</div>
 
-					<button class="btn btn-primary" type="submit">Simpan</button>
+					<button class="btn btn-primary" type="submit" disabled>Simpan</button>
 					<button type="button" class="btn btn-link" onclick="window.location.href='<?= base_url('users') ?>'">Batal</button>
 				<?= form_close(); ?>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+	$(function(){
+		var $form = $("#f_new_pwd");
+		$form.submit(function(event) {
+			event.preventDefault();
+			alert('ok');
+		});
+		// Cek Confirm
+		var $confirm_input = $form.find("input[name='username_confirm']");
+		var $confirm_btn = $form.find("button[type='submit']");
+		$confirm_input.on("keyup", function() {
+			if($(this).val().length > 3) {
+				$confirm_btn.prop('disabled', false);
+				return false;
+			}
+			$confirm_btn.prop('disabled', true); 
+		});
+		// Toggle show pwd
+		$(".toggle-password").click(function() {
+		      $(this).toggleClass("fa-eye fa-eye-slash");
+		      var input = $($(this).attr("toggle"));
+		      var textPw = $("small.text_pw");
+		      if (input.attr("type") == "password") {
+		          input.attr("type", "text");
+		          textPw.text('Tutup Password');
+		      } else {
+		          input.attr("type", "password");
+		          textPw.text('Lihat Password');
+		      }
+		  });
+	});
+</script>

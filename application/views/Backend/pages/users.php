@@ -32,7 +32,7 @@
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatable/inc_tablesold.css') ?>">
 <script>
 	$(function() {
-		var tableJenisLayanan = $("#table-users").DataTable({
+		var tableUsers = $("#table-users").DataTable({
 			"processing": true,
 			"serverSide": true,
 			"paging": true,
@@ -72,6 +72,36 @@
 				"emptyTable": "No matching records found, please filter this data"
 			},
 		});
+
+		$(document).on("click", "a#btn-restricted", function(event){
+			event.preventDefault();
+			var $this = this;
+			var $uid = $this.dataset.uid;
+			var $url = $this.dataset.href;
+			var $val = $this.dataset.val;
+			var $data = {status: $val, uid: $uid};
+			$.post($url,$data,is_status,'json');
+			// console.log($val);
+		});
+
+		$(document).on("click", "a#btn-block", function(event){
+			event.preventDefault();
+			var $this = this;
+			var $uid = $this.dataset.uid;
+			var $url = $this.dataset.href;
+			var $val = $this.dataset.val;
+			var $data = {status: $val, uid: $uid};
+			$.post($url,$data,is_status,'json');
+			// console.log($val);
+		});
+
+		function is_status(res)
+		{
+			if(res.valid === true)
+			{
+				tableUsers.ajax.reload();
+			}
+		}
 
 		$(document).on("click", "a#resspwd", function(event){
 			event.preventDefault();

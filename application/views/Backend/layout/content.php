@@ -42,6 +42,7 @@
               <i class="ni ni-zoom-split-in"></i>
             </a>
           </li>
+          <?php if($this->session->userdata('role') === 'SUPER_USER' || $this->session->userdata('role') === 'ADMIN'): ?>
           <li class="nav-item dropdown">
             <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="ni ni-bell-55"></i>
@@ -79,6 +80,7 @@
               <a href="<?= base_url('responden?date='.date('Y-m-d')) ?>" class="dropdown-item text-center text-primary font-weight-bold py-3">Lihat Semua</a>
             </div>
           </li>
+          <?php endif; ?>
           <li class="nav-item dropdown">
             <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="ni ni-ungroup"></i>

@@ -17,7 +17,9 @@ class Users extends CI_Controller {
         $level = $this->session->userdata('role');
     	$username = $this->session->userdata('user_name');
         if($level !== 'SUPER_USER') {
-            return redirect(base_url('profile/'.$username));
+            // return redirect(base_url('profile/'.$username));
+            $this->output->set_status_header('404');
+            show_error('MAAF, HALAMAN TIDAK DITEMUKAN');
         }
         $data = [
             'title' => 'e-Survei | Users',
@@ -34,21 +36,21 @@ class Users extends CI_Controller {
         foreach ($db as $r) {
             $pic = "<img src='".base_url('assets/images/pic/'.$r->pic)."' width='30' class='rounded'>";
             if($r->is_block == 'N'):
-                $btn_is_block = '<a class="dropdown-item d-flex justify-content-between" href="#">
-                                    Non Active <i class="fas fa-ban"></i>
+                $btn_is_block = '<a id="btn-block" data-val="Y" data-uid="'.encrypt_url($r->id).'" data-href="'.base_url('backend/users/update_status').'" href="!#is_block" class="dropdown-item d-flex justify-content-between">
+                                    Non Active <i class="fas fa-ban text-danger"></i>
                                  </a>';
             else:
-                $btn_is_block = '<a class="dropdown-item d-flex justify-content-between" href="#">
-                                    Active <i class="fas fa-ban"></i>
+                $btn_is_block = '<a id="btn-block" data-val="N" data-uid="'.encrypt_url($r->id).'" data-href="'.base_url('backend/users/update_status').'" href="!#is_block" class="dropdown-item d-flex justify-content-between">
+                                    Active <i class="fas fa-check-circle text-success"></i>
                                  </a>';
             endif;
             if($r->is_restricted == 'N'):
-                $btn_is_restricted = '<a class="dropdown-item d-flex justify-content-between" href="#">
-                                        Restrected <i class="fas fa-star-of-life"></i>
+                $btn_is_restricted = '<a id="btn-restricted" data-val="Y" data-uid="'.encrypt_url($r->id).'" class="dropdown-item d-flex justify-content-between" data-href="'.base_url('backend/users/update_status/restricted').'" href="!#is_restrected">
+                                        Restrected <i class="fas fa-star-of-life text-danger"></i>
                                       </a>';
             else:
-                $btn_is_restricted = '<a class="dropdown-item d-flex justify-content-between" href="#">
-                                        Off Restrected <i class="fas fa-star-of-life"></i>
+                $btn_is_restricted = '<a id="btn-restricted" data-val="N" data-uid="'.encrypt_url($r->id).'" class="dropdown-item d-flex justify-content-between" data-href="'.base_url('backend/users/update_status/restricted').'" href="!#is_restrected">
+                                        Off Restrected <i class="fas fa-star-of-life text-success"></i>
                                       </a>';
             endif;
             $button = '<div class="dropdown">
@@ -64,8 +66,8 @@ class Users extends CI_Controller {
                               <a class="dropdown-item d-flex justify-content-between" href="'.base_url("privileges/".encrypt_url($r->id)).'">
                                 Privileges <i class="fas fa-user-lock"></i>
                               </a>
-                              <a id="resspwd" data-uid="'.encrypt_url($r->id).'" class="dropdown-item d-flex justify-content-between text-warning" href="!#resspwd">
-                                Reset Password <i class="fas fa-key"></i>
+                              <a id="resspwd" data-uid="'.encrypt_url($r->id).'" class="dropdown-item d-flex justify-content-between" href="!#resspwd">
+                                Reset Password <i class="fas fa-key text-warning"></i>
                               </a>
                             </div>
                         </div>';
@@ -96,6 +98,25 @@ class Users extends CI_Controller {
             );
         //output to json format
         echo json_encode($output);
+    }
+
+    public function update_status($ch='')
+    {
+        $p = $this->input->post();
+        $whr = ['id' => decrypt_url($p['uid'])];
+        if($ch === 'restricted') {
+            $data = ['is_restricted' => $p['status']];
+        } else {
+            $data = ['is_block' => $p['status']];
+        }
+        $db = $this->users->update_tbl('t_users',$data,$whr);
+        if($db)
+        {
+            $valid = ['valid' => true];
+        } else {
+            $valid = ['valid' => false];
+        }
+        echo json_encode($valid);
     }
 
     public function baru()
@@ -193,7 +214,8 @@ class Users extends CI_Controller {
             'title' => 'e-Survei | Reset Password',
             'content' => 'Backend/pages/users_resspwd',
             'uid' => $uid,
-            'user_id' => decrypt_url($uid)
+            'user_id' => decrypt_url($uid),
+            'profile' => $this->users->profile_id($uid)->row()
         ];
         $this->load->view('Backend/layout/app', $data); 
     }

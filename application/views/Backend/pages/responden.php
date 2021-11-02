@@ -5,6 +5,7 @@ if(privileges('priv_responden') === false):
 	return false;
 endif;
 ?>
+<?php if($this->session->userdata('role') === 'SUPER_USER' || $this->session->userdata('role') === 'ADMIN'): ?>
 <div class="row mb-2">
 	<div class="col-xl-12">
 		<div class="input-group">
@@ -41,6 +42,7 @@ endif;
 		</div>
 	</div>
 </div>
+<?php endif; ?>
 <!-- </div> -->
 <?php 
 	if(sub_privilege('sub_responden', 'r') === false): 
@@ -51,6 +53,7 @@ endif;
 <div class="row">
 	<div class="col-xl-12">
 		<div class="card">
+			<?php if($this->session->userdata('role') === 'SUPER_USER' || $this->session->userdata('role') === 'ADMIN'): ?>
 			<div class="card-header">
 				<div class="row">
 					<div class="col-xl-5 px-0">
@@ -65,6 +68,7 @@ endif;
 					</div>
 				</div>
 			</div>
+			<?php endif; ?>
 			<div class="card-body px-0 py-4">
 				<!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 				<div class="table-responsive">
