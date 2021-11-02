@@ -126,19 +126,19 @@ class M_users extends CI_Model {
     return $q;
   }
 
-	public function get_privileges_sub($user_id,$col,$priv_key)
+	public function get_privileges_sub($user_id,$col)
 	{
 		$q = $this->db->get_where('t_sub_privileges', ['fid_user' => decrypt_url($user_id)]);
 		if($q->num_rows() > 0):
 			$r = $q->row();
 	     	$data = explode(",", $r->$col);	
-	     	foreach ($data as $key => $value) {
-	     		$priv[$key] = $value;
-	     	}
-	     	$privilege = isset($priv[$priv_key]) ? $priv[$priv_key] : 0;  
-	     	$result =  $privilege;
+	     	// foreach ($data as $key => $value) {
+	     	// 	$priv[$key] = $value;
+	     	// }
+	     	// $privilege = isset($priv[$priv_key]) ? $priv[$priv_key] : 0;  
+	     	$result =  $data;
 	    else:
-	    	$result = 0;
+	    	$result = [];
 		endif;
 		return $result;
 	}

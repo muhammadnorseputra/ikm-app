@@ -1,5 +1,5 @@
 <?php 
-   if(privileges('priv_daftar_pertanyaan') == false): 
+   if(privileges('priv_daftar_pertanyaan') === false): 
       $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
       return false;
    endif;
@@ -54,11 +54,19 @@
 				            </tr>
 				        </thead>
 				        <tbody class="list">
+				        	<?php  
+				                if(sub_privilege('sub_pertanyaan', 'r') === false): 
+				                echo "<tr> <td colspan='3'>";
+				                  $this->load->view('Backend/pages/notif_mod_dibatasi');
+				                echo "</td></tr>";
+				                else: 
+				              ?>
 				        	<?php if($list_pertanyaan->num_rows() > 0): ?>
 				        		<?php 
 				        			foreach($list_pertanyaan->result() as $p): 
 				        			$active = $p->status == 'N' ? 'bg-gradient-danger text-white' : '';
 				        		?>
+				        		
 				        			<tr class="<?= $active ?>">
 				        					<td>
 				        						<!-- Default dropright button -->
@@ -77,6 +85,7 @@
 				        			</tr>
 				        		<?php endforeach; ?>
 				        	<?php endif; ?>
+				        <?php endif; ?>
 				        </tbody>
 				    </table>
 				</div>

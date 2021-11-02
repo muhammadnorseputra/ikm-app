@@ -1,5 +1,5 @@
 <?php 
-   if(privileges('priv_jenis_layanan') == false || sub_privilege('sub_jenis_layanan', 1) !== 'r'): 
+   if(privileges('priv_jenis_layanan') === false || sub_privilege('sub_jenis_layanan', 'r') === false): 
       $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
       return false;
    endif;
@@ -45,7 +45,7 @@
 	<div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
 		<div class="modal-content">
 			<?php 
-                if(sub_privilege('sub_jenis_layanan', 2) !== 'u'): 
+                if(sub_privilege('sub_jenis_layanan', 'u') === false): 
                   $this->load->view('Backend/pages/notif_mod_dibatasi', ['pesan' => 'Anda tidak dapat mengakses fitur ini']);	
                 else:
             ?>

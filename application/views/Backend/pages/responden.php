@@ -1,6 +1,6 @@
 <!-- <div class="container"> -->
 <?php 
-if(privileges('priv_responden') == false): 
+if(privileges('priv_responden') === false): 
 	$this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
 	return false;
 endif;
@@ -43,7 +43,7 @@ endif;
 </div>
 <!-- </div> -->
 <?php 
-	if(sub_privilege('sub_responden', 0) !== 'r'): 
+	if(sub_privilege('sub_responden', 'r') === false): 
 		$this->load->view('Backend/pages/notif_mod_dibatasi');
 		return false;
 	endif;
@@ -65,7 +65,7 @@ endif;
 					</div>
 				</div>
 			</div>
-			<div class="card-body px-0 py-4">	
+			<div class="card-body px-0 py-4">
 				<!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 				<div class="table-responsive">
 					<table class="table align-items-center dt-responsive nowrap table-hover" id="table-responden">

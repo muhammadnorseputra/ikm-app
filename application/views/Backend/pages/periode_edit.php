@@ -8,7 +8,7 @@
 	<div class="col-12 col-xl-6 offset-xl-3">
 		<div class="card">
       <?php 
-        if(sub_privilege('sub_periode', 2) !== 'u'): 
+        if(sub_privilege('sub_periode', 'u') === false): 
           $this->load->view('Backend/pages/notif_mod_dibatasi');
         else:
       ?>
@@ -60,7 +60,7 @@
               </div>
               <div class="row">
                 <?php 
-                  if(sub_privilege('sub_periode', 3) !== 'd'): 
+                  if(sub_privilege('sub_periode', 'd') === false): 
                     $this->load->view('Backend/pages/notif_mod_dibatasi', ['pesan' => 'Fitur hapus tidak di ijinkan']);
                   else:
                 ?>

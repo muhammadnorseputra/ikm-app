@@ -12,7 +12,7 @@
 		<div class="card">
 			<?= form_open(base_url('backend/users/privileges_update'), ['id' => 'f_privilege'], ['f_type' => 'privilege', 'uid' => encrypt_url($uid)]); ?>
 			<div class="card-header">
-				<span class="h3">Set Privileges</span>
+				<span class="h3">Set Privileges (<?= ucwords($profile->nama) ?>::<?= $profile->username ?>)</span>
 			</div>
 			<div class="card-body">
 				<?php 
@@ -78,7 +78,7 @@
 		<div class="card">
 			<?= form_open(base_url('backend/users/privileges_update'), ['id' => 'f_sub_privilege'], ['f_type' => 'sub_privilege', 'uid' => encrypt_url($uid)]); ?>
 			<div class="card-header">
-				<span class="h3">Sub Privileges</span>
+				<span class="h3">Sub Privileges (<?= ucwords($profile->nama) ?>::<?= $profile->username ?>)</span>
 			</div>
 			<div class="card-body">
 				<?php  

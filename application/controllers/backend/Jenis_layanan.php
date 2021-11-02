@@ -31,7 +31,7 @@ class Jenis_layanan extends CI_Controller {
                       <i class="fas fa-edit"></i>
                 </button>';
         
-            if(sub_privilege('sub_jenis_layanan', 3) !== 'd'): 
+            if(sub_privilege('sub_jenis_layanan', 'd') === false): 
             $button .= '<button class="btn btn-sm btn-danger rounded-circle btn-icon-only text-white" title="Disabled" role="button" disabled>
                       <i class="fas fa-trash"></i>
                 </button>';   

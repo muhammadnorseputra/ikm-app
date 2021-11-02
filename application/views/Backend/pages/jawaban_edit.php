@@ -11,7 +11,7 @@
 	    <?php endif; ?>
 		<div class="card">
 			<?php 
-	            if(sub_privilege('sub_jawaban', 2) !== 'u'): 
+	            if(sub_privilege('sub_jawaban', 'u') === false): 
 	              $this->load->view('Backend/pages/notif_mod_dibatasi');
 	            else:
 	        ?>
@@ -32,7 +32,7 @@
 							 	<input type="text" name="poin[<?= $j->id ?>]" class="form-control" id="poin" value="<?= $j->poin ?>">
 							</div>
 						    <?php 
-					            if(sub_privilege('sub_jawaban', 3) !== 'd'): 
+					            if(sub_privilege('sub_jawaban', 'd') === false): 
 					              echo '<a class="btn btn-sm btn-secondary rounded text-gray mt--2" data-toggle="tooltip" title="Disabled" disabled><i class="fas fa-trash"></i></a>';
 					            else:
 				        	?>
@@ -43,9 +43,9 @@
 				</div>
 				</div>
 			</div>
-			<div class="card-footer d-flex justify-content-between">
-				<button class="btn btn-link" type="button" onclick="window.location.href = '<?= base_url('jawaban') ?>'">Batal</button>
+			<div class="card-footer">
 				<button class="btn btn-primary" type="submit">Update Batch</button>
+				<button class="btn btn-link" type="button" onclick="window.location.href = '<?= base_url('jawaban') ?>'">Batal</button>
 			</div>
 			<?= form_close(); ?>
 			<?php endif; ?>

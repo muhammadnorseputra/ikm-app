@@ -31,7 +31,7 @@
 						</thead>
 						<tbody class="list">
 						<?php 
-				            if(sub_privilege('sub_pekerjaan', 1) !== 'r'): 
+				            if(sub_privilege('sub_pekerjaan', 'r') === false): 
 				              echo "<tr><td colspan='4'>";
 				              $this->load->view('Backend/pages/notif_mod_dibatasi');
 				              echo "</td></tr>";
@@ -45,7 +45,7 @@
 								<td class="id d-none"><?= encrypt_url($p->id) ?></td>
 								<td>
 									<?php 
-							            if(sub_privilege('sub_pekerjaan', 2) !== 'u'): 
+							            if(sub_privilege('sub_pekerjaan', 'u') === false): 
 							              echo '<button class="btn btn-sm btn-icon-only text-primary" title="Disabled" role="button" type="button" disabled>
 										<i class="fas fa-edit"></i>
 										</button>';
@@ -58,7 +58,7 @@
 								</td>
 								<td>
 								<?php 
-						            if(sub_privilege('sub_pekerjaan', 3) !== 'd'): 
+						            if(sub_privilege('sub_pekerjaan', 'd') === false): 
 						              echo '<button class="btn btn-sm btn-icon-only text-danger" title="Disabled" disabled><i class="fas fa-trash"></i></button>';
 						            else:
 						        ?>
@@ -88,7 +88,7 @@
 			</div>
 			<div class="card-body">
 			<?php 
-	            if(sub_privilege('sub_pekerjaan', 0) !== 'c'): 
+	            if(sub_privilege('sub_pekerjaan', 'c') === false): 
 	              $this->load->view('Backend/pages/notif_mod_dibatasi');
 	            else:
 	        ?>

@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<?php 
-	            if(sub_privilege('sub_pertanyaan', 2) !== 'u'): 
+	            if(sub_privilege('sub_pertanyaan', 'u') === false): 
 	              $this->load->view('Backend/pages/notif_mod_dibatasi');
 	            else:
 	          ?>

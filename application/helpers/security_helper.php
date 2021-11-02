@@ -95,7 +95,13 @@ if ( ! function_exists('privileges'))
       function sub_privilege($col,$key)
       {
           $ci = get_instance();
-          $r = $ci->users->get_privileges_sub($ci->session->userdata('user_id'), $col, $key);
-          return $r;
+          $r = $ci->users->get_privileges_sub($ci->session->userdata('user_id'), $col);
+          $search = array_search($key, $r);
+          if($search === false) {
+            $result = false;
+          } else {
+            $result = true;
+          }
+          return $result;
       }
  }

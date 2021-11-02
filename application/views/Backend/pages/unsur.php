@@ -1,5 +1,5 @@
 <?php 
-   if(privileges('priv_unsur') == false): 
+   if(privileges('priv_unsur') === false): 
       $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
       return false;
    endif;
@@ -28,7 +28,7 @@
 					</div>
 					<div class="col-4 col-xl-6 text-right">
 						<?php 
-				            if(sub_privilege('sub_unsur', 0) !== 'c'): 
+				            if(sub_privilege('sub_unsur', 'c') === false): 
 				              echo '<button type="button" class="btn btn-primary" title="Fitur Tambah Di Nonaktifkan" disabled><i class="fas fa-plus mr-2"></i>Baru</button>';	
 				            else:
 				        ?>
@@ -51,7 +51,7 @@
 						</thead>
 						<tbody class="list">
 							<?php 
-					            if(sub_privilege('sub_unsur', 1) !== 'r'): 
+					            if(sub_privilege('sub_unsur', 'r') === false): 
 					            echo "<tr><td colspan='2'>";
 					               $this->load->view('Backend/pages/notif_mod_dibatasi');
 					            echo "</td></tr>";
@@ -64,7 +64,7 @@
 							<tr>
 								<td>
 									<?php 
-							            if(sub_privilege('sub_unsur', 2) !== 'u'): 
+							            if(sub_privilege('sub_unsur', 'u') === false): 
 							              echo '<button id="edit-unsur" title="Disabled" class="btn btn-sm btn-icon-only text-light" role="button" disabled>
 										<i class="fas fa-edit"></i>
 										</button>';	

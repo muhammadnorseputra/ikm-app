@@ -1,5 +1,5 @@
 <?php 
-   if(privileges('priv_daftar_jawaban') == false): 
+   if(privileges('priv_daftar_jawaban') === false): 
       $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
       return false;
    endif;
@@ -17,7 +17,7 @@
 	      <?php endif; ?>
 	</div>
 		<?php 
-            if(sub_privilege('sub_jawaban', 1) !== 'r'): 
+            if(sub_privilege('sub_jawaban', 'r') === false): 
               $this->load->view('Backend/pages/notif_mod_dibatasi');
             else:
         ?>
@@ -76,7 +76,7 @@
 	            </button>
 	        </div>
 	        <?php 
-	            if(sub_privilege('sub_jawaban', 0) !== 'c'): 
+	            if(sub_privilege('sub_jawaban', 'c') === false): 
 	              $this->load->view('Backend/pages/notif_mod_dibatasi');
 	            else:
 	          ?>

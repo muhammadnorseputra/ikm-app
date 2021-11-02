@@ -13,7 +13,7 @@
 			<?= form_open(base_url('backend/jenis_layanan/insert')); ?>
 			<div class="card-body">
 			<?php 
-                if(sub_privilege('sub_jenis_layanan', 0) !== 'c'): 
+                if(sub_privilege('sub_jenis_layanan', 'c') === false): 
                   $this->load->view('Backend/pages/notif_mod_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);	
                 else:
             ?>

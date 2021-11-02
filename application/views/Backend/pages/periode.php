@@ -1,5 +1,5 @@
 <?php 
-   if(privileges('priv_periode') == false): 
+   if(privileges('priv_periode') === false): 
       $this->load->view('Backend/pages/notif_page_dibatasi', ['pesan' => 'Anda tidak dapat mengakses halaman ini']);
       return false;
    endif;
@@ -19,13 +19,18 @@
    <?php 
       foreach($list_periode->result() as $p): 
       $status = $p->status == 'ON' ? 'bg-white' : 'bg-default'; 
-      $text_color = $p->status == 'ON' ? 'text-default' : 'text-white'; 
+      $text_color = $p->status == 'ON' ? 'text-default' : 'text-white';
    ?>
    <div class="col-xl-4">
       <div class="card card-stats <?= $status ?>">
          <!-- Card body -->
          <div class="card-body">
             <div class="row">
+              <?php  
+                if(sub_privilege('sub_periode', 'r') === false): 
+                  $this->load->view('Backend/pages/notif_mod_dibatasi');
+                else: 
+              ?>
                <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Target/Realisasi</h5>
                   <?php  
@@ -34,6 +39,7 @@
                   ?>
                   <span class="h2 font-weight-bold mb-0 <?= $text_color ?>"><?= $p->target ?>/<?= number_format($persentase, 1); ?>%</span>
                </div>
+              <?php endif; ?>
                <div class="col-auto">
                   <a href="<?= base_url('periode/edit/'.encrypt_url($p->id)) ?>" class="btn btn-icon btn-primary d-flex justify-content-center align-items-center h-100" type="button">
                   <span class="btn-inner--icon"><i class="ni ni-settings"></i></span>
@@ -73,7 +79,7 @@
             </button>
          </div>
          <?php 
-            if(sub_privilege('sub_periode', 0) !== 'c'): 
+            if(sub_privilege('sub_periode', 'c') === false): 
               $this->load->view('Backend/pages/notif_mod_dibatasi');
             else:
           ?>

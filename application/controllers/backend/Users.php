@@ -162,7 +162,8 @@ class Users extends CI_Controller {
         $data = [
             'title' => 'e-Survei | User Privileges',
             'content' => 'Backend/pages/users_privileges',
-            'uid' => decrypt_url($uid)
+            'uid' => decrypt_url($uid),
+            'profile' => $this->users->profile_id($uid)->row()
         ];
         // Update Preferensi
         $cek_preferensi = $this->users->get_privileges_count('t_preferensi',$data['uid']);
@@ -217,8 +218,6 @@ class Users extends CI_Controller {
             }
 
         } elseif($type === 'sub_privilege') {
-
-            $act = [0 => 'c', 1 => 'r', 2 => 'u', 3 => 'd'];
             
             $data = [
                 'fid_user' => $uid,
@@ -231,22 +230,22 @@ class Users extends CI_Controller {
                 'sub_pendidikan' => implode(",", $p['sub_priv_pendidikan']),
                 'sub_pekerjaan' => implode(",", $p['sub_priv_pekerjaan'])            
             ];
-            // $tbl = 't_sub_privileges';
-            // $cek_privilege = $this->users->get_privileges_count($tbl,$uid);
-            // if($cek_privilege->num_rows() == 0) {
-            //     $db = $this->users->insert($tbl,$data);
-            // } else {
-            //     $db = $this->users->update_tbl($tbl,$data,['fid_user' => $uid]);
-            // }
-            // if($db)
-            // {
-            //     $this->session->set_flashdata(['pesan' => 'Sub Privileges Berhasil', 'pesan_type' => 'success']);
-            // } else {
-            //     $this->session->set_flashdata(['pesan' => 'Sub Privileges Gagal', 'pesan_type' => 'danger']);
-            // }
+            $tbl = 't_sub_privileges';
+            $cek_privilege = $this->users->get_privileges_count($tbl,$uid);
+            if($cek_privilege->num_rows() == 0) {
+                $db = $this->users->insert($tbl,$data);
+            } else {
+                $db = $this->users->update_tbl($tbl,$data,['fid_user' => $uid]);
+            }
+            if($db)
+            {
+                $this->session->set_flashdata(['pesan' => 'Sub Privileges Berhasil', 'pesan_type' => 'success']);
+            } else {
+                $this->session->set_flashdata(['pesan' => 'Sub Privileges Gagal', 'pesan_type' => 'danger']);
+            }
         }
-        echo json_encode($data);
-        // redirect(base_url('privileges/'.$p['uid']));
+        // echo json_encode($data);
+        redirect(base_url('privileges/'.$p['uid']));
     }
 
     public function role($id)
