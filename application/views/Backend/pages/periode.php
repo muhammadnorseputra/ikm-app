@@ -55,7 +55,7 @@
    </div>
    <?php endforeach; ?>
 
-   <div class="col-xl-2">
+   <div class="col-xl-3">
       <div class="card bg-default">
          <div class="card-body align-self-center">
             <button class="btn btn-icon btn-default rounded-pill" type="button" data-toggle="modal" data-target="#modal-periode">

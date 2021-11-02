@@ -50,7 +50,7 @@ class Users extends CI_Controller {
                               <a class="dropdown-item d-flex justify-content-between" href="'.base_url("privileges/".encrypt_url($r->id)).'">
                                 Privileges <i class="fas fa-user-lock"></i>
                               </a>
-                              <a class="dropdown-item d-flex justify-content-between text-warning" href="#">
+                              <a id="resspwd" data-uid="'.encrypt_url($r->id).'" class="dropdown-item d-flex justify-content-between text-warning" href="!#resspwd">
                                 Reset Password <i class="fas fa-key"></i>
                               </a>
                             </div>
@@ -155,6 +155,33 @@ class Users extends CI_Controller {
          } else {
              return false;
          }
+    }
+
+    public function resspwd_act()
+    {
+        $uid = $this->input->post('uid');
+        if(!$uid) {
+            $msg = ['redirectTo' => base_url('users')];
+        } else {
+            $msg = ['redirectTo' => base_url('resspwd/'.$uid)];
+        }
+        echo json_encode($msg);
+    }
+
+    public function resspwd($uid)
+    {
+        if($this->users->profile_id($uid)->num_rows() === 0) {
+            redirect(base_url('users'));
+            return false;
+        }
+
+        $data = [
+            'title' => 'e-Survei | Reset Password',
+            'content' => 'Backend/pages/users_resspwd',
+            'uid' => $uid,
+            'user_id' => decrypt_url($uid)
+        ];
+        $this->load->view('Backend/layout/app', $data); 
     }
 
     public function privileges($uid)

@@ -72,6 +72,20 @@
 				"emptyTable": "No matching records found, please filter this data"
 			},
 		});
+
+		$(document).on("click", "a#resspwd", function(event){
+			event.preventDefault();
+			var $this = this;
+			var $uid = $this.dataset.uid;
+			var $url = `${_uri}/backend/users/resspwd_act`;
+			var $data = {uid: $uid};
+			$.post($url,$data,response,'json');
+		});
+
+		function response(res) {
+			window.location.href = res.redirectTo;
+			console.log(res);
+		}
 	})
 </script>
 <script src="<?= base_url('template/argon/vendor/datatables.net/js/jquery.dataTables.min.js') ?>"></script>
