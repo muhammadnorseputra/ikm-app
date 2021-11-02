@@ -33,6 +33,24 @@ class Users extends CI_Controller {
         $no = $_POST['start'];
         foreach ($db as $r) {
             $pic = "<img src='".base_url('assets/images/pic/'.$r->pic)."' width='30' class='rounded'>";
+            if($r->is_block == 'N'):
+                $btn_is_block = '<a class="dropdown-item d-flex justify-content-between" href="#">
+                                    Non Active <i class="fas fa-ban"></i>
+                                 </a>';
+            else:
+                $btn_is_block = '<a class="dropdown-item d-flex justify-content-between" href="#">
+                                    Active <i class="fas fa-ban"></i>
+                                 </a>';
+            endif;
+            if($r->is_restricted == 'N'):
+                $btn_is_restricted = '<a class="dropdown-item d-flex justify-content-between" href="#">
+                                        Restrected <i class="fas fa-star-of-life"></i>
+                                      </a>';
+            else:
+                $btn_is_restricted = '<a class="dropdown-item d-flex justify-content-between" href="#">
+                                        Off Restrected <i class="fas fa-star-of-life"></i>
+                                      </a>';
+            endif;
             $button = '<div class="dropdown">
                             <a class="btn btn-sm btn-icon-only text-light bg-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <i class="fas fa-ellipsis-v"></i>
@@ -41,12 +59,8 @@ class Users extends CI_Controller {
                               <a class="dropdown-item d-flex justify-content-between" href="#">
                                 Edit <i class="fas fa-edit small"></i> 
                               </a>
-                              <a class="dropdown-item d-flex justify-content-between" href="#">
-                                Non Active <i class="fas fa-ban"></i>
-                              </a>
-                              <a class="dropdown-item d-flex justify-content-between" href="#">
-                                Restrected <i class="fas fa-star-of-life"></i>
-                              </a>
+                              '.$btn_is_block.'
+                              '.$btn_is_restricted.'
                               <a class="dropdown-item d-flex justify-content-between" href="'.base_url("privileges/".encrypt_url($r->id)).'">
                                 Privileges <i class="fas fa-user-lock"></i>
                               </a>
