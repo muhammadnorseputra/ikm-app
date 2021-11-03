@@ -203,6 +203,35 @@ class Users extends CI_Controller {
         echo json_encode($msg);
     }
 
+    public function resspwd_aksi()
+    {
+        $p = $this->input->post();
+        $this->form_validation->set_rules('newpwd', 'Password', 'trim|required|min_length[4]|max_length[12]');
+        $this->form_validation->set_rules('newpwd_confirm', 'Re-Type Password', 'required|matches[newpwd]');
+        $this->form_validation->set_rules('username_confirm', 'Username Confirm', 'required');
+        if ($this->form_validation->run() == false) {
+            $msg = ['valid' => false, 'pesan' => validation_errors()];
+        } else {
+            if($p['username_confirm'] === $this->session->userdata('user_name')):
+                $uid = decrypt_url($p['uid']);
+                $data = [
+                    'password' => sha1($p['newpwd'])
+                ];
+                $whr = ['id' => $uid];
+
+                $db = $this->users->update_tbl('t_users',$data,$whr);
+                if($db) {
+                    $msg = ['valid' => true, 'pesan' => 'Password '.$p["user_name"].' Berhasil Diubah.', 'redirectUrl' => base_url('users')];
+                } else {
+                    $msg = ['valid' => false, 'pesan' => 'Ops!, password '.$p["user_name"].' gagal diubah.'];
+                }
+            else:
+                $msg = ['valid' => false, 'pesan' => 'Konfirmasi Username Tidak Valid'];
+            endif;
+        }
+        echo json_encode($msg);
+    }
+
     public function resspwd($uid)
     {
         if($this->users->profile_id($uid)->num_rows() === 0) {
@@ -425,7 +454,7 @@ class Users extends CI_Controller {
     public function update_profile_pwd()
     {
         $user_id = $this->session->userdata('user_id');
-        $profile = $this->users->profile(decrypt_url($user_id))->row();
+        $profile = $this->users->profile_id($user_id)->row();
         $true_token = $this->session->csrf_token;
         $p = $this->input->post();
         

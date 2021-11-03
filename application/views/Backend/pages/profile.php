@@ -111,12 +111,21 @@
                         <input type="password" autocomplete="off" name="new_pwd" id="input-new-pwd" class="form-control" placeholder="Masukan Password Baru">
                       </div>
                     </div>
+                    <div class="col-lg-1 align-self-center text-center">
+                        <label class="form-check-label">
+                          <span toggle="#input-new-pwd,#input-old-pwd" class="fa fa-fw fa-eye-slash toggle-password mr-2"></span>
+                          <small class="text_pw">Show</small>
+                      </label>
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-4">
                       <div class="form-group">
                         <button class="btn btn-primary" type="submit">Reset Password</button>
                       </div>
+                    </div>
+                    <div class="col-lg-8 align-self-center">
+                      
                     </div>
                   </div>
                 <?= form_close(); ?>
@@ -169,5 +178,18 @@
         }
       }
 
+      // Toggle show pwd
+    $(".toggle-password").click(function() {
+          $(this).toggleClass("fa-eye fa-eye-slash");
+          var input = $($(this).attr("toggle"));
+          var textPw = $("small.text_pw");
+          if (input.attr("type") == "password") {
+              input.attr("type", "text");
+              textPw.text('Hide');
+          } else {
+              input.attr("type", "password");
+              textPw.text('Show');
+          }
+      });
     });
 </script>

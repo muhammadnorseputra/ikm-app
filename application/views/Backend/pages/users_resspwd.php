@@ -6,7 +6,7 @@
 				<?= form_open(base_url('backend/users/resspwd_aksi'), ['id' => 'f_new_pwd','class' => 'form-horizontal', 'autocomplete' => 'off'], ['uid' => $uid]); ?>
 					<div class="form-group">
 						<label for="username">Username</label>
-				    	<input type="text" class="form-control" id="username" value="<?= $profile->username ?>" disabled>
+				    	<input type="text" name="user_name" class="form-control" id="username" value="<?= $profile->username ?>" readonly>
 					</div>
 					<div class="form-group">
 						<label for="password">New Password</label>
@@ -39,8 +39,18 @@
 		var $form = $("#f_new_pwd");
 		$form.submit(function(event) {
 			event.preventDefault();
-			alert('ok');
+			var $this = $(this);
+			$.post($this.attr('action'), $this.serialize(), response, 'json');
 		});
+
+		function response(res) {
+			alert(res.pesan);
+			if(res.valid === true) {
+				window.location.href = res.redirectUrl;
+			}
+			// console.log(res);
+		}
+
 		// Cek Confirm
 		var $confirm_input = $form.find("input[name='username_confirm']");
 		var $confirm_btn = $form.find("button[type='submit']");
