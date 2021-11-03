@@ -48,6 +48,7 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 						<li><a class="dropdown-item" href="#ikm-unit">IKM Unit Layanan</a></li>
 						<li><a class="dropdown-item" href="#ikm-responden">Karakter Responden</a></li>
 						<li><a class="dropdown-item" href="#ikm-rekap">Perbandingan Pertahun</a></li>
+						<li><a class="dropdown-item" href="#ikm-persepsi">IKM Persepsi</a></li>
 					</ul>
 				</div>
 			</div>
@@ -272,6 +273,58 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 							<td><?= $predikat['y'] ?></td>
 						</tr>
 						<?php $no++; endforeach; ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row" id="ikm-persepsi">
+			<?php  
+			$unsur_id = 1;
+			$unsur_layanan = $this->lap->unsur_layanan($unsur_id)->row();
+			$pertanyaan = $this->lap->pertanyaan($unsur_id)->row();
+			$jawaban = $this->lap->jawaban($unsur_id)->result();
+			$responden_detail = $this->lap->responden_by_tahun_periode($tahun,$periode)->result();
+			?>
+			<div class="fw-bold fs-4">#Skala Linkert Berdasarkan Persepsi Unsur Layanan</div>
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="text-center fw-bold fs-5"><?= $unsur_layanan->jdl_unsur ?></th>
+						</tr>
+						<tr>
+							<th class="text-center fw-bold fs-5"><?= $pertanyaan->jdl_pertanyaan ?> ?</th>
+						</tr>
+					</thead>
+				</table>
+				<table class="table">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Frequency</th>
+							<th>Persentase</th>
+							<th>Akumulasi</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php  
+							$jawaban_pecah = [];
+							foreach($responden_detail as $key => $val):
+								$jawaban_pecah[] = explode(",",$val->jawaban_responden);
+							endforeach;
+
+							var_dump($jawaban_pecah);
+							foreach($jawaban as $j):
+							$cari = $jawaban_pecah[0];
+							// var_dump($cari);
+						?>
+							<tr>
+								<th><?= $j->id ?> <?= $j->jdl_jawaban ?></th>
+								<td>1</td>
+								<th>2</th>
+								<th>3</th>
+							</tr>
+						<?php endforeach; ?>
 					</tbody>
 				</table>
 			</div>
