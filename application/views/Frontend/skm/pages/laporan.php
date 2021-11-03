@@ -308,15 +308,15 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 					</thead>
 					<tbody>
 						<?php  
+							// Jawaban Responden
 							$jawaban_pecah = [];
 							foreach($responden_detail as $key => $val):
 								$jawaban_pecah[] = explode(",",$val->jawaban_responden);
 							endforeach;
 
-							var_dump($jawaban_pecah);
 							foreach($jawaban as $j):
-							$cari = $jawaban_pecah[0];
-							// var_dump($cari);
+							$total = $this->lap->total_responden_by_jawaban($j->id);
+							var_dump($total);
 						?>
 							<tr>
 								<th><?= $j->id ?> <?= $j->jdl_jawaban ?></th>

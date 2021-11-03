@@ -214,4 +214,18 @@ class Skm_laporan extends CI_Model {
 	{
 		return $this->db->get_where('skm_jawaban', ['fid_pertanyaan' => $id]);
 	}
+	public function total_responden_by_jawaban($jawaban_id)
+	{
+		$this->db->select('jawaban_responden');
+		$this->db->from('skm');
+		$this->db->like('jawaban_responden', $jawaban_id);
+		$q = $this->db->get()->result();
+		$j=[];
+		foreach($q as $r){
+			$j[] = explode(",", $r->jawaban_responden);
+		}
+		// $t = $j);
+		return $j;
+		// return array_count_values($j);
+	}
 }
