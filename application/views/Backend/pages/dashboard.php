@@ -6,7 +6,7 @@
         <div class="row align-items-center">
           <div class="col">
             <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
-            <h5 class="h3 text-white mb-0">Total Responden</h5>
+            <h5 class="h3 text-white mb-0">Trend Responden's</h5>
           </div>
           <div class="col">
             <ul class="nav nav-pills justify-content-end">
@@ -40,7 +40,7 @@
       <div class="card-header bg-transparent">
         <div class="row align-items-center">
           <div class="col">
-            <h6 class="text-uppercase text-muted ls-1 mb-1">Total Responden</h6>
+            <h6 class="text-uppercase text-muted ls-1 mb-1">Trend Responden's</h6>
             <h5 class="h3 mb-0">Periode (<?= date('Y') ?>)</h5>
           </div>
         </div>
@@ -79,13 +79,13 @@
             </tr>
           </thead>
           <tbody>
+
             <?php foreach($responden_per_pertanyaan['pertanyaan'] as $rp): ?>
             <tr>
               <th scope="row">
                 <?= $rp ?>
               </th>
               <td>
-                340
               </td>
               <td>
                 <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%

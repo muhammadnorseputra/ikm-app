@@ -89,14 +89,16 @@ class Console extends CI_Controller
             $j_responden[] = $this->skm->_get_jawaban_responden($u->id);
         endforeach;
         
-        foreach($tanya->result() as $t) {
+        foreach($tanya->result() as $k => $t) {
             $jawaban[] = $this->skm->get_jawaban($t->id)->result();
-            $data_jawab[] = $jawaban;
+            $data_jawab[] = $jawaban[$k];
             $data_tanya[] = $t->jdl_pertanyaan;
         }
 
+        $j = array_merge([], ...$jawaban);
+
         // $this->output->set_content_type('application/json');
-        return (['pertanyaan' => $data_tanya, 'jawaban' => $jawaban, 'jawaban_responden' => $j_responden]);
+        return (['pertanyaan' => $data_tanya, 'jawaban' => $j, 'jawaban_responden' => $j_responden]);
     }
 
     public function auto_complete()

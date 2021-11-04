@@ -292,6 +292,7 @@ class Users extends CI_Controller {
                 'priv_pendidikan' => !empty($p['priv_pendidikan']) ? $p['priv_pendidikan'] : "N",
                 'priv_pekerjaan' => !empty($p['priv_pekerjaan']) ? $p['priv_pekerjaan'] : "N",
                 'priv_users' => !empty($p['priv_users']) ? $p['priv_users'] : "N",
+                'priv_report' => !empty($p['priv_report']) ? $p['priv_report'] : "N"
             ];
             $tbl = 't_privileges';
             $cek_privilege = $this->users->get_privileges_count($tbl,$uid);

@@ -33,6 +33,7 @@
 					$priv_pendidikan = !empty($cek_priv->priv_pendidikan) && $cek_priv->priv_pendidikan  == 'Y' ? 'checked' : '';
 					$priv_pekerjaan = !empty($cek_priv->priv_pekerjaan) && $cek_priv->priv_pekerjaan  == 'Y' ? 'checked' : '';
 					$priv_users = !empty($cek_priv->priv_users) && $cek_priv->priv_users  == 'Y' ? 'checked' : '';
+					$priv_report = !empty($cek_priv->priv_report) && $cek_priv->priv_report  == 'Y' ? 'checked' : '';
 				?>
 				<div class="custom-control custom-checkbox custom-control-inline mb-3">
 				  <input type="checkbox" name="priv_default" class="custom-control-input" value="Y" id="priv_default" <?= $priv_default ?>>
@@ -73,6 +74,10 @@
 				<div class="custom-control custom-checkbox custom-control-inline mb-3">
 				  <input type="checkbox" name="priv_users" class="custom-control-input" value="Y" id="priv_users" <?= $priv_users ?>>
 				  <label class="custom-control-label" for="priv_users">Users</label>
+				</div>
+				<div class="custom-control custom-checkbox custom-control-inline mb-3">
+				  <input type="checkbox" name="priv_report" class="custom-control-input" value="Y" id="priv_report" <?= $priv_report ?>>
+				  <label class="custom-control-label" for="priv_report">Report</label>
 				</div>
 			</div>
 			<div class="card-footer">
