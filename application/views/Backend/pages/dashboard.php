@@ -102,7 +102,7 @@
       <div class="card-header border-0">
         <div class="row align-items-center">
           <div class="col">
-            <h3 class="mb-0">Rata-Rata Pilihan</h3>
+            <h3 class="mb-0">Cumulative Percent</h3>
           </div>
           <!-- <div class="col text-right">
             <a href="#!" class="btn btn-sm btn-primary">See all</a>
@@ -114,7 +114,7 @@
         <table class="table align-items-center table-flush">
           <thead class="thead-light">
             <tr>
-              <th scope="col">Jawaban</th>
+              <th scope="col">Persepsi</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -123,18 +123,22 @@
             if($ikm['data']['presentase'] != null): 
               foreach($ikm['data']['presentase'] as $key => $val): 
                 if($key == 'A'): 
+                  $persepsi = "Sangat Baik";
                   $col = 'success'; 
                 elseif($key == 'B'): 
+                  $persepsi = "Baik";
                   $col = 'info';
                 elseif($key == 'C'): 
+                  $persepsi = "Kurang Baik";
                   $col = 'warning'; 
                 elseif($key == 'D'): 
+                  $persepsi = "Tidak Baik";
                   $col = 'danger';
                 endif; 
             ?>
             <tr>
               <th scope="row">
-                <?= $key ?>
+                <?= $persepsi ?>
               </th>
               <td>
                 <div class="d-flex align-items-center">

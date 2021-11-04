@@ -51,7 +51,7 @@
                     $responden_tahun_ini = @$this->skm->skm_total_responden_per_tahun($_d->tahun);
                   ?>
                   <span class="text-success mr-2"><i class="fa fa-check-circle"></i> <?= !empty($_d->tahun) ? $_d->tahun : "-"; ?></span>
-                  <span class="text-nowrap">(Target: <?= !empty($responden_tahun_ini) ? $responden_tahun_ini : 0; ?>)</span>
+                  <span class="text-nowrap">(Sampel/Target: <b class="font-weight-bold"><?= !empty($responden_tahun_ini) ? $responden_tahun_ini : 0; ?></b>)</span>
                 </p>
               </div>
             </div>

@@ -206,6 +206,10 @@ class Skm_laporan extends CI_Model {
 	{
 		return $this->db->get_where('skm_unsur', ['id' => $id]);
 	}
+	public function unsur_layanan_all()
+	{
+		return $this->db->get('skm_unsur');
+	}
 	public function pertanyaan($id)
 	{
 		return $this->db->get_where('skm_pertanyaan', ['fid_unsur' => $id]);

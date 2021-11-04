@@ -50,7 +50,7 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 						<li><a class="dropdown-item" href="#ikm-unit">IKM Unit Layanan</a></li>
 						<li><a class="dropdown-item" href="#ikm-responden">Karakter Responden</a></li>
 						<li><a class="dropdown-item" href="#ikm-rekap">Perbandingan Pertahun</a></li>
-						<li><a class="dropdown-item" href="#ikm-persepsi">IKM Persepsi</a></li>
+						<li><a class="dropdown-item" href="#ikm-persepsi">Uji Frekuensi Unsur</a></li>
 					</ul>
 				</div>
 			</div>
@@ -281,21 +281,39 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 		</div>
 		<div class="row" id="ikm-persepsi">
 			<?php  
-			$unsur_id = 1;
+			$unsur_layanan_all = $this->lap->unsur_layanan_all();
+			$first_unsur = $unsur_layanan_all->row()->id;
+			$unsur_id = isset($_GET['uid']) ? decrypt_url($_GET['uid']) : $first_unsur;
 			$unsur_layanan = $this->lap->unsur_layanan($unsur_id)->row();
 			$pertanyaan = $this->lap->pertanyaan($unsur_id)->row();
 			$jawaban = $this->lap->jawaban($unsur_id)->result();
 			$responden_detail = $this->lap->responden_by_tahun_periode($tahun,$periode)->result();
+			$responden_count = $this->lap->responden_by_tahun_periode($tahun,$periode)->num_rows();
 			?>
-			<div class="fw-bold fs-4">#Skala Linkert Berdasarkan Persepsi Unsur Layanan</div>
+			<div class="fw-bold fs-4">#Uji Frekuensi Unsur Layanan</div>
+			<?= form_open(base_url('laporan'), ['method' => 'GET']); ?>
+			<div class="form-inline text-center">
+				<label for="pilih-layanan">Pilih Unsur</label>
+				<select name="uid" id="pilih-layanan">
+					<option value="">Pilih Unsur</option>
+					<?php 
+						foreach ($unsur_layanan_all->result() as $unsur): 
+						$selected = $unsur->id === $unsur_id ? 'selected' : '';
+					?>
+						<option value="<?= encrypt_url($unsur->id) ?>" <?= $selected ?>><?= $unsur->jdl_unsur ?></option>
+					<?php endforeach; ?>
+				</select>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+			<?= form_close(); ?>
 			<div class="table-responsive">
 				<table class="table">
 					<thead>
 						<tr>
-							<th class="text-center fw-bold fs-5"><?= $unsur_layanan->jdl_unsur ?></th>
+							<th class="text-center fw-bold fs-5 text-primary"><?= $unsur_layanan->jdl_unsur ?></th>
 						</tr>
 						<tr>
-							<th class="text-center fw-bold fs-5"><?= $pertanyaan->jdl_pertanyaan ?> ?</th>
+							<!-- <th class="text-center fw-bold fs-5 text-success"><?= $pertanyaan->jdl_pertanyaan ?> ?</th> -->
 						</tr>
 					</thead>
 				</table>
@@ -304,8 +322,9 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 						<tr>
 							<th></th>
 							<th>Frequency</th>
-							<th>Persentase</th>
-							<th>Akumulasi</th>
+							<th>Percent</th>
+							<th>Valid Percent</th>
+							<th>Cumulative Percent</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -315,22 +334,61 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 							foreach($responden_detail as $key => $val):
 								$jawaban_pecah[] = explode(",",$val->jawaban_responden);
 							endforeach;
-								$marge = array_merge($jawaban_pecah[0],$jawaban_pecah[1],$jawaban_pecah[2]);
+							$marge = array_merge([], ...$jawaban_pecah);
 							$total = array_count_values($marge);
-							// var_dump($total);
+							$no=1;
 							foreach($jawaban as $key => $val):
-							// $total = $this->lap->total_responden_by_jawaban($j->id);
-							// $total = array_count_values($jawaban_pecah[$val->id]);
-							var_dump(@$total[$val->id]);
+							$responden = @$total[$val->id] != 0 ? @$total[$val->id] : 0; 
+							$valid_percent[] = @number_format(($responden/$responden_count) * 100, 2);
+							$cumulative[] = $valid_percent[$key];
+							$cum_1 = $cumulative[0];
+							$cum_2 = @array_sum([$cum_1,$cumulative[1]]);
+							$cum_3 = @array_sum([$cum_2,$cumulative[2]]);
+							$cum_4 = @array_sum([$cum_3,$cumulative[3]]);
 						?>
 							<tr>
-								<th><?= $val->id ?> <?= $val->jdl_jawaban ?></th>
-								<td>1</td>
-								<th>2</th>
-								<th>3</th>
+								<?php if($no == 1): ?>
+									<td>Sangat Tidak Setuju</td>
+								<?php elseif($no == 2): ?>
+									<td>Tidak Setuju</td>
+								<?php elseif($no == 3): ?>
+									<td>Setuju</td>
+								<?php elseif($no == 4): ?>
+									<td>Sangat Setuju</td>
+								<?php else: ?>
+									<td>0</td>
+								<?php endif; ?>
+								<td><?= $responden; ?></td>
+								<td><?= @number_format(($responden/$responden_count) * 100, 2) ?>%</td>
+								<td><?= $valid_percent[$key] ?></td>
+								<?php if($no == 1): ?>
+									<td><?= $cum_1 ?>%</td>
+								<?php elseif($no == 2): ?>
+									<td><?= $cum_2 ?>%</td>
+								<?php elseif($no == 3): ?>
+									<td><?= $cum_3 ?>%</td>
+								<?php elseif($no == 4): ?>
+									<td><?= $cum_4 ?>%</td>
+								<?php else: ?>
+									<td>0</td>
+								<?php endif; ?>
 							</tr>
-						<?php endforeach; ?>
+						<?php $no++; endforeach; ?>
+
 					</tbody>
+					<tfoot>
+						<tr>
+							<th class="font-weight-bold">
+								Total
+							</th>
+							<th>
+								<?= $responden_count ?>
+							</th>
+							<th colspan="3">
+								100%
+							</th>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 		</div>
