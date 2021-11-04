@@ -4,34 +4,59 @@
   <!-- Header container -->
   <div class="container-fluid d-flex align-items-center justify-content-start">
     <div class="row">
-      <div class="col-lg-7 col-md-8">
+      <div class="col-xl-5 col-lg-7 col-md-8">
         <h1 class="display-2 text-white"><?= ucwords($this->uri->segment(1)); ?></h1>
-        <p class="text-white mt-0 mb-5">Halaman preferensi kamu bisa sesuaikan dengan keinginan mu, dengan warna yang telah tersedia.</p>
+        <p class="text-white mt-0 mb-md-5 mb-3">Halaman preferensi kamu bisa sesuaikan dengan keinginan mu, dengan warna yang telah tersedia.</p>
         <a href="<?= base_url('profile/'.$this->session->userdata('user_name')) ?>" class="btn btn-neutral"><i class="ni ni-single-02 mr-2"></i> Profile</a>
       </div>
-      <div class="col-lg-5 col-md-4">
-        <h1 class="display-2 text-white">Theme</h1>
-        <?= form_open(base_url('preferensi/'.$this->session->userdata('user_name').'/update'), ['id' => 'f_theme']); ?>
-        <!-- <b class="text-white pb-2 border-bottom d-block mb-2">Theme</b> -->
-        <ul class="list-unstyled d-flex justify-content-between flex-wrap">
+      <div class="col-xl-7 col-lg-5 col-md-4">
+        <h1 class="display-2 text-white mt-4 mt-md-0">Themes</h1>
           <?php  
-          $theme_base = $list_theme->theme_base;
-          $theme_base_current = $list_theme->theme;
-          $is_theme = explode(",", $theme_base);
-          foreach ($is_theme as $key => $value):
-          $color = $value;
-          $is_active = $color == $theme_base_current ? 'checked' : '';
+            $theme_base = $list_theme->theme_base;
+            $theme_base_current = $list_theme->theme;
+            $theme_base_current_top = $list_theme->top_bar;
+            $theme_base_current_main = $list_theme->main_bg;
+            $is_theme = explode(",", $theme_base);
           ?>
-            <li class="d-flex flex-column align-items-center mb-3">
-              <label data-toggle="tooltip" title="<?= ucwords($color) ?>" for="<?= $color ?>" class="bg-<?= $color ?> p-4 mb-2 rounded" style="cursor: pointer;"></label>
-              <div class="form-check">
-                <input name="theme[]" class="form-check-input position-static" type="radio" id="<?= $color ?>" value="<?= $color ?>" aria-label="Theme Base" <?= $is_active ?>>
-              </div>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-        <button type="submit" class="btn btn-primary"><i class="ni ni-palette mr-2"></i>Simpan Perubahan</button>
-        <?= form_close() ?>
+          <?= form_open(base_url('preferensi/'.$this->session->userdata('user_name').'/update'), ['id' => 'f_theme']); ?>
+
+            <div class="form-inline">
+              <label class="mr-2 text-white" for="theme">Theme : </label>
+              <select name="theme[]" class="custom-select mr-2" id="theme">
+                <?php  
+                foreach ($is_theme as $key => $value):
+                $color = $value;
+                $is_active = $color == $theme_base_current ? 'selected' : '';
+                ?>
+                <option value="<?= $color ?>" <?= $is_active ?>><?= $color ?></option>
+                <?php endforeach; ?>
+              </select>
+
+              <label class="mr-2 mt-3 mt-md-0 text-white" for="theme">Top Bar : </label>
+              <select name="theme[]" class="custom-select mr-2" id="theme">
+                <?php  
+                foreach ($is_theme as $key => $value):
+                $color = $value;
+                $is_active = $color == $theme_base_current_top ? 'selected' : '';
+                ?>
+                <option value="<?= $color ?>" <?= $is_active ?>><?= $color ?></option>
+                <?php endforeach; ?>
+              </select>
+
+              <label class="mr-2 mt-3 mt-md-0 text-white" for="theme">Main BG : </label>
+              <select name="theme[]" class="custom-select mr-2" id="theme">
+                <?php  
+                foreach ($is_theme as $key => $value):
+                $color = $value;
+                $is_active = $color == $theme_base_current_main ? 'selected' : '';
+                ?>
+                <option value="<?= $color ?>" <?= $is_active ?>><?= $color ?></option>
+                <?php endforeach; ?>
+              </select>
+              <button type="submit" class="btn btn-primary mt-3 mt-xl-0 ml-xl-3"><i class="ni ni-palette mr-2"></i>Simpan Perubahan</button>
+            </div>
+          
+          <?= form_close() ?>
       </div>
     </div>
   </div>
@@ -49,11 +74,38 @@
 
     function response(res)
     {
-      console.log(res);
-      alert(res.pesan);
       if(res.valid == true) {
-        window.location.reload();
+        let timerInterval;
+        Swal.fire({
+          icon: 'success',
+          title: 'Preferensi Update',
+          html: res.pesan,
+          timer: 3000,
+          showConfirmButton: false,
+          allowOutsideClick:false,
+          allowEscapeKey:false,
+          timerProgressBar: true,
+          toast: true,
+          width: '33rem',
+          position: 'top',
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            window.location.reload();
+          }
+        });
+        return false;
       }
+      Swal.fire({
+        icon: 'info',
+        title: 'Oops...',
+        text: res.pesan,
+        toast: true,
+        position: 'top-end',
+      })
     }
   })
 </script>

@@ -125,6 +125,19 @@
 <link rel="stylesheet" href="<?= base_url('template/argon/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.min.css') ?>">
 <script>
 	$(function() {
+        function notif($title,$type,$cls=false) {
+            Swal.fire({
+                icon: $type,
+                title: $title,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                width: '33rem',
+                timerProgressBar: true,
+                timer: 2500,
+                willClose: $cls
+              })
+        }
 		// Cek Confirm
 		var $confirm_input = $("input[name='confirm']");
 		var $confirm_btn = $("#btnConfirm");
@@ -145,13 +158,14 @@
 				if(username == $confirm_input.val()) {
 					$.getJSON(`${_uri}/backend/periode/hapus`, {id: periode_id}, function(res) {
 						if(res.valid == true) {
-							alert('Periode Telah Dihapus');
-							window.location.href = res.rediract;		
+                            notif('Periode berhasil dihapus', 'success', () => {
+							 window.location.href = res.rediract;		
+                            });
 						}
 					});
 					return false;
 				}
-				alert('Username Is Invalid !');
+                notif('Username is invalid !', 'warning');
 			});
 		}
 		/*Date Range*/

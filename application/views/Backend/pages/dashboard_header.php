@@ -25,7 +25,7 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                  <span class="text-success mr-2"><i class="fa fa-plus"></i> <?= number_format(($total_responden_periode/$_d->target) * 100, 2) ?>%</span>
+                  <span class="text-success mr-2"><i class="fa fa-plus"></i> <?= @number_format(($total_responden_periode/$_d->target) * 100, 2) ?>%</span>
                   <span class="text-nowrap">Periode saat ini</span>
                 </p>
               </div>
@@ -47,8 +47,11 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                  <span class="text-success mr-2"><i class="fa fa-check-circle"></i> <?= $_d->tahun ?></span>
-                  <span class="text-nowrap">(Target: <?= $this->skm->skm_total_responden_per_tahun($_d->tahun); ?> )</span>
+                  <?php  
+                    $responden_tahun_ini = @$this->skm->skm_total_responden_per_tahun($_d->tahun);
+                  ?>
+                  <span class="text-success mr-2"><i class="fa fa-check-circle"></i> <?= !empty($_d->tahun) ? $_d->tahun : "-"; ?></span>
+                  <span class="text-nowrap">(Target: <?= !empty($responden_tahun_ini) ? $responden_tahun_ini : 0; ?>)</span>
                 </p>
               </div>
             </div>
@@ -60,7 +63,7 @@
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title text-muted mb-0">Form <?= ucwords($_card_responden) ?></h5>
-                    <span class="h2 font-weight-bold mb-0"><?= number_format(($total_responden_card/$_d->target) * 100, 2); ?>%</span>
+                    <span class="h2 font-weight-bold mb-0"><?= @number_format(($total_responden_card/$_d->target) * 100, 2); ?>%</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -82,7 +85,7 @@
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">Kinerja</h5>
-                    <span class="h2 font-weight-bold mb-0">IKM - <?= number_format($ikm['data']['nilai_ikm'],2) ?></span>
+                    <span class="h2 font-weight-bold mb-0">IKM - <?= @number_format($ikm['data']['nilai_ikm'],2) ?></span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">

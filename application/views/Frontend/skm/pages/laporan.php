@@ -3,8 +3,10 @@ if($this->session->userdata('user_id') == ""):
 	$this->load->view('Frontend/skm/pages/restricted');
 	return false;
 endif;
-$tahun_skr = $this->skm->skm_periode()->row()->tahun;
-$periode_skr = $this->skm->skm_periode()->row()->id;
+$periode = $this->skm->skm_periode();
+$year = $periode->num_rows() != 0 ? $periode->row()->tahun : 0;
+$tahun_skr = !empty($year) ? $year : '-';
+$periode_skr = $periode->num_rows() != 0 ? $periode->row()->id : 0;
 $tahun = isset($_GET['tahun']) ? $_GET['tahun'] : $tahun_skr;
 $periode = isset($_GET['periode']) ? $_GET['periode'] : $periode_skr;
 // ARGS = tahun,periode

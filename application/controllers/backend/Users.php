@@ -375,8 +375,8 @@ class Users extends CI_Controller {
                 $p = $this->input->post();
                 $whr = ['fid_user' => decrypt_url($user_id)];
                 $data = ['theme' => $p['theme'][0], 
-                         'top_bar' => $p['theme'][0],
-                         'main_bg' => $p['theme'][0]
+                         'top_bar' => $p['theme'][1],
+                         'main_bg' => $p['theme'][2]
                      ];
                 $db = $this->users->preferensi_update('t_preferensi', $data, $whr);
                 if($db)

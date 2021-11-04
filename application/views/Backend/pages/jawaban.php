@@ -97,6 +97,20 @@
 </div>
 <script>
 	$(function () {
+		function notif($title,$type,$cls=false) {
+         Swal.fire({
+             icon: $type,
+             title: $title,
+             toast: true,
+             position: 'top',
+             showConfirmButton: false,
+             width: '28rem',
+             timerProgressBar: true,
+             timer: 2000,
+             willClose: $cls
+           })
+     }
+
 	  var $btn_add = $("button#btn-tambah-jawaban");
 	  var $modal = $("#modal-default");
 	  var $form = $("#f_jawaban");
@@ -107,19 +121,20 @@
 	  	$form.on("submit", function(e) {
 	  		e.preventDefault();
 	  		if($form.find('input[name="jdl_jawaban"]').val() == ''){
-	  			alert('Jawaban Tidak Boleh Kosong');
+	  			notif('Jawaban Tidak Boleh Kosong', 'info');
 	  			return false; 
 	  		}
 	  		if($form.find('input[name="poin"]').val() == ''){
-	  			alert('Poin Tidak Boleh Kosong');
+	  			notif('Poin Tidak Boleh Kosong','info');
 	  			return false; 
 	  		}
 		  	var data = $form.serializeArray();
 		  	data.push({name: 'id', value: pertanyaan_id});
 		  	$.post($form.attr('action'), data, function(res) {
 		  		if(res.valid == true) {
-		  			alert(res.msg);
-		  			window.location.reload();
+		  			notif(res.msg, 'success', () => {
+		  				window.location.reload();
+		  			});
 		  		}
 		  	}, 'json');
 	  	})

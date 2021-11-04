@@ -73,6 +73,7 @@ class Periode extends CI_Controller
         $id = decrypt_url($this->input->get('id'));
         $delete = $this->periode->hapus_periode('skm_periode', $id);
         if($delete) {
+            $this->periode->delete_batch('skm', ['fid_periode' => $id]);
             $msg = ['valid' => true, 'rediract' => base_url('periode')];
         } else {
             $msg = ['valid' => false, 'rediract' => false];

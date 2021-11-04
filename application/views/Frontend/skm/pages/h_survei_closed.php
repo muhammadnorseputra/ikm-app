@@ -20,8 +20,9 @@
     			  <p class="my-3 font-weight-bold" style="line-height: 1.5em;">Survei IKM Closed</p>
     			<div class="d-flex justify-content-start align-items-center">
     			  <div class="mr-4 border-right pr-4">
-    			  	<a class="btn btn-outline-primary" href="<?php echo base_url('skm') ?>"><i class="fas fa-home mr-2"></i> Beranda</a> 
+    			  	<a class="btn btn-outline-primary text-center" href="<?php echo base_url('skm') ?>"><i class="fas fa-home mr-2"></i> Beranda</a> 
     			  </div>
+            Formulir Survei Indeks Kepuasan Masyarakat Sudah Ditutup.
     			</div>
     			</blockquote>
     		</div>

@@ -142,6 +142,20 @@
 <link rel="stylesheet" href="<?= base_url('template/v1/plugin/jquery-form-validator/form-validator/theme-default.min.css') ?>">
 <script>
    $(function() {
+      function notif($title,$type,$cls=false) {
+            Swal.fire({
+                icon: $type,
+                title: $title,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                width: '33rem',
+                timerProgressBar: true,
+                timer: 2800,
+                willClose: $cls
+              })
+        }
+
       // Modal Methods
       $('#modal-periode').on('hidden.bs.modal', function (e) {
         $("#f_periode").get(0).reset();
@@ -171,7 +185,7 @@
          modules: 'toggleDisabled, security, html5, sanitize, date',
          disabledFormFilter: 'form.toggle-disabled',
          onError: function($form) {
-             alert('Form Invalid');
+             notif('Form Invalid', 'error');
              $('button[type="submit"]').html('Simpan');
          },
          onSuccess: function($form) {
@@ -190,14 +204,14 @@
                   $('button[type="submit"]').html('<i class="fas fa-check-circle mr-2"></i> Berhasil');
                  },
                  complete: function(){
-                  $('button[type="submit"]').html('Simpan');
-                  window.location.reload();
-                  setTimeout(() => {
+                  notif('Periode berhasil ditambahkan', 'success', () => {
+                     $('button[type="submit"]').html('Simpan');
+                     window.location.reload();
                      $("#modal-periode").modal('hide');
-                  }, 1500)
+                  })
                  },
                  error: function(error) {
-                  alert(error.statusText);
+                  notif(error.statusText, 'error');
                   $('button[type="submit"]').html('Simpan');
                  },
              });

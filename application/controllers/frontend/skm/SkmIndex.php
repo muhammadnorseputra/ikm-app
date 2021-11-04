@@ -9,7 +9,8 @@ class SkmIndex extends CI_Controller
         $this->load->model('skm');
 
         // $this->tahun_skr = $this->skm->skm_periode()->row()->tahun;
-        $this->periode_skr = $this->skm->skm_periode()->row()->id;
+        $this->periode = $this->skm->skm_periode();
+        $this->periode_skr = $this->periode->num_rows() != 0 ? $this->periode->row()->id : 0;
     }
 
     public function getAsn($value)
@@ -274,7 +275,7 @@ class SkmIndex extends CI_Controller
         $this->load->view($data['content'], $data);
     }
     public function closed() {
-        if($this->skm->skm_periode()->row()->status === 'ON'):
+        if(($this->periode->num_rows != 0 ? $this->periode->row()->status : 'OFF') === 'ON'):
           redirect(base_url('survei'));
         else:
           $data = [

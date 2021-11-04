@@ -17,4 +17,7 @@ class M_periode extends CI_Model {
 		$this->db->update($tbl, $data);
 		return true;
 	}
+	public function delete_batch($tbl,$whr) {
+		return $this->db->where($whr)->delete($tbl);
+	}
 }

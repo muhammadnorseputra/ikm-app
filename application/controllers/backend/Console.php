@@ -38,7 +38,12 @@ class Console extends CI_Controller
     public function index()
     {
         $card_responden = 'demo';
-        $last_periode = $this->skm->skm_periode()->row()->id;
+        $periode = $this->skm->skm_periode();
+        if($periode->num_rows() != 0) {
+            $periode_id = $periode->row()->id;
+        }
+        $last_periode = !empty($periode_id) ? $periode_id : 0;
+        $target_periode = $this->skm->skm_target_periode($last_periode);
         $data = [
             'title' => 'e-Survei | Dashboard',
             'content' => 'Backend/pages/dashboard',
@@ -47,7 +52,7 @@ class Console extends CI_Controller
             'total_responden_card' => $this->skm->skm_total_responden_card($card_responden),
             '_card_responden' => $card_responden,
             'total_periode' => $this->skm->skm_total_periode(),
-            '_d' => $this->skm->skm_target_periode($last_periode),
+            '_d' => $target_periode,
             'responden_per_pertanyaan' => $this->responden_per_pertanyaan(),
             'ikm' => api_client(base_url('api/ikm'))
         ];

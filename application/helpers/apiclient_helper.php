@@ -14,7 +14,7 @@ if (! function_exists('api_client'))
 	function api_client($url)
 	{
 		 $api_url = $url;
-		 $json_data = file_get_contents($api_url);
+		 $json_data = @file_get_contents($api_url);
 	 	return json_decode($json_data, TRUE);
 	}
 }

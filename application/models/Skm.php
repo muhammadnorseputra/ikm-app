@@ -82,10 +82,15 @@ class Skm extends CI_Model {
 	}
 	public function skm_total_responden_per_tahun($tahun)
 	{
-		return $this->db->select_sum('target')
+		$q = $this->db->select_sum('target')
 		->from('skm_periode')
 		->where('tahun', $tahun)
-		->get()->row()->target;
+		->get();
+		if($q->num_rows() != 0)
+		{
+			$r = $q->row()->target;
+		}
+		return $r;
 	}
 	public function get_responden($periode=null)
 	{

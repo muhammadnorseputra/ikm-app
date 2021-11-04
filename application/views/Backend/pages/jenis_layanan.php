@@ -77,7 +77,30 @@
 	<link rel="stylesheet" href="<?= base_url('assets/plugins/datatable/inc_tablesold.css') ?>">
 	<script>
 	$(function() {
-	
+		function notif($title,$type,$cls=false) {
+	      Swal.fire({
+	          icon: $type,
+	          title: $title,
+	          toast: true,
+	          position: 'top',
+	          showConfirmButton: false,
+	          width: '28rem',
+	          timerProgressBar: true,
+	          timer: 2000,
+	          willClose: $cls
+	        })
+	  }
+	  function notif_confirm($msg,$type,$cls=false) {
+	  	Swal.fire({
+		  title: 'Notice!',
+		  text: $msg,
+		  icon: $type,
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Ya, hapus'
+		}).then($cls);
+	  }
 	var $modal = $("#modal-default");
 	var $form = $("#f_jenis_layanan");
 
@@ -106,23 +129,28 @@
 		
 		let $this = $(this);
 		let $id = $this.data('uid');
-		if(confirm('Apakah anda akan menghapus layanan tersebut ?')) {
-			$.getJSON(`${_uri}/backend/jenis_layanan/delete`, {id: $id}, response);
-		}
+		notif_confirm('Apakah anda akan menghapus layanan tersebut ?', 'info', (result) => {
+			if (result.isConfirmed) {
+				$.getJSON(`${_uri}/backend/jenis_layanan/delete`, {id: $id}, response);
+		   }	
+		})
 	}) 
 
 	function response(res)
 	{
-		alert(res.msg);
 		if(res.valid == true)
 		{
-			tableJenisLayanan.ajax.reload();
+			
+			notif(res.msg, 'success');
 			if($modal.length > 0) {
 				setTimeout(function() {
+					tableJenisLayanan.ajax.reload();
 					$modal.modal('hide');
-				}, 600);
+				}, 300);
 			}
+			return false;
 		}
+		notif(res.msg, 'error');
 	}
 
 	var tableJenisLayanan = $("#table-jenis-layanan").DataTable({
