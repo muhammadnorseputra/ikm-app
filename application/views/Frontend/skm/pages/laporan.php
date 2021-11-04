@@ -315,13 +315,16 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 							foreach($responden_detail as $key => $val):
 								$jawaban_pecah[] = explode(",",$val->jawaban_responden);
 							endforeach;
-
-							foreach($jawaban as $j):
-							$total = $this->lap->total_responden_by_jawaban($j->id);
-							var_dump($total);
+								$marge = array_merge($jawaban_pecah[0],$jawaban_pecah[1],$jawaban_pecah[2]);
+							$total = array_count_values($marge);
+							// var_dump($total);
+							foreach($jawaban as $key => $val):
+							// $total = $this->lap->total_responden_by_jawaban($j->id);
+							// $total = array_count_values($jawaban_pecah[$val->id]);
+							var_dump(@$total[$val->id]);
 						?>
 							<tr>
-								<th><?= $j->id ?> <?= $j->jdl_jawaban ?></th>
+								<th><?= $val->id ?> <?= $val->jdl_jawaban ?></th>
 								<td>1</td>
 								<th>2</th>
 								<th>3</th>
