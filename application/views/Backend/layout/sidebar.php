@@ -2,10 +2,20 @@
   <nav class="sidenav navbar fixed-left navbar-vertical navbar-expand-xs border-0 <?= theme(['navbar','bg'], 'theme') ?>" id="sidenav-main">
     <div class="scrollbar-inner">
       <!-- Brand -->
-      <div class="sidenav-header align-items-center">
+      <div class="sidenav-header d-flex align-items-center">
         <a class="navbar-brand" href="javascript:void(0)">
-          <i class="fas fa-project-diagram mr-2 fa-2x text-primary"></i>e-<span class="text-primary">Survei</span>
+          <i class="fas fa-project-diagram mr-2 text-primary"></i>e-<span class="text-primary">Survei</span>
         </a>
+        <div class=" ml-auto ">
+          <!-- Sidenav toggler -->
+          <div class="sidenav-toggler d-none d-xl-block active" data-action="sidenav-unpin" data-target="#sidenav-main">
+            <div class="sidenav-toggler-inner">
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="navbar-inner">
         <!-- Collapse -->

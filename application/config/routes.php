@@ -82,6 +82,7 @@ $route['pendidikan'] = 'backend/pendidikan';
 $route['pekerjaan'] = 'backend/pekerjaan';
 $route['users'] = 'backend/users';
 $route['users/baru'] = 'backend/users/baru';
+$route['users/u/(:any)'] = 'backend/users/update_profile/$1';
 $route['privileges/(:any)'] = 'backend/users/privileges/$1';
 $route['resspwd/(:any)'] = 'backend/users/resspwd/$1';
 $route['profile/(:any)'] = 'backend/users/profile/$1';

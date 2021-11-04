@@ -6,6 +6,8 @@
   <script src="<?= base_url('template/argon/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js') ?>"></script>
   <!-- Optional JS -->
   <script src="<?= base_url('template/argon/vendor/chart.js/dist/Chart.min.js') ?>"></script>
+  <script src="<?= base_url('template/argon/vendor/sweetalert2/dist/sweetalert2.all.min.js') ?>"></script>
+  <script src="<?= base_url('template/argon/vendor/bootstrap-notify/bootstrap-notify.min.js') ?>"></script>
   <script src="<?= base_url('template/argon/vendor/chart.js/dist/Chart.extension.js') ?>"></script>
   <script src="<?= base_url('assets/plugins/jquery-cookie/jquery.cookie.js') ?>"></script>
   <script src="<?= base_url('assets/plugins/js-autocomplete/dist/jquery.autocomplete.min.js') ?>"></script>

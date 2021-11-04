@@ -58,11 +58,11 @@ class Users extends CI_Controller {
                               <i class="fas fa-ellipsis-v"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                              <a class="dropdown-item d-flex justify-content-between" href="#">
-                                Edit <i class="fas fa-edit small"></i> 
-                              </a>
                               '.$btn_is_block.'
                               '.$btn_is_restricted.'
+                              <a class="dropdown-item d-flex justify-content-between" href="'.base_url("users/u/".encrypt_url($r->id)).'">
+                                Edit <i class="fas fa-edit small"></i> 
+                              </a>
                               <a class="dropdown-item d-flex justify-content-between" href="'.base_url("privileges/".encrypt_url($r->id)).'">
                                 Privileges <i class="fas fa-user-lock"></i>
                               </a>
@@ -493,6 +493,77 @@ class Users extends CI_Controller {
             $msg = ['valid' => false, 'pesan' => 'Form is empty !'];
         }
         echo json_encode($msg);
+    }
+
+    public function update_profile($uid)
+    {
+        $profile = $this->users->profile_id($uid);
+        if($profile->num_rows() === 0) {
+            redirect(base_url('users'));
+            return false;
+        }
+        $user_id = decrypt_url($uid);
+        $data = [
+            'title' => 'e-Survei | User '.ucwords($profile->row()->nama),
+            'content' => 'Backend/pages/users_profile',
+            'uid' => $uid,
+            'user_id' => $user_id,
+            'profile' => $profile->row()
+        ];
+        $this->load->view('Backend/layout/app', $data); 
+    }
+
+    public function update_profile_aksi()
+    {
+        $p = $this->input->post();
+        $profile = $this->users->profile_id($p['uid'])->row();
+        $user_nama = $profile->username;
+        $nama = $p['nama'];
+        $role = $p['role'];
+        $whr = ['id' => decrypt_url($p['uid'])]; 
+        $path = './assets/images/pic';
+        if(!empty($_FILES["file"]["name"]))  
+        {  
+             $config['upload_path'] = $path;  
+             $config['allowed_types'] = 'jpg|jpeg|png'; 
+             $config['max_size'] = 1000; // 1MB
+             $config['file_ext_tolower'] = TRUE;
+             $config['file_name'] = strtolower($user_nama);
+             $config['overwrite'] = TRUE;
+             
+             $this->load->library('upload', $config);  
+
+             if(!$this->upload->do_upload('file'))  
+             {  
+                $msg = ['valid' => false, 'pesan' => $this->upload->display_errors()];  
+             }  
+             else  
+             {  
+                 $data = array('upload_data' => $this->upload->data());
+                 $image= $data['upload_data']['file_name'];
+
+                 $userdata = ['nama' => $nama, 'role' => $role, 'pic' => $image]; 
+                 
+                 $result = $this->users->update($userdata,$whr);
+                  
+                 if($result)
+                 {
+                    $msg = ['valid' => true, 'pesan' => 'Profile berhasil di perbaharui', 'redirectTo' => base_url("users")];
+                 } else {
+                    $msg = ['valid' => false, 'pesan' => 'Update profil gagal'];
+                 }
+             } 
+        } else {
+            $userdata = ['nama' => $nama, 'role' => $role];
+            $result= $this->users->update($userdata,$whr);
+            if($result)
+             {
+                $msg = ['valid' => true, 'pesan' => 'Profile berhasil di perbaharui', 'redirectTo' => base_url("users")];
+             } else {
+                $msg = ['valid' => false, 'pesan' => 'Update profil gagal'];
+             }
+        }  
+        echo json_encode($msg); 
     }
 }
 

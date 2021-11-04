@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?= base_url('template/argon/vendor/@fortawesome/fontawesome-free/css/all.min.css') ?>" type="text/css">
     <!-- Page plugins -->
     <link rel="stylesheet" href="<?= base_url('assets/plugins/js-autocomplete/content/styles.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?= base_url('template/argon/vendor/animate.css/animate.min.css') ?>" type="text/css">
     <!-- Argon CSS -->
     <link rel="stylesheet" href="<?= base_url('template/argon/css/argon.css?v=1.2.0') ?>" type="text/css">
     

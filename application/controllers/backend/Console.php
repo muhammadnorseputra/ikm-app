@@ -42,7 +42,7 @@ class Console extends CI_Controller
         $data = [
             'title' => 'e-Survei | Dashboard',
             'content' => 'Backend/pages/dashboard',
-            'total_responden' => $this->skm->skm_total_responden_all(),
+            'total_responden' => $this->skm->skm_total_responden($last_periode),
             'total_responden_periode' => $this->skm->skm_total_responden($last_periode),
             'total_responden_card' => $this->skm->skm_total_responden_card($card_responden),
             '_card_responden' => $card_responden,

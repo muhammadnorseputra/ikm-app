@@ -154,10 +154,36 @@
              cache:false,
              async:false,
              success: function(res) {
-               alert(res.pesan);
                if(res.valid == true) {
-                window.location.href = `${_uri}/logout?continue=${res.redirectTo}`
+                let timerInterval;
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Success',
+                  html: res.pesan,
+                  timer: 2800,
+                  showConfirmButton: false,
+                  allowOutsideClick:false,
+                  allowEscapeKey:false,
+                  timerProgressBar: true,
+                  didOpen: () => {
+                    Swal.showLoading();
+                  },
+                  willClose: () => {
+                    clearInterval(timerInterval)
+                  }
+                }).then((result) => {
+                  /* Read more about handling dismissals below */
+                  if (result.dismiss === Swal.DismissReason.timer) {
+                    window.location.href = `${_uri}/logout?continue=${res.redirectTo}`
+                  }
+                });
+                return false;
                }
+               Swal.fire({
+                  icon: 'info',
+                  title: 'Oops...',
+                  text: res.pesan
+                })
              }
           });
       });
@@ -171,11 +197,16 @@
       })
 
       function response(res) {
-        alert(res.pesan);
         if(res.valid == true)
         {
           window.location.href = `${_uri}/logout?continue=${res.redirectTo}`
+          return false;
         }
+        Swal.fire({
+          icon: 'warning',
+          title: 'Notice!',
+          html: res.pesan
+        })
       }
 
       // Toggle show pwd
