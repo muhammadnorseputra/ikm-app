@@ -16,18 +16,56 @@
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title text-muted mb-0">Total Responden</h5>
-                    <span class="h2 font-weight-bold mb-0"><?= nominal($total_responden); ?></span>
+                    <span class="h2 font-weight-bold mb-0"><?= nominal($total_responden); ?> / <?= $_d->target ?></span>
                   </div>
                   <div class="col-auto">
-                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                    <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
                       <i class="ni ni-active-40"></i>
                     </div>
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                  <span class="text-success mr-2"><i class="fa fa-plus"></i> <?= @number_format(($total_responden_periode/$_d->target) * 100, 2) ?>%</span>
+                  <?php  
+                    $percent_responden = @number_format(($total_responden_periode/$_d->target) * 100, 2);
+                  ?>
+                  <span class="text-success mr-2"><i class="fa fa-check"></i> <?= $percent_responden ?>%</span>
                   <span class="text-nowrap">Periode saat ini</span>
                 </p>
+              </div>
+              <div class="card-footer">
+                <div class="progress progress-xs mb-0">
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="<?= $percent_responden ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $percent_responden ?>%;"></div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-muted mb-0">Form <?= ucwords($_card_responden) ?></h5>
+                    <span class="h2 font-weight-bold mb-0"><?= @number_format(($total_responden_card/$_d->target) * 100, 2); ?>%</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-gradient-danger text-white rounded-circle shadow">
+                      <i class="ni ni-money-coins"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> <?= $total_responden_card ?></span>
+                  <span class="text-nowrap">Total Responden</span>
+                </p>
+              </div>
+              <div class="card-footer">
+                <?php  
+                  $responden_tahun_ini = @$this->skm->skm_total_responden_per_tahun($_d->tahun);
+                ?>
+                <div class="progress progress-xs mb-0">
+                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="<?= $total_responden_card ?>" aria-valuemin="0" aria-valuemax="<?= $responden_tahun_ini ?>" style="width: <?= $total_responden_card ?>%;"></div>
+                  </div>
               </div>
             </div>
           </div>
@@ -51,33 +89,12 @@
                     $responden_tahun_ini = @$this->skm->skm_total_responden_per_tahun($_d->tahun);
                   ?>
                   <span class="text-success mr-2"><i class="fa fa-check-circle"></i> <?= !empty($_d->tahun) ? $_d->tahun : "-"; ?></span>
-                  <span class="text-nowrap">(Sampel/Target: <b class="font-weight-bold"><?= !empty($responden_tahun_ini) ? $responden_tahun_ini : 0; ?></b>)</span>
+                  <span class="text-nowrap">(Sampel: <b class="font-weight-bold"><?= !empty($responden_tahun_ini) ? $responden_tahun_ini : 0; ?></b>)</span>
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-xl-3 col-md-6">
-            <div class="card card-stats">
-              <!-- Card body -->
-              <div class="card-body">
-                <div class="row">
-                  <div class="col">
-                    <h5 class="card-title text-muted mb-0">Form <?= ucwords($_card_responden) ?></h5>
-                    <span class="h2 font-weight-bold mb-0"><?= @number_format(($total_responden_card/$_d->target) * 100, 2); ?>%</span>
-                  </div>
-                  <div class="col-auto">
-                    <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                      <i class="ni ni-money-coins"></i>
-                    </div>
-                  </div>
-                </div>
-                <p class="mt-3 mb-0 text-sm">
-                  <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> <?= $total_responden_card ?></span>
-                  <span class="text-nowrap">Total Responden</span>
-                </p>
-              </div>
-            </div>
-          </div>
+          
           <div class="col-xl-3 col-md-6">
             <div class="card card-stats">
               <!-- Card body -->

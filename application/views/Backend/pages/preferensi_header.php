@@ -53,7 +53,7 @@
                 <option value="<?= $color ?>" <?= $is_active ?>><?= $color ?></option>
                 <?php endforeach; ?>
               </select>
-              <button type="submit" class="btn btn-primary mt-3 mt-xl-0 ml-xl-3"><i class="ni ni-palette mr-2"></i>Simpan Perubahan</button>
+              <button type="submit" class="btn btn-primary mt-3 ml-xl-3"><i class="ni ni-palette mr-2"></i>Simpan Perubahan</button>
             </div>
           
           <?= form_close() ?>
