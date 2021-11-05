@@ -153,12 +153,11 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 							$total_unsur = $unsur->num_rows();
 							$bobot_nilai = $this->skm->skm_bobot_nilai();
 							// if($responden_unsur->num_rows() > 0):
-								$total_poin_responden_unsur = [];
 								foreach($responden_unsur->result() as $r):
 									$get_jawaban = $this->skm->_get_jawaban_responden($r->id);
 									$poin = [];
 									foreach($get_jawaban as $j):
-									$poin[] = $this->skm->_get_poin_responden_per_unsur($j);
+										$poin[] = $this->skm->_get_poin_responden_per_unsur($j);
 									endforeach;
 									// POIN PER UNSUR
 									$u1[] = $poin[0];
@@ -170,6 +169,7 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 									$u7[] = $poin[6];
 									$u8[] = $poin[7];
 									$u9[] = $poin[8];
+									// $upoin[] = array_merge([], $poin);
 									
 									// TOTAL NI PER UNSUR
 									$total_u1 = array_sum($u1)/$total_responden;
@@ -182,16 +182,13 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 									$total_u8 = array_sum($u8)/$total_responden;
 									$total_u9 = array_sum($u9)/$total_responden;
 								endforeach;
-								// var_dump($u1);
 								$nrr_unsur = ['1' => @$total_u1, '2' => @$total_u2, '3' => @$total_u3, '4' => @$total_u4,'5' => @$total_u5,'6' => @$total_u6,'7' => @$total_u7,'8' => @$total_u8,'9' => @$total_u9];
 							// endif;
 							foreach ($unsur->result() as $u):
-							$nrr_tertimbang = @number_format($nrr_unsur[$u->id], 2);
-							$nrr_tertimbang_sum[] = ($nrr_unsur[$u->id] * $bobot_nilai);
-							$ikm_unsur = @number_format($nrr_tertimbang * 25, 2);
-							$ikm_unsur_arr[] = @number_format($nrr_tertimbang * 25, 2);
-							// $ikm_unsur_sum[] = $nrr_tertimbang * $bobot_nilai;
-							// var_dump($nrr_tertimbang)
+								$nrr_tertimbang = @number_format($nrr_unsur[$u->id], 2);
+								$nrr_tertimbang_sum[] = @($nrr_unsur[$u->id] * $bobot_nilai);
+								$ikm_unsur = @number_format($nrr_tertimbang * 25, 2);
+								$ikm_unsur_arr[] = @number_format($nrr_tertimbang * 25, 2);
 						?>
 						<tr>
 							<td class="text-center">U<?= $u->id ?></td>
@@ -205,8 +202,6 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 							<?php
 							$ikm_konversi = (array_sum($nrr_tertimbang_sum) * 25);
 							$total_ikm = $ikm_konversi;
-
-							// var_dump($total_ikm);
 							?>
 							<td colspan="2" class="text-end fw-bold align-middle">IKM</td>
 							<td colspan="3" class="text-center fw-bold fs-3"><?= number_format($total_ikm, 2); ?></td>
@@ -617,7 +612,7 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 								$nrr_tertimbang_sum_tahun = [];
 								foreach($unsur_tahun->result() as $u):
 									$nrr_tertimbang_tahun = @number_format($nrr_unsur_tahun[$u->id], 2);
-									$nrr_tertimbang_sum_tahun[] = ($nrr_unsur_tahun[$u->id] * $bobot_nilai);
+									$nrr_tertimbang_sum_tahun[] = @($nrr_unsur_tahun[$u->id] * $bobot_nilai);
 									$ikm_unsur_tahun = @number_format($nrr_tertimbang_tahun * 25, 2);
 									// $ikm_unsur_arr[] = @number_format($nrr_tertimbang * 25, 2);
 							?>

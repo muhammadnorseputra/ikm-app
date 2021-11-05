@@ -59,7 +59,7 @@ class SkmIndex extends CI_Controller
         $res = $this->skm->get_responden($this->periode_skr);
         $total_responden = $res->num_rows();
         $total_unsur = $this->skm->skm_total_indikator()->num_rows();
-        // var_dump($total_responden);die();
+        
         if($total_responden > 0):
         foreach($res->result() as $r):
             $db = $this->skm->_get_jawaban_responden($r->id);
@@ -69,30 +69,16 @@ class SkmIndex extends CI_Controller
             endforeach;
             // TOTAL POIN PER RESPONDEN (x)
             $total_poin_per_responden[] = $poin;
-
             // POIN PER UNSUR
-            $u1[] = $poin[0];
-            $u2[] = $poin[1];
-            $u3[] = $poin[2];
-            $u4[] = $poin[3];
-            $u5[] = $poin[4];
-            $u6[] = $poin[5];
-            $u7[] = $poin[6];
-            $u8[] = $poin[7];
-            $u9[] = $poin[8];
+            $u[] = array_merge([], $poin);
+        endforeach;
 
             // TOTAL POIN PER UNSUR
-            $total_u1 = array_sum($u1);
-            $total_u2 = array_sum($u2);
-            $total_u3 = array_sum($u3);
-            $total_u4 = array_sum($u4);
-            $total_u5 = array_sum($u5);
-            $total_u6 = array_sum($u6);
-            $total_u7 = array_sum($u7);
-            $total_u8 = array_sum($u8);
-            $total_u9 = array_sum($u9);
+            for ($i=0; $i < $total_responden ; $i++) { 
+               $total_poin_unsur_sum[] = array_sum($u[$i]);
+            }
+            // var_dump($total_unsur_sum);die();
 
-        endforeach;
             // TOTAL POIN PER RESPONDEN (x)
             for ($i=0; $i < $total_responden ; $i++) { 
                 $total_p_r_p[] = array_sum($total_poin_per_responden[$i]);
@@ -129,46 +115,27 @@ class SkmIndex extends CI_Controller
                                     'B' => number_format($presentase_b, 2), 
                                     'C' => number_format($presentase_c, 2), 
                                     'D' => number_format($presentase_d, 2)];
-            // var_dump($total_predikat_sama);die();
-            // var_dump($presentase_predikat);die();
             
             // TOTAL KESELURUHAN UNSUR
             // $total_u = $total_u1 + $total_u2 + $total_u3 + $total_u4 + $total_u5 + $total_u6 
             //             + $total_u7 + $total_u8 + $total_u9; 
             
             // NILAI RATA-RATA PER UNSUR
-            $nnr_u1 = ($total_u1/$total_responden);
-            $nnr_u2 = ($total_u2/$total_responden);
-            $nnr_u3 = ($total_u3/$total_responden);
-            $nnr_u4 = ($total_u4/$total_responden);
-            $nnr_u5 = ($total_u5/$total_responden);
-            $nnr_u6 = ($total_u6/$total_responden);
-            $nnr_u7 = ($total_u7/$total_responden);
-            $nnr_u8 = ($total_u8/$total_responden);
-            $nnr_u9 = ($total_u9/$total_responden);
-            // TOTAL RATA - RATA
-            $total_nnr = [$nnr_u1,$nnr_u2,$nnr_u3,$nnr_u4,$nnr_u5,$nnr_u6,$nnr_u7,$nnr_u8,$nnr_u9];
+            foreach ($total_poin_unsur_sum as $key => $value) {
+                $nnr[] = ($value/$total_responden);
+            }
 
             // NILAI RATA-RATA TERTIMBANG PER UNSUR
             $bobot_nilai = $this->skm->skm_bobot_nilai();
-            $nnr_t_u1 = ($nnr_u1*$bobot_nilai);
-            $nnr_t_u2 = ($nnr_u2*$bobot_nilai);
-            $nnr_t_u3 = ($nnr_u3*$bobot_nilai);
-            $nnr_t_u4 = ($nnr_u4*$bobot_nilai);
-            $nnr_t_u5 = ($nnr_u5*$bobot_nilai);
-            $nnr_t_u6 = ($nnr_u6*$bobot_nilai);
-            $nnr_t_u7 = ($nnr_u7*$bobot_nilai);
-            $nnr_t_u8 = ($nnr_u8*$bobot_nilai);
-            $nnr_t_u9 = ($nnr_u9*$bobot_nilai);
-            // TOTAL RATA-RATA TERTIMBANG
-            $total_nnr_t = [$nnr_t_u1,$nnr_t_u2,$nnr_t_u3, $nnr_t_u4, $nnr_t_u5, $nnr_t_u6, $nnr_t_u7, $nnr_t_u8, $nnr_t_u9];
+            foreach ($nnr as $key => $value) {
+                $nnr_t[] = ($value*$bobot_nilai);
+            }
+            // var_dump($nnr_t);die();
 
-            // var_dump(array_sum($total_nnr)*25*0.11);die();
+            $total_nnr_t = array_merge([], $nnr_t);
 
-            // die();
             // NILAI IKM
             $ikm = array_sum($total_nnr_t) * 25;
-            // var_dump($total_nnr_t);die();
 
         else:
             $ikm = '0';
