@@ -22,4 +22,30 @@ class SkmLaporan extends CI_Controller
         ];
         $this->load->view('Frontend/skm/layout/app', $data);
     }
+
+    public function m() {
+        $unsur = $this->skm->skm_unsur_layanan();
+        $total_unsur = $unsur->num_rows();
+
+        $periode = $this->skm->skm_periode();
+        $year = $periode->num_rows() != 0 ? $periode->row()->tahun : 0;
+        $tahun_skr = !empty($year) ? $year : '-';
+        $periode_skr = $periode->num_rows() != 0 ? $periode->row()->id : 0;
+        
+        $responden = $this->lap->responden_by_tahun_periode($tahun_skr,$periode_skr);
+
+        $bobot_nilai = $this->skm->skm_bobot_nilai();
+
+        $data = [
+            'title' => 'LAPORAN IKM - BKPPD Balangan',
+            'content' => 'Frontend/skm/pages/laporan_table',
+            'unsur' => $unsur,
+            'total_unsur' => $total_unsur,
+            'tahun' => $tahun_skr,
+            'periode' => $periode_skr,
+            'responden' => $responden,
+            'bobot' => $bobot_nilai
+        ];
+        $this->load->view('Frontend/skm/layout/app', $data);
+    }
 }

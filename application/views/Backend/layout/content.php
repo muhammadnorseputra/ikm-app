@@ -157,7 +157,7 @@
       <div class="header-body">
         <div class="row align-items-center py-4">
           <?php $center = ($this->uri->segment(2) == 'edit') || ($this->uri->segment(2) == 'baru') ? 'text-center' : ''; ?>
-          <div class="col-lg-12 col-7 <?= $center ?>">
+          <div class="col-lg-6 col-7 <?= $center ?>">
             <h6 class="h2 <?= theme(['text'], 'main_bg') ?> d-inline-block mb-0">
               <!-- Title Headers -->
               <?= ucwords($this->uri->segment(1)) ?>
@@ -179,6 +179,12 @@
                 <?php endif; ?>
               <?php endif; ?>
             </h6>
+          </div>
+          <div class="col-lg-6 col-5 text-right">
+            <?php if($this->uri->segment(1) === 'report'): ?>
+              <a href="<?= base_url('laporan') ?>" class="btn btn-sm btn-neutral">Tabel Laporan</a>
+              <a href="<?= base_url('laporan/m/table') ?>" class="btn btn-sm btn-neutral">Rekapitulasi</a>
+            <?php endif; ?>
           </div>
         </div>
       </div>

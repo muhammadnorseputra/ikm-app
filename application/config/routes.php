@@ -54,6 +54,7 @@ $route['default_controller'] = 'welcome';
 // SKM
 $route['skm'] = 'frontend/skm/skmIndex';
 $route['laporan'] = 'frontend/skm/skmLaporan';
+$route['laporan/m/table'] = 'frontend/skm/skmLaporan/m';
 $route['cetak'] = 'frontend/skm/skmIndex/cetakFormulir/$1';
 $route['ikm'] = 'frontend/skm/skmIndex/ikm';
 $route['survei'] = 'frontend/skm/skmIndex/survei';
