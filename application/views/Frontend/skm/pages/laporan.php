@@ -12,6 +12,9 @@ $periode = isset($_GET['periode']) ? $_GET['periode'] : $periode_skr;
 // ARGS = tahun,periode
 $total_responden =$this->lap->total_responden_by_tahun_periode($tahun,$periode);
 $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
+// Target Per Tahun
+$target = $this->lap->target_by_tahun($tahun)->row();
+$t = !empty($target->target_tahunan) ? $target->target_tahunan : 0;
 ?>
 <section>
 	<div class="container my-3">
@@ -70,16 +73,17 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 								</p>
 								<p class="card-text"><small class="text-muted"><b>Last updated</b> <br> <?= longdate_indo(date('d-m-Y')) ?></small></p>
 							</div>
+							<div class="card-footer">
+								<div class="progress" style="height: 7px;">
+								  <div class="progress-bar" role="progressbar" style="width: <?= $total_responden ?>%" aria-valuenow="<?= $total_responden ?>" aria-valuemin="0" aria-valuemax="<?= $tstyle="height: 1px;" ?>"></div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col">
 				<div class="card">
-					<?php
-						$target = $this->lap->target_by_tahun($tahun)->row();
-						$t = !empty($target->target_tahunan) ? $target->target_tahunan : 0;
-					?>
 					<div class="row g-0">
 						<div class="col-md-4 bg-warning">
 							
@@ -87,10 +91,18 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 						<div class="col-md-8">
 							<div class="card-body">
 								<h5 class="card-title">Target/Tahun</h5>
+								<?php  
+									$t_tahun = @number_format(($total_responden_tahun/$t) * 100, 2);
+								?>
 								<p class="card-text fw-bold fs-3 text-muted">
-									<?= $t ?>/<?= @number_format(($total_responden_tahun/$t) * 100, 2) ?> %
+									<?= $t ?>/<?= $t_tahun ?> %
 								</p>
 								<p class="card-text"><small class="text-muted"><b>Last updated</b> <br> <?= longdate_indo(date('d-m-Y')) ?></small></p>
+							</div>
+							<div class="card-footer">
+								<div class="progress" style="height: 7px;">
+								  <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $t_tahun ?>%" aria-valuenow="<?= $t_tahun ?>" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -113,9 +125,17 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 							<div class="card-body">
 								<h5 class="card-title">Target/Periode</h5>
 								<p class="card-text fw-bold fs-3 text-muted">
-									<?= $tr ?>/<?= @number_format(($ts/$tr) * 100, 2) ?> %
+									<?php  
+									$t_card = @number_format(($ts/$tr) * 100, 2);
+									?>
+									<?= $tr ?>/<?= $t_card ?> %
 								</p>
 								<p class="card-text"><small class="text-muted"><b>Target</b> <br> <?= $cr ?> </small></p>
+							</div>
+							<div class="card-footer">
+								<div class="progress" style="height: 7px;">
+								  <div class="progress-bar bg-success" role="progressbar" style="width: <?= $t_card ?>%" aria-valuenow="<?= $t_card ?>" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -207,7 +227,7 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 									<div class="alert alert-primary d-flex align-items-center" role="alert">
 									  <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-3"></i>
 									  <div>
-									   	Nilai IKM tidak tersedia, responden belum ada.
+									   	Nilai IKM tidak tersedia, responden belum ada untuk periode saat ini.
 									  </div>
 									</div>
 								</td>

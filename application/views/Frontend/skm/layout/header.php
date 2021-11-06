@@ -58,8 +58,14 @@
 			            <li><a class="dropdown-item" href="<?= base_url('dashboard') ?>">
 			            	<i class="bi bi-speedometer me-2"></i> Dahsboard</a></li>
 			            <li><hr class="dropdown-divider"></li>
+			            <li><h6 class="dropdown-header">Hasil IKM</h6></li>
 			            <li><a class="dropdown-item" href="<?= base_url('laporan') ?>">Laporan</a></li>
 			            <li><a class="dropdown-item" href="<?= base_url('laporan/m/table') ?>">Rekapitulasi</a></li>
+			            <li><a class="dropdown-item" href="<?= base_url('report') ?>">Report Chart</a></li>
+			            <li><hr class="dropdown-divider"></li>
+			            <li><h6 class="dropdown-header">Akun Saya</h6></li>
+			            <li><a class="dropdown-item" href="<?= base_url('profile/'.$this->session->userdata('user_name')) ?>">My Profile</a></li>
+			            <li><a class="dropdown-item" href="<?= base_url('logout') ?>">Logout</a></li>
 			          </ul>
 				</li>
 				<?php endif ?>

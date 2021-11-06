@@ -289,7 +289,7 @@
 					<div class="alert alert-primary d-flex align-items-center" role="alert">
 					  <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-3"></i>
 					  <div>
-					   	Nilai IKM tidak tersedia, responden belum ada.
+					   	Nilai IKM tidak tersedia, responden belum ada untuk periode saat ini.
 					  </div>
 					</div>
 				</div>
