@@ -64,8 +64,8 @@
                   $responden_tahun_ini = @$this->skm->skm_total_responden_per_tahun($_d->tahun);
                 ?>
                 <div class="progress progress-xs mb-0">
-                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="<?= $total_responden_card ?>" aria-valuemin="0" aria-valuemax="<?= $responden_tahun_ini ?>" style="width: <?= $total_responden_card ?>%;"></div>
-                  </div>
+                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="<?= $total_responden_card ?>" aria-valuemin="0" aria-valuemax="<?= $responden_tahun_ini ?>" style="width: <?= ($total_responden_card/$responden_tahun_ini)*100 ?>%;"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -92,6 +92,11 @@
                   <span class="text-nowrap">(Sampel: <b class="font-weight-bold"><?= !empty($responden_tahun_ini) ? $responden_tahun_ini : 0; ?></b>)</span>
                 </p>
               </div>
+              <div class="card-footer">
+                <div class="progress progress-xs mb-0">
+                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="<?= $total_periode ?>" aria-valuemin="0" aria-valuemax="12" style="width: <?= ($total_periode/12)*100 ?>%;"></div>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -114,6 +119,11 @@
                   <span class="text-success mr-2">( <?= $ikm['data']['nilai_konversi']['x'] ?> )</span>
                   <span class="text-nowrap"><?= $ikm['data']['nilai_konversi']['y'] ?></span>
                 </p>
+              </div>
+              <div class="card-footer">
+                <div class="progress progress-xs mb-0">
+                    <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="<?= @number_format($ikm['data']['nilai_ikm'],2) ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= @number_format($ikm['data']['nilai_ikm'],2) ?>%;"></div>
+                  </div>
               </div>
             </div>
           </div>
