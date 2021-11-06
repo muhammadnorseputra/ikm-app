@@ -14,8 +14,10 @@
 			<!-- <img src="<?= base_url('assets/images/logo.png'); ?>" alt="Survey SKM" width="40"> -->
 			<span class="fw-bold">DEMO VERSION</span>
 		</a>
+		<?php if(empty($this->session->userdata('user_name'))): ?>
 		<a class="btn btn-secondary btn-block ms-auto d-block d-sm-block d-md-block d-lg-none"  href="<?= base_url('console') ?>">
 		Console</a>
+		<?php endif; ?>
 		<span class="text-secondary mx-2"></span>
 		<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -65,7 +67,7 @@
 			            <li><hr class="dropdown-divider"></li>
 			            <li><h6 class="dropdown-header">Akun Saya</h6></li>
 			            <li><a class="dropdown-item" href="<?= base_url('profile/'.$this->session->userdata('user_name')) ?>">My Profile</a></li>
-			            <li><a class="dropdown-item" href="<?= base_url('logout') ?>">Logout</a></li>
+			            <li><a class="dropdown-item" href="<?= base_url('logout?continue='.curPageURL()) ?>">Logout</a></li>
 			          </ul>
 				</li>
 				<?php endif ?>

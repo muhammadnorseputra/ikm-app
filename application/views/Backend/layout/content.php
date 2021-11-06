@@ -99,6 +99,12 @@
                   </span>
                   <small>Laporan</small>
                 </a>
+                <a href="<?= base_url('laporan/m/table') ?>" target="_blank" class="col-4 shortcut-item">
+                  <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
+                    <i class="ni ni-email-83"></i>
+                  </span>
+                  <small>Rekapitulasi</small>
+                </a>
               </div>
             </div>
           </li>
