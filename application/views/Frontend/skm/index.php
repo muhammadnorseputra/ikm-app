@@ -1,5 +1,5 @@
 <section class="hero">
-	<div class="p-md-4 py-3 px-2 bg-dark">
+	<div class="p-md-4 py-3 px-2 bg-success">
 		<div class="container py-md-5">
 			<div class="d-flex justify-content-between align-items-md-center align-items-start flex-lg-row flex-column">
 				<div class="order-last order-md-first col-md-6">

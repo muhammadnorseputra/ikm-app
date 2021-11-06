@@ -3,7 +3,7 @@
 	if($uri === 'ikm'):
 		$nv = 'navbar-dark'; $bg = 'bg-dark bg-gradient';
 	elseif($uri === 'skm'):
-		$nv = 'navbar-dark'; $bg = 'bg-dark bg-gradient';
+		$nv = 'navbar-dark'; $bg = 'bg-success bg-gradient';
 	else:
 		$nv = 'navbar-light'; $bg = 'bg-light bg-gradient';
 	endif;
@@ -15,8 +15,12 @@
 			<span class="fw-bold">DEMO VERSION</span>
 		</a>
 		<?php if(empty($this->session->userdata('user_name'))): ?>
-		<a class="btn btn-secondary btn-block ms-auto d-block d-sm-block d-md-block d-lg-none"  href="<?= base_url('console') ?>">
-		Console</a>
+		<a class="btn btn-warning btn-block ms-auto d-block d-sm-block d-md-block d-lg-none"  href="<?= base_url('survei') ?>">
+		  <i class="bi bi-ui-checks me-2"></i> Isi Survei
+		<span class="position-absolute ms-2 top-10 start-95 translate-middle p-2 bg-danger rounded-circle animate__animated animate__flash animate__infinite">
+				<span class="visually-hidden">New alerts</span>
+			</span>
+		</a>
 		<?php endif; ?>
 		<span class="text-secondary mx-2"></span>
 		<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,8 +49,8 @@
 					<a class="nav-link fw-bold" href="#cetak" tabindex="-1" aria-disabled="true" data-bs-toggle="offcanvas" role="button" aria-controls="offcanvasExample">Cetak Formulir</a>
 				</li>
 				<?php if(empty($this->session->userdata('user_name'))): ?>
-				<a class="btn btn-secondary me-2 d-none d-md-block position-relative " href="<?= base_url('console') ?>">
-					  Console
+				<a class="btn btn-warning me-2 d-none d-md-block position-relative " href="<?= base_url('survei') ?>">
+					  <i class="bi bi-ui-checks me-2"></i> Isi Survei
 					<span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger rounded-circle animate__animated animate__flash animate__infinite">
 							<span class="visually-hidden">New alerts</span>
 						</span>
