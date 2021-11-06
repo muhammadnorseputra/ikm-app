@@ -3,10 +3,10 @@ if($this->session->userdata('user_id') == ""):
 	$this->load->view('Frontend/skm/pages/restricted');
 	return false;
 endif;
-$periode = $this->skm->skm_periode();
-$year = $periode->num_rows() != 0 ? $periode->row()->tahun : 0;
+$periode_list = $this->skm->skm_periode();
+$year = $periode_list->num_rows() != 0 ? $periode_list->row()->tahun : 0;
 $tahun_skr = !empty($year) ? $year : '-';
-$periode_skr = $periode->num_rows() != 0 ? $periode->row()->id : 0;
+$periode_skr = $periode_list->num_rows() != 0 ? $periode_list->row()->id : 0;
 $tahun = isset($_GET['tahun']) ? $_GET['tahun'] : $tahun_skr;
 $periode = isset($_GET['periode']) ? $_GET['periode'] : $periode_skr;
 // ARGS = tahun,periode
@@ -146,6 +146,7 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 							</th> -->
 						</tr>
 					</thead>
+					<?php if($total_responden > 0): ?>
 					<tbody>
 						<?php
 							$no = 1;
@@ -160,33 +161,17 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 										$poin[] = $this->skm->_get_poin_responden_per_unsur($j);
 									endforeach;
 									// POIN PER UNSUR
-									$u1[] = $poin[0];
-									$u2[] = $poin[1];
-									$u3[] = $poin[2];
-									$u4[] = $poin[3];
-									$u5[] = $poin[4];
-									$u6[] = $poin[5];
-									$u7[] = $poin[6];
-									$u8[] = $poin[7];
-									$u9[] = $poin[8];
-									// $upoin[] = array_merge([], $poin);
-									
-									// TOTAL NI PER UNSUR
-									$total_u1 = array_sum($u1)/$total_responden;
-									$total_u2 = array_sum($u2)/$total_responden;
-									$total_u3 = array_sum($u3)/$total_responden;
-									$total_u4 = array_sum($u4)/$total_responden;
-									$total_u5 = array_sum($u5)/$total_responden;
-									$total_u6 = array_sum($u6)/$total_responden;
-									$total_u7 = array_sum($u7)/$total_responden;
-									$total_u8 = array_sum($u8)/$total_responden;
-									$total_u9 = array_sum($u9)/$total_responden;
+									$u[] = array_merge([], $poin);
 								endforeach;
-								$nrr_unsur = ['1' => @$total_u1, '2' => @$total_u2, '3' => @$total_u3, '4' => @$total_u4,'5' => @$total_u5,'6' => @$total_u6,'7' => @$total_u7,'8' => @$total_u8,'9' => @$total_u9];
-							// endif;
-							foreach ($unsur->result() as $u):
-								$nrr_tertimbang = @number_format($nrr_unsur[$u->id], 2);
-								$nrr_tertimbang_sum[] = @($nrr_unsur[$u->id] * $bobot_nilai);
+								$acc = array_shift($u);
+								foreach ($u as $val) {
+								    foreach ($val as $key => $val) {
+								        $acc[$key] += $val;
+								    }
+								}
+							foreach ($unsur->result() as $k => $u):
+								$nrr_tertimbang = @number_format($acc[$k]/$total_responden, 2);
+								$nrr_tertimbang_sum[] = @(($acc[$k]/$total_responden) * $bobot_nilai);
 								$ikm_unsur = @number_format($nrr_tertimbang * 25, 2);
 								$ikm_unsur_arr[] = @number_format($nrr_tertimbang * 25, 2);
 						?>
@@ -215,6 +200,20 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 							<td colspan="3" class="text-center fw-bold fs-3 text-<?= $this->skm->nilai_predikat($total_ikm)['c'] ?>"><?= $this->skm->nilai_predikat($total_ikm)['y']; ?></td>
 						</tr>
 					</tbody>
+					<?php else: ?>
+						<tbody>
+							<tr>
+								<td colspan="5">
+									<div class="alert alert-primary d-flex align-items-center" role="alert">
+									  <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-3"></i>
+									  <div>
+									   	Nilai IKM tidak tersedia, responden belum ada.
+									  </div>
+									</div>
+								</td>
+							</tr>
+						</tbody>	
+					<?php endif; ?>
 				</table>
 			</div>
 		</div>
@@ -286,10 +285,10 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 			$responden_count = $this->lap->responden_by_tahun_periode($tahun,$periode)->num_rows();
 			?>
 			<div class="fw-bold fs-4">#Uji Frekuensi Unsur Layanan</div>
-			<?= form_open(base_url('laporan'), ['method' => 'GET']); ?>
-			<div class="form-inline text-center">
-				<label for="pilih-layanan">Pilih Unsur</label>
-				<select name="uid" id="pilih-layanan">
+			<?= form_open(base_url('laporan'), ['class' => 'd-flex justify-content-start align-items-center' , 'method' => 'GET']); ?>
+			<div class="row g-2 align-items-center">
+				<div class="form-floating col-auto">
+				<select name="uid" id="pilih-layanan" class="form-select" aria-label="Default select example">
 					<option value="">Pilih Unsur</option>
 					<?php 
 						foreach ($unsur_layanan_all->result() as $unsur): 
@@ -298,20 +297,20 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 						<option value="<?= encrypt_url($unsur->id) ?>" <?= $selected ?>><?= $unsur->jdl_unsur ?></option>
 					<?php endforeach; ?>
 				</select>
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<label for="pilih-layanan">Pilih Unsur Layanan</label>
+				</div>
+				<div class="col-auto">
+				<button type="submit" class="btn btn-link">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-zoom-in" viewBox="0 0 16 16">
+					  <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+					  <path d="M10.344 11.742c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1 6.538 6.538 0 0 1-1.398 1.4z"/>
+					  <path fill-rule="evenodd" d="M6.5 3a.5.5 0 0 1 .5.5V6h2.5a.5.5 0 0 1 0 1H7v2.5a.5.5 0 0 1-1 0V7H3.5a.5.5 0 0 1 0-1H6V3.5a.5.5 0 0 1 .5-.5z"/>
+					</svg></button>
+				</div>
 			</div>
+			<div class="fw-bold fs-5 text-primary text-center ms-4"><?= $unsur_layanan->jdl_unsur ?></div>
 			<?= form_close(); ?>
 			<div class="table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<th class="text-center fw-bold fs-5 text-primary"><?= $unsur_layanan->jdl_unsur ?></th>
-						</tr>
-						<tr>
-							<!-- <th class="text-center fw-bold fs-5 text-success"><?= $pertanyaan->jdl_pertanyaan ?> ?</th> -->
-						</tr>
-					</thead>
-				</table>
 				<table class="table">
 					<thead>
 						<tr>
@@ -570,49 +569,32 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 							$bobot_nilai_tahun = $this->skm->skm_bobot_nilai();
 							foreach($result_tahun as $t):
 							$responden_unsur_tahun = $this->lap->responden_by_tahun($t->tahun);
-							$u1_tahun = []; $u2_tahun = []; $u3_tahun = []; $u4_tahun = []; $u5_tahun = [];
-							$u6_tahun = []; $u7_tahun = []; $u8_tahun = []; $u9_tahun = [];
 							foreach($responden_unsur_tahun->result() as $s):
-								
 								$get_jawaban_tahun = $this->skm->_get_jawaban_responden($s->id);
-								
 								$poin_tahun = [];
 								foreach($get_jawaban_tahun as $q):
 									$poin_tahun[] = $this->skm->_get_poin_responden_per_unsur($q);
 								endforeach;
 								$total_responden_by_tahun = $this->lap->total_responden_by_tahun($t->tahun);
 								// POIN PER UNSUR
-								$u1_tahun[] = $poin_tahun[0];
-								$u2_tahun[] = $poin_tahun[1];
-								$u3_tahun[] = $poin_tahun[2];
-								$u4_tahun[] = $poin_tahun[3];
-								$u5_tahun[] = $poin_tahun[4];
-								$u6_tahun[] = $poin_tahun[5];
-								$u7_tahun[] = $poin_tahun[6];
-								$u8_tahun[] = $poin_tahun[7];
-								$u9_tahun[] = $poin_tahun[8];
+								$upoin[] = array_merge([], $poin_tahun);
 								
-								// TOTAL NI PER UNSUR
-								$total_u1_tahun = array_sum($u1_tahun)/$total_responden_by_tahun;
-								$total_u2_tahun = array_sum($u2_tahun)/$total_responden_by_tahun;
-								$total_u3_tahun = array_sum($u3_tahun)/$total_responden_by_tahun;
-								$total_u4_tahun = array_sum($u4_tahun)/$total_responden_by_tahun;
-								$total_u5_tahun = array_sum($u5_tahun)/$total_responden_by_tahun;
-								$total_u6_tahun = array_sum($u6_tahun)/$total_responden_by_tahun;
-								$total_u7_tahun = array_sum($u7_tahun)/$total_responden_by_tahun;
-								$total_u8_tahun = array_sum($u8_tahun)/$total_responden_by_tahun;
-								$total_u9_tahun = array_sum($u9_tahun)/$total_responden_by_tahun;
 							endforeach;
+							$acc = array_shift($upoin);
+							foreach ($upoin as $val) {
+							    foreach ($val as $key => $val) {
+							        $acc[$key] += $val;
+							    }
+							}
 						?>
 						<tr>
 							<td class="fw-bold text-center"><?= $t->tahun ?></td>
 							<td class="fw-bold text-center"><?= !empty($total_responden_by_tahun) ? $total_responden_by_tahun : 0; ?></td>
 							<?php 
-								$nrr_unsur_tahun = ['1' => @$total_u1_tahun, '2' => @$total_u2_tahun, '3' => @$total_u3_tahun, '4' => @$total_u4_tahun,'5' => @$total_u5_tahun,'6' => @$total_u6_tahun,'7' => @$total_u7_tahun,'8' => @$total_u8_tahun,'9' => @$total_u9_tahun];
 								$nrr_tertimbang_sum_tahun = [];
-								foreach($unsur_tahun->result() as $u):
-									$nrr_tertimbang_tahun = @number_format($nrr_unsur_tahun[$u->id], 2);
-									$nrr_tertimbang_sum_tahun[] = @($nrr_unsur_tahun[$u->id] * $bobot_nilai);
+								foreach($unsur_tahun->result() as $k => $u):
+									$nrr_tertimbang_tahun = @number_format($acc[$k]/$total_responden_by_tahun, 2);
+									$nrr_tertimbang_sum_tahun[] = ($acc[$k]/$total_responden_by_tahun * $bobot_nilai_tahun);
 									$ikm_unsur_tahun = @number_format($nrr_tertimbang_tahun * 25, 2);
 									// $ikm_unsur_arr[] = @number_format($nrr_tertimbang * 25, 2);
 							?>
@@ -633,49 +615,3 @@ $total_responden_tahun =$this->lap->total_responden_by_tahun($tahun);
 		</div>
 	</div>
 </section>
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSetting" aria-labelledby="offcanvasExampleLabel">
-	<div class="offcanvas-header">
-		<h5 class="offcanvas-title fw-bold" id="offcanvasExampleLabel">SETTING</h5>
-		<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-	</div>
-	<div class="offcanvas-body bg-light">
-		<?= form_open(base_url('laporan'), ['method' => 'GET']); ?>
-		<div class="text-muted mb-3 pb-3 border-bottom fw-lighter">
-			Pengaturan ini hanya berpengaruh pada laporan.
-		</div>
-		<div>
-			<div class="form-floating">
-				<select class="form-select mb-3" name="tahun" aria-label=".form-select-lg" id="example_tahun" required=>
-					<option value="">Pilih tahun</option>
-					<?php foreach($this->skm->skm_all_tahun()->result() as $jl): ?>
-					<?php $selected = $tahun === $jl->tahun ? 'selected' : ''; ?>
-					<option value="<?= $jl->tahun ?>" <?= $selected ?>><?= strtoupper($jl->tahun) ?></option>
-					<?php endforeach; ?>
-				</select>
-				<label for="example_tahun">Atur Berdasarkan Tahun</label>
-			</div>
-		</div>
-		<hr>
-		<div>
-			<div class="form-floating">
-				<select class="form-select mb-3" name="periode" aria-label=".form-select-lg" id="example_periode">
-					<option value="">Pilih Periode</option>
-					<?php foreach($this->skm->skm_all_periode()->result() as $jl): ?>
-					<?php $selected = $periode === $jl->id ? 'selected' : ''; ?>
-					<option value="<?= $jl->id ?>" <?= $selected ?>><?= mediumdate_indo($jl->tgl_mulai) ?> - <?= mediumdate_indo($jl->tgl_selesai) ?></option>
-					<?php endforeach; ?>
-				</select>
-				<label for="example_periode">Atur Berdasarkan Periode</label>
-			</div>
-		</div>
-		<div class="btn-group" role="group" aria-label="Basic example">
-			<button class="btn btn-primary disabled" type="button">
-			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
-				<path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
-			</svg>
-			</button>
-			<button class="btn btn-primary text-uppercase" type="submit">terapkan</button>
-		</div>
-		<?= form_close(); ?>
-	</div>
-</div>

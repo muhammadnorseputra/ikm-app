@@ -159,7 +159,7 @@ class SkmIndex extends CI_Controller
         $data = [
             'title' => 'SKM - BKPPD Balangan',
             'content' => 'Frontend/skm/index',
-            'total_responden' => $this->skm->skm_total_responden_all()
+            'total_responden' => $this->skm->skm_total_responden($this->periode_skr)
         ];
         $this->load->view('Frontend/skm/layout/app', $data);
     }

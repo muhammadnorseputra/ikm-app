@@ -1,3 +1,4 @@
+<?php $this->load->view('Frontend/skm/pages/setting_modal'); ?>
 <?php $this->load->view('Frontend/skm/pages/print_modal'); ?>
 <footer class="bg-light border-top">
 	<div class="container">

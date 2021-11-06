@@ -152,7 +152,7 @@ class Skm extends CI_Model {
 	public function skm_bobot_nilai()
 	{
 		$jumlah_bobot = 1;
-		$jumlah_unsur = $this->skm_pertanyaan()->num_rows();
+		$jumlah_unsur = $this->skm_unsur_layanan()->num_rows();
 		$bobot_nilai = $jumlah_bobot / $jumlah_unsur;
 		return number_format($bobot_nilai,2);
 	}

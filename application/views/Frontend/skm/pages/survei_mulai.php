@@ -2,7 +2,7 @@
 $card = isset($_GET['card']) ? $_GET['card'] : '';
 ?>
 <section class="survei-non-asn bg-light">
-	<div class="py-3 bg-success bg-gradient text-center sticky-top">
+	<div class="py-3 bg-success bg-gradient text-center">
 		<h4 class="text-light">Formulir Survei IKM</h4>
 	</div>
 	<?php  

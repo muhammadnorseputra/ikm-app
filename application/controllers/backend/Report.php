@@ -102,7 +102,7 @@ class Report extends CI_Controller {
 		foreach($jenis_layanan->result() as $jl):
 			$jml_responden = $this->laporan->responden_by_jenis_layanan($tahun,null,$jl->id);
 			$total_responden_by_layanan = ($jml_responden != 0) ? intval($jml_responden) : null;
-			$persentase = ($jml_responden/$total_responden) * 100;
+			$persentase = number_format(($jml_responden/$total_responden) * 100, 2);
 			$data[] = ['label' => ucwords($jl->nama_jenis_layanan), 'y' => $total_responden_by_layanan, 'p' => $persentase];
 		endforeach;
 		$this->output->set_content_type('application/json');

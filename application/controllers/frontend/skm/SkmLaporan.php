@@ -24,6 +24,8 @@ class SkmLaporan extends CI_Controller
     }
 
     public function m() {
+        
+
         $unsur = $this->skm->skm_unsur_layanan();
         $total_unsur = $unsur->num_rows();
 
@@ -32,7 +34,10 @@ class SkmLaporan extends CI_Controller
         $tahun_skr = !empty($year) ? $year : '-';
         $periode_skr = $periode->num_rows() != 0 ? $periode->row()->id : 0;
         
-        $responden = $this->lap->responden_by_tahun_periode($tahun_skr,$periode_skr);
+        $tahun = isset($_GET['tahun']) ? $_GET['tahun'] : $tahun_skr;
+        $periode_id = isset($_GET['periode']) ? $_GET['periode'] : $periode_skr;
+
+        $responden = $this->lap->responden_by_tahun_periode($tahun,$periode_id);
 
         $bobot_nilai = $this->skm->skm_bobot_nilai();
 
