@@ -6,7 +6,7 @@
 			<table class="table table-bordered">
 				<thead class="bg-primary text-white">
 					<tr>
-						<th scope="col" rowspan="2" class="text-center align-middle bg-white text-danger" width="30">No <br> Responden</th>
+						<th scope="col" rowspan="2" class="text-center align-middle bg-white text-dark" width="30">No <br> Responden</th>
 						<th scope="col" colspan="<?= $total_unsur ?>" class="text-center align-middle">
 							NILAI UNSUR PERLAYANAN
 						<th scope="col" rowspan="2" class="text-center align-middle bg-white text-success">*) <br> **)</th>
@@ -30,7 +30,7 @@
 						$u[] = array_merge([], $poin);
 					?>
 						<tr>
-							<td class="text-center fw-bold text-danger"><?= $no ?></td>
+							<td class="text-center fw-bold"><?= $no ?></td>
 							<?php 
 								$total_responden = $responden->num_rows();
 								foreach ($poin as $key => $value):
@@ -147,7 +147,7 @@
 				</tbody>
 			</table>
 			<div class="card">
-				<div class="card-body bg-success text-white">
+				<div class="card-body bg-<?= $this->skm->nilai_predikat($ikm)['c'] ?> text-white">
 					<div class="row">
 					<div class="col-xl-5">
 						<span class="fw-bold h-3">IKM Unit Pelayanan :</span>
@@ -161,29 +161,30 @@
 			<table class="table table-bordered my-3">
 				<thead class="bg-dark text-white">
 					<tr>
-						<th class="fw-bold" colspan="2">Mutu Unit Layanan</th>
+						<th class="fw-bold">Mutu Unit Layanan</th>
+						<th class="text-center">Kode Warna</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td class="fw-bold" width="200">A (Sangat Baik)</td>
-						<td class="text-center" width="30">:</td>
+						<td class="text-center"><span class="bg-success">&nbsp;&nbsp;</span></td>
 						<td class="text-center">83,31 - 100,00 </td>
 					</tr>
 					<tr>
 						<td class="fw-bold" width="200">B (Baik)</td>
-						<td class="text-center" width="30">:</td>
+						<td class="text-center"><span class="bg-info">&nbsp;&nbsp;</span></td>
 						<td class="text-center">76,61 - 88,30</td>
 					</tr>
 					<tr>
 						<td class="fw-bold" width="200">C (Kurang Baik)</td>
-						<td class="text-center" width="30">:</td>
+						<td class="text-center"><span class="bg-warning">&nbsp;&nbsp;</span></td>
 						<td class="text-center">65,00 - 76,60</td>
 					</tr>
 					<tr>
 						<td class="fw-bold" width="200">D (Tidak Baik)</td>
-						<td class="text-center" width="30">:</td>
+						<td class="text-center"><span class="bg-danger">&nbsp;&nbsp;</span></td>
 						<td class="text-center">25,00 - 64,99</td>
 					</tr>
 				</tbody>
@@ -202,8 +203,9 @@
 					<?php 
 						$no=1;
 						foreach($unsur->result() as $k => $r): 
+						$note = $this->skm->predikat($cari_nrr_t[$k])['c'];
 					?>
-						<tr>
+						<tr class="bg-<?= $note ?> text-white">
 							<td class="text-center">
 								<?= $no ?>	
 							</td>
