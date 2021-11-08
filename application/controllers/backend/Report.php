@@ -108,6 +108,29 @@ class Report extends CI_Controller {
 		$this->output->set_content_type('application/json');
 		echo json_encode($data);
 	}
+
+	public function cetak() 
+	{
+		$p = $this->input->post();
+		$tahun = $p['report_tahun'] != '' ? $p['report_tahun'] : '-';
+		$periode = $p['report_periode'] != '' ? $p['report_periode'] : '-';
+
+		if(isset($tahun)) {
+			$msg = ['valid' => true, 'ref' => base_url("print-view/{$tahun}/{$periode}") ];
+		}
+		echo json_encode($msg);
+	}
+
+	public function cetak_view($tahun,$periode) {
+		$data = [
+            'title' => 'e-Survei | Cetak IKM - '.$tahun,
+			'tahun' => $tahun,
+			'periode' => $periode,
+			'dataset' => $this->skm->skm_total_responden()
+		];
+
+        $this->load->view('Backend/pages/cetak', $data);	
+	}
 }
 
 /* End of file Report.php */

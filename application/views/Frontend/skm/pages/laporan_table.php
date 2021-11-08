@@ -22,12 +22,10 @@
 		<div class="col align-self-center">
 			<div class="btn-group float-end" role="group" aria-label="Basic example">
 					<button class="btn btn-primary disabled" type="button">
-					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
-						<path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
-					</svg>
+					<i class="bi bi-sliders"></i>
 					</button>
 					<button class="btn btn-primary text-uppercase" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSetting" aria-controls="offcanvasSetting">SETTING</button>
-				</div>
+			</div>
 		</div>
 	</div>
 	<div class="row">
@@ -65,8 +63,9 @@
 							<?php 
 								$total_responden = $responden->num_rows();
 								foreach ($poin as $key => $value):
+									$poin_unsur = isset($poin[$key]) ? $poin[$key] : 0;
 							?>
-								<td class="text-center"><?= $poin[$key] ?></td>
+								<td class="text-center"><?= $poin_unsur ?></td>
 							<?php endforeach; ?>
 							<td></td>
 						</tr>
@@ -83,8 +82,8 @@
 							    }
 							}
 							foreach($unsur->result() as $k => $r): 
-							$valid = $acc[$k];
-							$cari_nrr[] = $acc[$k]; 
+							$valid = !empty($acc[$k]) ? $acc[$k] : 0;
+							$cari_nrr[] = !empty($acc[$k]) ? $acc[$k] : 0; 
 						?>
 							<td class="text-center"><?= $valid ?></td>
 						<?php endforeach; ?>

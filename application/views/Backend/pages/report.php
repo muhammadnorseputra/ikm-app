@@ -39,8 +39,75 @@
 		</div>
 	</div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="reportModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    	<?= form_open(base_url('backend/report/cetak'), ['class' => 'form-horizontal', 'id' => 'form-cetak']); ?>
+      <div class="modal-header">
+        <h5 class="modal-title" id="reportModalLabel">Report Options</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+        	<label for="tahun">Tahun</label>
+        	<select name="report_tahun" class="form-control form-control-lg">
+        		<?php foreach($this->skm->skm_all_tahun()->result() as $jl): ?>
+					  	<option value="<?= $jl->tahun ?>"><?= strtoupper($jl->tahun) ?></option>
+					  <?php endforeach; ?>
+					</select>
+        </div>
+        <div class="form-group">
+        	<label for="tahun">Periode</label>
+        	<select name="report_periode" class="form-control form-control-lg">
+        		<?php 
+        		foreach($this->skm->skm_all_periode()->result() as $jl): 
+        			$bln_start = date("M", strtotime($jl->tgl_mulai));
+        			$bln_end = date("M", strtotime($jl->tgl_selesai));
+        			$year = date("Y", strtotime($jl->tgl_selesai));
+        		?>
+					  	<option value="<?= $jl->id ?>"><?= $bln_start ?> / <?= $bln_end ?> (<?= $year ?>) </option>
+					  <?php endforeach; ?>
+					</select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Cetak</button>
+      </div>
+      <?= form_close(); ?>
+    </div>
+  </div>
+</div>
   <script type="text/javascript">
+  $(function() {
+  	var $form = $("#form-cetak");
+		var $modal = $("#reportModal");
+		var $btnModal= $("button#cetak-rekap");
+
+		$btnModal.on("click", function(e) {
+			e.preventDefault();
+			var $this = $(this);
+			$modal.modal('show');
+		});
+
+		$form.submit(function(e) {
+			e.preventDefault();
+			var $this = $(this),
+					$url = $this.attr('action'),
+					$data = $this.serialize();
+			$.post($url,$data,function(r) {
+				if(r.valid === true) {
+					// window.location.href=r.ref;
+					window.open(r.ref, '_blank');
+				}
+			},'json');
+		})
+	});
+
+
       window.onload = function () {
       	// Canva By Umur
       	$.getJSON(`${_uri}/backend/report/ch_umur`, function(res) {

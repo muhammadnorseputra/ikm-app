@@ -90,6 +90,7 @@ $route['profile/(:any)'] = 'backend/users/profile/$1';
 $route['preferensi/(:any)'] = 'backend/users/preferensi/$1';
 $route['preferensi/(:any)/update'] = 'backend/users/preferensi/$1/update';
 $route['report'] = 'backend/report';
+$route['print-view/(:num)/(:num)'] = 'backend/report/cetak_view/$1/$2';
  
 
 $route['404_override'] = '';

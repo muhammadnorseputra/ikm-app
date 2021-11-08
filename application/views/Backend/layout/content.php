@@ -190,6 +190,7 @@
             <?php if($this->uri->segment(1) === 'report'): ?>
               <a href="<?= base_url('laporan') ?>" class="btn btn-sm btn-neutral">Tabel Laporan</a>
               <a href="<?= base_url('laporan/m/table') ?>" class="btn btn-sm btn-neutral">Rekapitulasi</a>
+              <button type="button" id="cetak-rekap" class="btn btn-sm btn-neutral">Cetak</a>
             <?php endif; ?>
           </div>
         </div>
