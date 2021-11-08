@@ -121,12 +121,14 @@ class Report extends CI_Controller {
 		echo json_encode($msg);
 	}
 
-	public function cetak_view($tahun,$periode) {
+	public function cetak_view($tahun,$periode=null) {
 		$data = [
-            'title' => 'e-Survei | Cetak IKM - '.$tahun,
+            'title' => 'e-Survei | Cetak IKM - '.$tahun.' ( '.$this->report->getPeriodeBulan($periode).' ) ',
 			'tahun' => $tahun,
 			'periode' => $periode,
-			'dataset' => $this->skm->skm_total_responden()
+			'responden' => $this->laporan->responden_by_tahun_periode($tahun,$periode),
+			'sampel' => $this->skm->skm_total_responden_per_tahun($tahun),
+			'ikm' => api_client(base_url('api/ikm'))
 		];
 
         $this->load->view('Backend/pages/cetak', $data);	

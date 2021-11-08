@@ -50,7 +50,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body bg-secondary">
         <div class="form-group">
         	<label for="tahun">Tahun</label>
         	<select name="report_tahun" class="form-control form-control-lg">

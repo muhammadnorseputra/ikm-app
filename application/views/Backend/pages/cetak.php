@@ -33,14 +33,34 @@ class MYPDF extends TCPDF {
         $this->Cell(0, 15, 'Hasil Indeks Tahun '.$this->tahun .' Periode '.$CI->report->getPeriodeBulan($this->periode), 0, false, 'L', 0, '', 0, false, 'M', 'M');
     }
 
-    public function Content($dataset) {
+    public function Content($responden) {
+        
+        $CI =& get_instance();
+        // $sampel = $CI->skm->skm_target_periode($this->periode)->target;
+        $total_responden = $responden->num_rows();
+
+        // Responden Gender
+        $responden_laki = $CI->laporan->responden_by_gender($this->tahun,$this->periode,'L');
+        $persentase_laki = number_format($responden_laki/$total_responden*100, 1);
+        $responden_bini = $CI->laporan->responden_by_gender($this->tahun,$this->periode,'P');
+        $persentase_bini = number_format($responden_bini/$total_responden*100, 1);
 
         #MultiCell(w, h, txt, border = 0, align = 'J', fill = 0, ln = 1, x = '', y = '', reseth = true, stretch = 0, ishtml = false, autopadding = true, maxh = 0)
-        $total_responden = '
-            <small>Total Responden</small>
-        ';
-        $this->MultiCell(40,20,$total_responden,1,'J',0,0, 10, 35, false, 0, true, false, 0);
+        $total_responden = "<small>Total Responden</small><br>".$total_responden."</b> / ".number_format(($total_responden/$this->sampel) * 100, 2)."%";
+        $total_sampel = "<small>Total Sampel</small><br>".$this->sampel;
+        $nilai_ikm = "<small>Nilai IKM</small><br>".$this->ikm['data']['nilai_ikm']." - ".$this->ikm['data']['nilai_konversi']['x']." (".$this->ikm['data']['nilai_konversi']['y'].")";
+        $total_responden_pria = "L : ". $responden_laki ." / ". $persentase_laki."%";
+        $total_responden_wanita = "P : ". $responden_bini . " / ". $persentase_bini."%";
 
+        $this->SetCellPaddings(3);
+        $this->SetFont('dejavusans', 'B', 14);
+        $this->MultiCell(60,15,$total_responden,1,'C', 0, 0, 10, 35, true, 0, true, false, 1);
+        $this->MultiCell(50,15,$total_sampel,1,'C', 0, 0, 70, 35, true, 0, true, false, 1);
+        $this->MultiCell(85,15,$nilai_ikm,1,'C', 0, 0, 120, 35, true, 0, true, false, 1);
+        $this->SetFont('dejavusans', 'N', 10);
+        $this->MultiCell(30,6,$total_responden_pria,1,'L', 0, 0, 10, 50, true, 0, true, false, 0, 'M');
+        $this->MultiCell(30,6,$total_responden_wanita,1,'L', 0, 0, 40, 50, true, 0, true, false, 0, 'M');
+        $this->MultiCell(135,6,'',1,'C', 0, 0, 70, 50, true, 0, true, false, 0);
     }
 
     // Page footer
@@ -56,13 +76,18 @@ class MYPDF extends TCPDF {
 
 
 $pdf = new MYPDF('P', 'mm', ['215', '330']);
+
+// Properti
 $pdf->tahun = $tahun;
 $pdf->periode = $periode;
+$pdf->sampel = $sampel;
+$pdf->ikm = $ikm;
+
 $pdf->SetTitle($title);
 $pdf->SetMargins(10,25,10);
 $pdf->SetHeaderMargin(5);
 $pdf->SetFooterMargin(10);
 $pdf->AddPage();
-$pdf->Content($dataset);
+$pdf->Content($responden);
 $pdf->Output('cetaklaporan.pdf', 'I'); 
 ?>
