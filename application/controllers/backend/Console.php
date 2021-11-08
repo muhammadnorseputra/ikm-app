@@ -80,10 +80,7 @@ class Console extends CI_Controller
     public function responden_per_pertanyaan()
     {
         $respondens = $this->skm->skm_get_responden();
-        $tanya = $this->skm->get_pertanyaan('skm_pertanyaan');
-        $data_tanya = [];
-        $data_jawab = [];
-        $j_responden = [];
+        $tanya = $this->skm->get_pertanyaan('skm_pertanyaan',4);
         
         foreach($respondens->result() as $u):
             $j_responden[] = $this->skm->_get_jawaban_responden($u->id);
@@ -91,14 +88,20 @@ class Console extends CI_Controller
         
         foreach($tanya->result() as $k => $t) {
             $jawaban[] = $this->skm->get_jawaban($t->id)->result();
-            $data_jawab[] = $jawaban[$k];
             $data_tanya[] = $t->jdl_pertanyaan;
         }
 
-        $j = array_merge([], ...$jawaban);
+        $acc = array_shift($j_responden);
+        foreach ($j_responden as $val) {
+            foreach ($val as $key => $val) {
+                $acc[$key] += $val;
+            }
+        }
+
+        $total = array_sum($acc);
 
         // $this->output->set_content_type('application/json');
-        return (['pertanyaan' => $data_tanya, 'jawaban' => $j, 'jawaban_responden' => $j_responden]);
+        return (['pertanyaan' => $data_tanya, 'jawaban_responden' => $acc, 'jawaban_total' => $total]);
     }
 
     public function auto_complete()

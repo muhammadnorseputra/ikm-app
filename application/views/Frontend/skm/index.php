@@ -11,6 +11,9 @@
 						Isi Survei Sekarang
 						<i class="bi bi-arrow-right"></i>
 					</a>
+					<a target="_blank" href="//bit.ly/3q22H7Q" class="btn btn-secondary rounded shadow" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Panduan Penggunaan e-Survei">
+						<i class="bi bi-book-half fs-4"></i>
+					</a>
 					<div class="mt-4">
 						<span class="display-1 fw-bold text-warning countTo" data-from="0" data-to="<?= nominal($total_responden) ?>"
 						data-speed="300" data-refresh-interval="50">0</span>
@@ -115,7 +118,7 @@
 	<div class="col-12 col-md-6">
 		<div class="fs-4 fw-bold text-success mb-2">Tinjau Perkembangan IKM</div>
 		<p class="text-muted">
-			Silahkan pindai QR-Code untuk meninjau secara langsung hasil dari penilaian Indeks Kepuasan Masyarakat (IKM) atau dengan mengunjungi alamat url (<code>https://qrco.de/ikm-bkppd-balangan</code>)
+			Silahkan pindai QR-Code untuk meninjau secara langsung hasil dari penilaian Indeks Kepuasan Masyarakat (IKM) atau dengan mengunjungi alamat url (<code>https://web.bkppd-balangankab.info/ikm</code>)
 		</p>
 		<p class="text-muted">
 			Kami selaku unit pelayanan mengucapkan terimakasih atas partisipasi anda dalam pelaksanaan penilaian IKM secara Online maupun Offline.

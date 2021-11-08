@@ -218,9 +218,9 @@ class Skm extends CI_Model {
 		return $q;
 	}
 
-	public function get_pertanyaan($tbl)
+	public function get_pertanyaan($tbl,$limit)
 	{
-		return $this->db->get($tbl, 4,0);
+		return $this->db->get($tbl, $limit,0);
 	}
 	public function get_jawaban($id)
 	{

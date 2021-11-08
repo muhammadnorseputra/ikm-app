@@ -75,20 +75,26 @@
             <tr>
               <th scope="col">Pertanyaan</th>
               <th scope="col">Total Persepsi</th>
-              <th scope="col">Rata<sup>2</sup></th>
             </tr>
           </thead>
           <tbody>
 
-            <?php foreach($responden_per_pertanyaan['pertanyaan'] as $rp): ?>
+            <?php foreach($responden_per_pertanyaan['pertanyaan'] as $k => $rp): ?>
             <tr>
-              <th scope="row">
-                <?= $rp ?>
-              </th>
               <td>
+                <?= $rp ?>
+                <?php $persentase = number_format($responden_per_pertanyaan['jawaban_responden'][$k]/$responden_per_pertanyaan['jawaban_total']*100, 2); ?>
+                <div class="d-flex align-items-center">
+                  <span class="mr-2"><?= $persentase ?>%</span>
+                  <div>
+                    <div class="progress">
+                      <div class="progress-bar bg-gradient-blue" role="progressbar" aria-valuenow="<?= $persentase ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $persentase ?>%;"></div>
+                    </div>
+                  </div>
+                </div>
               </td>
               <td>
-                <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
+                <?= $responden_per_pertanyaan['jawaban_responden'][$k]; ?>
               </td>
             </tr>
             <?php endforeach; ?>

@@ -13,8 +13,8 @@ class SkmProses extends CI_Controller
     public function index()
     {
         $post = $this->input->post();
-        $token_verify = '@270599bkppd_balangan_'.date('dmYH');
-        $token = decrypt_url($post['token_']);
+        $token_verify = $this->session->csrf_token;
+        $token = $post['xtoken'];
         $cookie = get_cookie('ikm_vote');
         if(empty($cookie) || $cookie !== '1') {
             if(!empty($token) && ($token === $token_verify)):
