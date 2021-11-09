@@ -86,10 +86,11 @@ class PDF extends TCPDF {
         $y = 76;
         $x = 10;
         $maxline = 1;
+        $limit = 12;
         foreach($responden->result() as $k => $v):
         $total_responden_sum = $responden->num_rows();
             
-            $maxline = $maxline % 30;
+            $maxline = $maxline % $limit;
             if($maxline == 0) {
                 $y1 = 30;
                 $y = 54;
@@ -127,7 +128,7 @@ class PDF extends TCPDF {
                 if($no == ($total_responden_sum + 2)) {
                     $this->MultiCell(20,5,'','B','C', 0, 0, $inX, $y, true, 0, true, false, 1);
                 } 
-                if($maxline == ($total_responden_sum + 2)) {
+                if($maxline == ($limit-1)) {
                     $this->MultiCell(20,5,'','B','C', 0, 0, $inX, $y, true, 0, true, false, 1);
                 }
                 $this->MultiCell(20,5,'','R','C', 0, 0, $inX, $y, true, 0, true, false, 1);
