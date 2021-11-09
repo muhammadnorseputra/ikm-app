@@ -1,6 +1,6 @@
 <?php  
 // Extend the TCPDF class to create custom Header and Footer
-class MYPDF extends TCPDF {
+class PDF extends TCPDF {
 
     //Page header
     public function Header() {
@@ -48,20 +48,139 @@ class MYPDF extends TCPDF {
         #MultiCell(w, h, txt, border = 0, align = 'J', fill = 0, ln = 1, x = '', y = '', reseth = true, stretch = 0, ishtml = false, autopadding = true, maxh = 0)
         $total_responden = "<small>Total Responden</small><br>".$total_responden."</b> / ".number_format(($total_responden/$this->sampel) * 100, 2)."%";
         $total_sampel = "<small>Total Sampel</small><br>".$this->sampel;
-        $nilai_ikm = "<small>Nilai IKM</small><br>".$this->ikm['data']['nilai_ikm']." - ".$this->ikm['data']['nilai_konversi']['x']." (".$this->ikm['data']['nilai_konversi']['y'].")";
+        $nilai_ikm = "<small>Nilai IKM</small><br>".number_format($this->ikm['data']['nilai_ikm'], 2)." - ".$this->ikm['data']['nilai_konversi']['x']." (".$this->ikm['data']['nilai_konversi']['y'].")";
         $total_responden_pria = "L : ". $responden_laki ." / ". $persentase_laki."%";
         $total_responden_wanita = "P : ". $responden_bini . " / ". $persentase_bini."%";
 
-        $this->SetCellPaddings(3);
         $this->SetFont('dejavusans', 'B', 14);
         $this->MultiCell(60,15,$total_responden,1,'C', 0, 0, 10, 35, true, 0, true, false, 1);
         $this->MultiCell(50,15,$total_sampel,1,'C', 0, 0, 70, 35, true, 0, true, false, 1);
         $this->MultiCell(85,15,$nilai_ikm,1,'C', 0, 0, 120, 35, true, 0, true, false, 1);
+        
         $this->SetFont('dejavusans', 'N', 10);
-        $this->MultiCell(30,6,$total_responden_pria,1,'L', 0, 0, 10, 50, true, 0, true, false, 0, 'M');
-        $this->MultiCell(30,6,$total_responden_wanita,1,'L', 0, 0, 40, 50, true, 0, true, false, 0, 'M');
-        $this->MultiCell(135,6,'',1,'C', 0, 0, 70, 50, true, 0, true, false, 0);
-    }
+        #Cell(w, h = 0, txt = '', border = 0, ln = 0, align = '', fill = 0, link = nil, stretch = 0, ignore_min_height = false, calign = 'T', valign = 'M')
+        $this->Ln();
+        $this->Cell(30,8,$total_responden_pria,1,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(30,8,$total_responden_wanita,1,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(135,8,'',1,'C');
+        
+        // Thead
+        $this->Ln(10);
+        $this->Cell(10,16,'NO',1,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(165,8,'Unsur Layanan',1,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(20,16,'','LTR',1,'C', 0, false, 0, false, 'T', 'M');
+
+        $unsur = $CI->skm->skm_unsur_layanan();
+        $total_unsur = $unsur->num_rows();
+
+        $this->SetXY(20,68);
+        $setWidth = 165/$total_unsur;
+        foreach($unsur->result() as $k => $v):
+            $n = $k == 0 ? 1 : $k+1;
+            $this->Cell($setWidth,8,"U{$n}",1,0,'C', 0, false, 0, false, 'T', 'M');
+        endforeach;
+        $this->Ln();
+
+        // Tbody
+        $no=1;
+        $y = 76;
+        $x = 10;
+        $maxline = 1;
+        foreach($responden->result() as $k => $v):
+        $total_responden_sum = $responden->num_rows();
+            
+            $maxline = $maxline % 30;
+            if($maxline == 0) {
+                $y1 = 30;
+                $y = 54;
+                $this->AddPage();
+                $this->SetY($y1);
+                $this->Ln(8);
+                $this->Cell(10,16,'NO',1,0,'C', 0, false, 0, false, 'T', 'M');
+                $this->Cell(165,8,'Unsur Layanan',1,0,'C', 0, false, 0, false, 'T', 'M');
+                $this->Cell(20,16,'','LTR',1,'C', 0, false, 0, false, 'T', 'M');
+
+                $this->SetXY(20,46);
+                $setWidth = 165/$total_unsur;
+                foreach($unsur->result() as $k => $v):
+                    $n = $k == 0 ? 1 : $k+1;
+                    $this->Cell($setWidth,8,"U{$n}",1,0,'C', 0, false, 0, false, 'T', 'M');
+                endforeach;
+                $this->Ln();
+                $maxline++;
+            }
+
+            $jawaban = $CI->skm->_get_jawaban_responden($v->id);
+            $poin = [];
+            foreach($jawaban as $j):
+                $poin[] = $CI->skm->_get_poin_responden_per_unsur($j);
+            endforeach;
+            $u[] = array_merge([], $poin);
+
+            $this->MultiCell(10,5,$no,1,'C', 0, 0, $x, $y, true, 0, true, false, 1);
+                $inX = $x + 10;
+                foreach ($poin as $key => $value):
+                    $poin_unsur = isset($poin[$key]) ? $poin[$key] : 0;
+                    $this->MultiCell($setWidth,5, $poin_unsur,1,'C', 0, 0, $inX, $y, true, 0, true, false, 1);
+                $inX = $inX + 18.33;
+                endforeach;
+                if($no == ($total_responden_sum + 2)) {
+                    $this->MultiCell(20,5,'','B','C', 0, 0, $inX, $y, true, 0, true, false, 1);
+                } 
+                if($maxline == ($total_responden_sum + 2)) {
+                    $this->MultiCell(20,5,'','B','C', 0, 0, $inX, $y, true, 0, true, false, 1);
+                }
+                $this->MultiCell(20,5,'','R','C', 0, 0, $inX, $y, true, 0, true, false, 1);
+                
+        $y = $y + 5;
+        $maxline++;
+        $no++;
+        endforeach;
+
+        // Tfooter
+        $this->Ln();
+        $acc = array_shift($u);
+        foreach ($u as $val) {
+            foreach ($val as $key => $val) {
+                $acc[$key] += $val;
+            }
+        }
+        // Bobot
+        $bobot = $CI->skm->skm_bobot_nilai();
+        // Nilai / Unsur
+        $this->Cell(10,10,'N',1,0,'C', 0, false, 0, false, 'T', 'M');
+        foreach($unsur->result() as $k => $r): 
+        $valid = !empty($acc[$k]) ? $acc[$k] : 0;
+        $cari_nrr[] = !empty($acc[$k]) ? $acc[$k] : 0;
+        $this->Cell($setWidth,10,$valid,1,0,'C', 0, false, 0, false, 'T', 'M');
+        endforeach;
+        $this->Cell(20,10,'','R',1,'C', 0, false, 0, false, 'T', 'M');
+
+        // Nilai Rata-Rata / Unsur
+        $this->Cell(10,10,'NRR',1,0,'C', 0, false, 0, false, 'T', 'M');
+        foreach ($cari_nrr as $key => $value):
+            $nrr = $value/$responden->num_rows();
+            $cari_nrr_t[] = $value/$responden->num_rows();
+        $this->Cell($setWidth,10,$nrr,1,0,'C', 0, false, 0, false, 'T', 'M');
+        endforeach;
+        $this->Cell(20,10,'','RB',1,'C', 0, false, 0, false, 'T', 'M');
+
+        // Nilai Rata-Rata Tertimbang / Unsur
+        $this->Cell(10,10,'NRRT',1,0,'C', 0, false, 0, false, 'T', 'M');
+        foreach ($cari_nrr_t as $key => $value):
+            $nrr_t = $value*$bobot;
+            $nrr_t_total[] = $value*$bobot;
+        $this->Cell($setWidth,10,$nrr_t,1,0,'C', 0, false, 0, false, 'T', 'M');
+        endforeach;
+        $nrr_total = array_sum($nrr_t_total);
+        $this->Cell(20,10,"*) ".$nrr_total,1,1,'C', 0, false, 0, false, 'T', 'M');
+
+        // Nilai IKM
+        $this->Cell(10,10,'IKM',1,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(165,10,'',1,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(20,10,"**) ".number_format($nrr_total*25,2),1,1,'C', 0, false, 0, false, 'T', 'M');
+
+    }   
 
     // Page footer
     public function Footer() {
@@ -75,7 +194,7 @@ class MYPDF extends TCPDF {
 }
 
 
-$pdf = new MYPDF('P', 'mm', ['215', '330']);
+$pdf = new PDF('P', 'mm', ['215', '330']);
 
 // Properti
 $pdf->tahun = $tahun;
