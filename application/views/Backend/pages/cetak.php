@@ -67,7 +67,10 @@ class PDF extends TCPDF {
         // Thead
         $this->Ln(10);
         $this->Cell(10,16,'NO',1,0,'C', 0, false, 0, false, 'T', 'M');
-        $this->Cell(165,8,'Unsur Layanan',1,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->SetFont('dejavusans', 'B', 9);
+        $this->SetFillColor(200,249,249);
+        $this->Cell(165,8,'Unsur Layanan',1,0,'C', 1, false, 0, false, 'T', 'M');
+        $this->SetFont('dejavusans', 'N', 10);
         $this->Cell(20,16,'','LTR',1,'C', 0, false, 0, false, 'T', 'M');
 
         $unsur = $CI->skm->skm_unsur_layanan();
@@ -77,8 +80,11 @@ class PDF extends TCPDF {
         $setWidth = 165/$total_unsur;
         foreach($unsur->result() as $k => $v):
             $n = $k == 0 ? 1 : $k+1;
-            $this->Cell($setWidth,8,"U{$n}",1,0,'C', 0, false, 0, false, 'T', 'M');
+            $this->SetFillColor(200,249,249);
+            $this->SetFont('dejavusans', 'B', 9);
+            $this->Cell($setWidth,8,"U{$n}",1,0,'C', 1, false, 0, false, 'T', 'M');
         endforeach;
+        $this->SetFont('dejavusans', 'N', 10);
         $this->Ln();
 
         // Tbody
@@ -174,12 +180,65 @@ class PDF extends TCPDF {
         $this->Cell($setWidth,10,$nrr_t,1,0,'C', 0, false, 0, false, 'T', 'M');
         endforeach;
         $nrr_total = array_sum($nrr_t_total);
-        $this->Cell(20,10,"*) ".$nrr_total,1,1,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(20,10,"*) ".$nrr_total,1,1,'R', 0, false, 0, false, 'T', 'M');
 
         // Nilai IKM
         $this->Cell(10,10,'IKM',1,0,'C', 0, false, 0, false, 'T', 'M');
-        $this->Cell(165,10,'',1,0,'C', 0, false, 0, false, 'T', 'M');
-        $this->Cell(20,10,"**) ".number_format($nrr_total*25,2),1,1,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(160,10,'','BL',0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,10,"**) ".number_format($nrr_total*25,2),'RB',1,'R', 0, false, 0, false, 'T', 'M');
+        
+        $this->SetFont('dejavusans', 'N', 8);
+        // Tabel Keterangan
+        $this->Ln(10);
+        $this->Cell(35,5,'Mutu Unit Pelayanan',1,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'NI',1,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'NIK',1,1,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(35,5,'A (Sangat Baik)',1,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'3,5324 – 4,00',1,0,'R', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'83,31 - 100,00',1,1,'R', 0, false, 0, false, 'T', 'M');
+        $this->Cell(35,5,'B (Baik)',1,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'3,0644 – 3,532',1,0,'R', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'76,61 - 88,30',1,1,'R', 0, false, 0, false, 'T', 'M');
+        $this->Cell(35,5,'C (Kurang Baik)',1,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'2,60 – 3,064',1,0,'R', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'65,00 - 76,60',1,1,'R', 0, false, 0, false, 'T', 'M');
+        $this->Cell(35,5,'D (Tidak Baik)',1,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'1,00 – 2,5996',1,0,'R', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'25,00 - 64,99',1,1,'R', 0, false, 0, false, 'T', 'M');
+        // Keterangan
+        $this->Ln(5);
+        $this->Cell(25,5,'Keterangan',0,1,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'L',0,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'Laki - Laki',0,1,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'P',0,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'Perempuan',0,1,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'N',0,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'Nilai/Unsur',0,1,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'NRR',0,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'Jumlah nilai per unsur dibagi jumlah kuesioner yang terisi',0,1,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'NRRT',0,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'NRR per unsur x '.$bobot.' per unsur',0,1,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'IKM',0,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'Indeks Kepuasan Masyarakat',0,1,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'*)',0,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'Jumlah NRR IKM Tertimbang',0,1,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'**)',0,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'Jumlah NRR IKM Tertimbang x 25',0,1,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'NI',0,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'Nilai Interval',0,1,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'NIK',0,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,5,'Nilai Interval Konversi',0,1,'L', 0, false, 0, false, 'T', 'M');
+
 
     }   
 
