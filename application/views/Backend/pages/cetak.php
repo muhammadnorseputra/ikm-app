@@ -189,7 +189,7 @@ class PDF extends TCPDF {
         
         $this->SetFont('dejavusans', 'N', 8);
         // Tabel Keterangan
-        $this->Ln(10);
+        $this->Ln(5);
         $this->Cell(35,5,'Mutu Unit Pelayanan',1,0,'C', 0, false, 0, false, 'T', 'M');
         $this->Cell(25,5,'NI',1,0,'C', 0, false, 0, false, 'T', 'M');
         $this->Cell(25,5,'NIK',1,1,'C', 0, false, 0, false, 'T', 'M');
@@ -205,6 +205,10 @@ class PDF extends TCPDF {
         $this->Cell(35,5,'D (Tidak Baik)',1,0,'L', 0, false, 0, false, 'T', 'M');
         $this->Cell(25,5,'1,00 – 2,5996',1,0,'R', 0, false, 0, false, 'T', 'M');
         $this->Cell(25,5,'25,00 - 64,99',1,1,'R', 0, false, 0, false, 'T', 'M');
+
+        // Nilai Rata-Rata Per Unsur
+        $x = 50;
+        
         // Keterangan
         $this->Ln(5);
         $this->Cell(25,5,'Keterangan',0,1,'L', 0, false, 0, false, 'T', 'M');
