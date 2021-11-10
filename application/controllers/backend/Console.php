@@ -37,7 +37,7 @@ class Console extends CI_Controller
 
     public function index()
     {
-        $card_responden = 'demo';
+        $card_responden = 'bkpsdm_balangan';
         $periode = $this->skm->skm_periode();
         if($periode->num_rows() != 0) {
             $periode_id = $periode->row()->id;
