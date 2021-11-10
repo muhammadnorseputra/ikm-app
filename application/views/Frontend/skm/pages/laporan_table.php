@@ -116,7 +116,7 @@
 								$nrr_total = array_sum($nrr_t_total);
 							?>
 							<div class="small">*)</div>
-							<div class="text-center"><?= $nrr_total; ?></div>
+							<div class="text-center"><?= decimal($nrr_total, 3); ?></div>
 						</td>
 					</tr>
 					<tr>
