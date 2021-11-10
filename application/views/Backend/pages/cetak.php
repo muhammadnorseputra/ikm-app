@@ -270,9 +270,6 @@ class PDF extends TCPDF {
         $y = $y+10;
         }
 
-        $x = 8;
-        $this->Image('QR.PNG', $x, $y, '15', '15', 'png');
-
     }   
 
     // Page footer
