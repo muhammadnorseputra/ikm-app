@@ -43,7 +43,6 @@
 
 	      gtag('config', 'UA-199508931-1');
 	    </script>
-		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	</head>
 	<body id="top" class="position-relative" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="50">
 	<div class="main">
