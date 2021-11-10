@@ -44,6 +44,7 @@ class Console extends CI_Controller
         }
         $last_periode = !empty($periode_id) ? $periode_id : 0;
         $target_periode = $this->skm->skm_target_periode($last_periode);
+        $url_hasil_ikm = api_curl_get(base_url('api/ikm'));
         $data = [
             'title' => 'e-Survei | Dashboard',
             'content' => 'Backend/pages/dashboard',
@@ -54,7 +55,7 @@ class Console extends CI_Controller
             'total_periode' => $this->skm->skm_total_periode(),
             '_d' => $target_periode,
             'responden_per_pertanyaan' => $this->responden_per_pertanyaan(),
-            'ikm' => api_curl_get(base_url('api/ikm'))
+            'ikm' => json_encode($url_hasil_ikm)
         ];
         $this->load->view('Backend/layout/app', $data);
     }
