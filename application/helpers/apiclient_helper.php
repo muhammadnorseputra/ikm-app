@@ -91,4 +91,28 @@ if (! function_exists('api_curl_get'))
 		 
 	}
 }
+
+if (! function_exists('apiIkm'))
+{
+	function apiIkm($url='')
+	{
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		// execute!
+		$response = curl_exec($ch);
+
+		// close the connection, release resources used
+		curl_close($ch);
+
+		if($response === false) {
+			$response = '-';
+		}
+		// do anything you want with your response
+		return json_decode($response, TRUE);
+		 
+	}
+}
 ?>

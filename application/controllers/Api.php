@@ -44,7 +44,7 @@ class Api extends RestController {
         endif;
         $jml_indikator = $this->skm->skm_total_indikator()->num_rows();
         $jml_layanan = $this->skm->skm_total_layanan()->num_rows();
-        $data_ikm = api_curl_get(base_url('frontend/skm/skmIndex/hasil_ikm'));
+        $data_ikm = apiIkm(base_url('frontend/skm/skmIndex/hasil_ikm'));
         $data = [
             'kind' => 'Hasil IKM',
             'status' => true, 
@@ -59,7 +59,7 @@ class Api extends RestController {
                 'start_id' => longdate_indo($periode_skr_start),
                 'end_id' => longdate_indo($periode_skr_end),
             ],
-            'data' => json_encode($data_ikm)
+            'data' => $data_ikm
         ];
         
         if($responden > 0):
