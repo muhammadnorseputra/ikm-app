@@ -13,6 +13,13 @@ if (!function_exists('cekValue')) {
 		return $jd;
 	}
 }
+
+if (!function_exists('decimal')) {
+	function decimal($value, $limit = 0){
+		$jd = rtrim(number_format($value, $limit), '0.');
+		return $jd;
+	}
+}
 //RUN SCRIPT
 // $this->load->helper('nominal');
 // echo nominal('300000');

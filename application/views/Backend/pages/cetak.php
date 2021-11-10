@@ -166,7 +166,7 @@ class PDF extends TCPDF {
         // Nilai Rata-Rata / Unsur
         $this->Cell(10,10,'NRR',1,0,'C', 0, false, 0, false, 'T', 'M');
         foreach ($cari_nrr as $key => $value):
-            $nrr = $value/$responden->num_rows();
+            $nrr = decimal($value/$responden->num_rows(), 3);
             $cari_nrr_t[] = $value/$responden->num_rows();
         $this->Cell($setWidth,10,$nrr,1,0,'C', 0, false, 0, false, 'T', 'M');
         endforeach;
@@ -175,17 +175,17 @@ class PDF extends TCPDF {
         // Nilai Rata-Rata Tertimbang / Unsur
         $this->Cell(10,10,'NRRT',1,0,'C', 0, false, 0, false, 'T', 'M');
         foreach ($cari_nrr_t as $key => $value):
-            $nrr_t = $value*$bobot;
+            $nrr_t = decimal($value*$bobot, 3);
             $nrr_t_total[] = $value*$bobot;
         $this->Cell($setWidth,10,$nrr_t,1,0,'C', 0, false, 0, false, 'T', 'M');
         endforeach;
-        $nrr_total = array_sum($nrr_t_total);
+        $nrr_total = decimal(array_sum($nrr_t_total), 4);
         $this->Cell(20,10,"*) ".$nrr_total,1,1,'R', 0, false, 0, false, 'T', 'M');
 
         // Nilai IKM
         $this->Cell(10,10,'IKM',1,0,'C', 0, false, 0, false, 'T', 'M');
         $this->Cell(160,10,'','BL',0,'C', 0, false, 0, false, 'T', 'M');
-        $this->Cell(25,10,"**) ".number_format($nrr_total*25,2),'RB',1,'R', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,10,"**) ".decimal($nrr_total*25,2),'RB',1,'R', 0, false, 0, false, 'T', 'M');
         
         $this->SetFont('dejavusans', 'N', 8);
         // Tabel Keterangan
@@ -205,9 +205,6 @@ class PDF extends TCPDF {
         $this->Cell(35,5,'D (Tidak Baik)',1,0,'L', 0, false, 0, false, 'T', 'M');
         $this->Cell(25,5,'1,00 – 2,5996',1,0,'R', 0, false, 0, false, 'T', 'M');
         $this->Cell(25,5,'25,00 - 64,99',1,1,'R', 0, false, 0, false, 'T', 'M');
-
-        // Nilai Rata-Rata Per Unsur
-        $x = 50;
         
         // Keterangan
         $this->Ln(5);
@@ -243,6 +240,38 @@ class PDF extends TCPDF {
         $this->Cell(5,5,':',0,0,'C', 0, false, 0, false, 'T', 'M');
         $this->Cell(25,5,'Nilai Interval Konversi',0,1,'L', 0, false, 0, false, 'T', 'M');
 
+        // Nilai Rata-Rata Per Unsur
+        $x = 125;
+        $y = 145;
+        $this->setXY($x,$y);
+        $this->Cell(10,10,'NO',1,0,'C', 0, false, 0, false, 'T', 'M');
+        $this->Cell(50,10,'Unsur Layanan',1,0,'L', 0, false, 0, false, 'T', 'M');
+        $this->Cell(20,10,'NRR',1,1,'C', 0, false, 0, false, 'T', 'M');
+        $no=1;
+        foreach($unsur->result() as $k => $u) {
+            $n = $k == 0 ? 1 : $k+1;
+            $this->SetFont('dejavusans', 'N', 8);
+            $this->SetXY($x,$y+10);
+            $this->Cell(10,10,"U{$n}",1,0,'C', 0, false, 0, false, 'T', 'M');
+            $jdl_unsur_limit = strlen($u->jdl_unsur);
+            $nrr = decimal($cari_nrr_t[$k], 3);
+            if($jdl_unsur_limit <= 30) {
+                $this->SetFont('dejavusans', 'N', 8);
+                $jdl_unsur = $u->jdl_unsur;
+            } elseif(($jdl_unsur_limit > 30) && ($jdl_unsur_limit <= 150)) {
+                $this->SetFont('dejavusans', 'N', 5);
+                $jdl_unsur = $u->jdl_unsur;
+            }
+            $this->Cell(50,10,$jdl_unsur,1,0,'L', 0, false, 0, false, 'T', 'M');
+            $this->SetFont('dejavusans', 'N', 8);
+            $this->Cell(20,10,$nrr,1,1,'C', 0, false, 0, false, 'T', 'M');
+        
+        $no++;
+        $y = $y+10;
+        }
+
+        $x = 8;
+        $this->Image('QR.PNG', $x, $y, '15', '15', 'png');
 
     }   
 
