@@ -242,7 +242,7 @@ class PDF extends TCPDF {
 
         // Nilai Rata-Rata Per Unsur
         $x = 125;
-        $y = 140;
+        $y = $y + 45;
         $this->setXY($x,$y);
         $this->Cell(10,10,'NO',1,0,'C', 0, false, 0, false, 'T', 'M');
         $this->Cell(50,10,'Unsur Layanan',1,0,'L', 0, false, 0, false, 'T', 'M');
