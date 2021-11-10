@@ -54,8 +54,8 @@ class Periode extends CI_Controller
     public function update()
     {
         $p = $this->input->post();
-        // $status = isset($p['aktif']) ? $p['aktif'] : 'OFF';
-        $status = $p['aktif'];
+        $status = isset($p['aktif']) ? $p['aktif'] : 'OFF';
+        // $status = $p['aktif'];
 
         $whr = ['id' => decrypt_url($p['id'])];
         $data = ['tgl_mulai' => $p['start'], 'tgl_selesai' => $p['end'], 'target' => $p['target'], 'status' => $status];
