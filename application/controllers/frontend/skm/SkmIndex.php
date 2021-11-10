@@ -158,7 +158,7 @@ class SkmIndex extends CI_Controller
     public function index()
     {
         $data = [
-            'title' => 'SKM - BKPPD Balangan',
+            'title' => 'SKM - BKPSDM Kab. Balangan',
             'content' => 'Frontend/skm/index',
             'total_responden' => $this->skm->skm_total_responden($this->periode_skr)
         ];
@@ -168,9 +168,9 @@ class SkmIndex extends CI_Controller
     public function survei()
     {
         $card = $this->input->get('card');
-        $title = 'Survei - BKPPD Balangan';
+        $title = 'Survei - BKPSDM Kab. Balangan';
         if($this->skm->skm_periode()->row()->status === 'ON'){
-            if($card === 'asn_balangan'):
+            if($card === 'bkpsdm_balangan'):
                 $data = [
                     'title' => $title,
                     'content' => 'Frontend/skm/pages/survei_mulai',
@@ -217,7 +217,7 @@ class SkmIndex extends CI_Controller
     public function ikm()
     {
         $data = [
-            'title' => 'IKM - BKPPD Kab. Balangan',
+            'title' => 'IKM - BKPSDM Kab. Balangan',
             'content' => 'Frontend/skm/ikm',
             'periode' => $this->skm->skm_periode()->row(),
             'total_responden' => $this->skm->skm_total_responden($this->periode_skr),
@@ -247,7 +247,7 @@ class SkmIndex extends CI_Controller
           redirect(base_url('survei'));
         else:
           $data = [
-            'title' => 'Survey Kepuasan Masyarakat - BKPPD Balangan'          ];
+            'title' => 'Survey Kepuasan Masyarakat - BKPSDM Kab. Balangan'];
           $this->load->view('Frontend/skm/pages/h_survei_closed', $data);
         endif;
       }

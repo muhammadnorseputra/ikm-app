@@ -60,7 +60,7 @@
 			</div>
 		</div>
 		<?php endif; ?>
-		<div class="row justify-content-md-center my-5 gap-5 text-center">
+		<!-- <div class="row justify-content-md-center my-5 gap-5 text-center"> -->
 			<!-- <div class="col-12 col-lg-4 shadow-lg bg-white p-md-5 p-3 rounded border-bottom border-3 border-success">
 				<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-badge text-success" viewBox="0 0 16 16">
 					<path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -86,15 +86,19 @@
 					</svg>
 				</a>
 			</div> -->
-			<div class="col-8 offset-2 col-lg-3 p-3 offset-md-0 p-md-5 border border-info rounded shadow-sm">
-				<i class="bi bi-person-badge-fill text-secondary display-1"></i>
-				<h3 class="my-4 fw-bold">DEMO</h3>
-				<p class="text-muted">Survei Ini Hanya Demonstrasi</p>
-				<a href="<?= base_url('survei?card=demo') ?>" class="btn btn-block btn-secondary btn-lg px-4 shadow">
-					Lanjutkan <i class="bi bi-arrow-right ms-2"></i>
+			<div class="col-12 col-lg-8 offset-lg-2 text-center mb-5">
+				<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-badge-fill text-secondary" viewBox="0 0 16 16">
+					<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
+				</svg>
+				<h3 class="my-4 fw-bold">BKPSDM KAB. BALANGAN</h3>
+				<p class="text-muted">Formulir Elektronik IKM (Indeks Kepuasan Masyarakat) Badan Kepegawaian dan Pengembangan Sumber Daya Manusia.</p>
+				<a href="<?= base_url('survei?card=bkpsdm_balangan') ?>" class="btn btn-block btn-primary btn-lg px-4 shadow">
+					Lanjutkan
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 20 20">
+						<path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+					</svg>
 				</a>
 			</div>
-			
 		</div>
 	</div>
 </section>

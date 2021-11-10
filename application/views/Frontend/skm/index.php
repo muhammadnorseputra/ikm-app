@@ -4,7 +4,7 @@
 			<div class="d-flex justify-content-between align-items-md-center align-items-start flex-lg-row flex-column">
 				<div class="order-last order-md-first col-md-6">
 					<h1 class="display-4 fw-bold text-white">Selamat Datang</h1>
-					<p class="fs-4 text-white">Di e-Survei Demo Version</p>
+					<p class="fs-4 text-white">Di Survei IKM BKPSDM Kabupaten Balangan</p>
 					
 					<a href="<?= base_url('survei') ?>" class="btn btn-warning btn-lg px-4 shadow">
 						<i class="bi bi-ui-checks me-2"></i>
@@ -118,7 +118,7 @@
 	<div class="col-12 col-md-6">
 		<div class="fs-4 fw-bold text-success mb-2">Tinjau Perkembangan IKM</div>
 		<p class="text-muted">
-			Silahkan pindai QR-Code untuk meninjau secara langsung hasil dari penilaian Indeks Kepuasan Masyarakat (IKM) atau dengan mengunjungi alamat url (<code>https://web.bkppd-balangankab.info/ikm</code>)
+			Silahkan pindai QR-Code untuk meninjau secara langsung hasil dari penilaian Indeks Kepuasan Masyarakat (IKM) atau dengan mengunjungi alamat url (<code>https://ikm.bkppd-balangankab.info</code>)
 		</p>
 		<p class="text-muted">
 			Kami selaku unit pelayanan mengucapkan terimakasih atas partisipasi anda dalam pelaksanaan penilaian IKM secara Online maupun Offline.

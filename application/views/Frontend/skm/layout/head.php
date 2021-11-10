@@ -7,14 +7,14 @@
 		<meta name="description" content="Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
 		<meta name="robots" content="index,follow"/>
 		<!-- Meta Properti GOOGLE -->
-		<meta property="og:title" content="DEMO VERSION - IKM - BKPPD BALANGAN">
-		<meta property="og:description" content="DEMO VERSION - Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
+		<meta property="og:title" content="IKM - BKPPD BALANGAN">
+		<meta property="og:description" content="Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
 		<meta property="og:type" content="web">
 		<meta property="og:image" content="<?= base_url('assets/images/ikm-bkppd-balangan.png') ?>">
 		<meta property="og:url" content="<?= base_url('ikm') ?>">
 		<!-- Meta Properti Twitter -->
 		<meta name="twitter:card" content="summary">
-		<meta name="twitter:description" content="DEMO VERSION - Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
+		<meta name="twitter:description" content="Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
 		<meta name="twitter:type" content="web">
 		<meta name="twitter:image" content="<?= base_url('assets/images/ikm-bkppd-balangan.png') ?>">
 		<meta name="twitter:url" content="<?= base_url('ikm') ?>">
