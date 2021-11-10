@@ -59,7 +59,7 @@ class Api extends RestController {
                 'start_id' => longdate_indo($periode_skr_start),
                 'end_id' => longdate_indo($periode_skr_end),
             ],
-            'data' => api_client(base_url('frontend/skm/skmIndex/hasil_ikm'))
+            'data' => api_curl_get(base_url('frontend/skm/skmIndex/hasil_ikm'))
         ];
         
         if($responden > 0):
