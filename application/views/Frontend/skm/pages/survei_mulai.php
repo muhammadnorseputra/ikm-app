@@ -118,7 +118,7 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 				</ul>
 				<hr>
 				<p>
-				    <input data-validation="recaptcha" data-validation-recaptcha-sitekey="6LfiM08bAAAAAJkf5geIEBau6f9-kMOEzxkxw06_">
+				    <input data-validation="recaptcha" data-validation-recaptcha-sitekey="6LeXCeAcAAAAAN9hcW1y8BsKfh5BjITTc7rCPf45">
 				</p>
 				<div class="form-group form-check mb-3">
 				    <input type="checkbox" class="form-check-input" data-validation="required" name="disclimer" id="exampleCheck1">

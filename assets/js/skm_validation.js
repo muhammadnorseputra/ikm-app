@@ -61,7 +61,7 @@ $(document).ready(function() {
         modules: 'date, security, html5, sanitize',
         showErrorDialogs: true,
         // disabledFormFilter: 'form.toggle-disabled',
-        reCaptchaSiteKey: '6LfiM08bAAAAAJkf5geIEBau6f9-kMOEzxkxw06_',
+        reCaptchaSiteKey: '6LeXCeAcAAAAAN9hcW1y8BsKfh5BjITTc7rCPf45',
         reCaptchaTheme: 'light',
         onError: function($form) {
             $.notify({
