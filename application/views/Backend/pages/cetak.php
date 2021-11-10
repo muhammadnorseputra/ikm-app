@@ -92,7 +92,7 @@ class PDF extends TCPDF {
         $y = 76;
         $x = 10;
         $maxline = 1;
-        $limit = 20;
+        $limit = 40;
         foreach($responden->result() as $k => $v):
         $total_responden_sum = $responden->num_rows();
             
