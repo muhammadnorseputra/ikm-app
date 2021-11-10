@@ -14,7 +14,13 @@ if (! function_exists('api_client'))
 	function api_client($url)
 	{
 		 $api_url = $url;
-		 $json_data = @file_get_contents($api_url);
+		 $arrContextOptions=array(
+	      "ssl"=>array(
+	            "verify_peer"=>false,
+	            "verify_peer_name"=>false,
+	        ),
+	    );
+		 $json_data = file_get_contents($api_url, false, stream_context_create($arrContextOptions));
 	 	return json_decode($json_data, TRUE);
 	}
 }
