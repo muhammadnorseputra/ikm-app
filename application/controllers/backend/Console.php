@@ -54,7 +54,7 @@ class Console extends CI_Controller
             'total_periode' => $this->skm->skm_total_periode(),
             '_d' => $target_periode,
             'responden_per_pertanyaan' => $this->responden_per_pertanyaan(),
-            'ikm' => api_client(base_url('api/ikm'))
+            'ikm' => api_curl_get(base_url('api/ikm'))
         ];
         $this->load->view('Backend/layout/app', $data);
     }
