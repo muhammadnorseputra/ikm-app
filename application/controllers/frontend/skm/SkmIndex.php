@@ -151,6 +151,7 @@ class SkmIndex extends CI_Controller
     
     public function hasil_ikm()
     {
+        $this->output->set_content_type('application/json');
         echo json_encode($this->hitung());
     }
 
