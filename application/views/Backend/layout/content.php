@@ -67,7 +67,7 @@
                             <h4 class="mb-0 text-sm"><?= sensor(ucwords($r->nama_lengkap)); ?></h4>
                           </div>
                           <div class="text-right text-muted">
-                            <small><?= longdate_indo($r->created_at); ?></small>
+                            <small><?= longdate_indo(date("Y-m-d", strtotime($r->created_at))); ?></small>
                           </div>
                         </div>
                         <p class="text-sm mb-0">Form <span class="font-weight-bold"><?= ucwords($r->card_responden); ?></span></p>
