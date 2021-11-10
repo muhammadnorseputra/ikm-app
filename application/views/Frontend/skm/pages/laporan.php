@@ -112,7 +112,7 @@ $t = !empty($target->target_tahunan) ? $target->target_tahunan : 0;
 				<div class="card">
 					<div class="row g-0">
 						<?php
-							$target1 = $this->lap->responden_by_tahun_periode_jenis_akun($tahun,$periode,'demo')->row();
+							$target1 = $this->lap->responden_by_tahun_periode_jenis_akun($tahun,$periode,'bkpsdm_balangan')->row();
 							$tr = !empty($target1->target) ? $target1->target : 0;
 							$ts = !empty($target1->total_responden) ? $target1->total_responden : 0;
 							$cr = !empty($target1->card_responden) ? $target1->card_responden : 0;
@@ -344,7 +344,6 @@ $t = !empty($target->target_tahunan) ? $target->target_tahunan : 0;
 					<tbody>
 						<?php  
 							// Jawaban Responden
-							$jawaban_pecah = [];
 							foreach($responden_detail as $key => $val):
 								$jawaban_pecah[] = explode(",",$val->jawaban_responden);
 							endforeach;
