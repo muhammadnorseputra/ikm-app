@@ -12,7 +12,7 @@
 	<div class="container">
 		<a class="navbar-brand text-truncate d-block text-center" href="<?= base_url('skm') ?>">
 			<!-- <img src="<?= base_url('assets/images/logo.png'); ?>" alt="Survey SKM" width="40"> -->
-			<span class="fw-bold d-none d-xl-block">BKPSDM KAB. BALANGAN</span>
+			<span class="fw-bold d-none d-xl-block">BKPSDM Balangan</span>
 			<span class="fw-bold d-xl-none">BKPSDM</span>
 		</a>
 		<?php if(empty($this->session->userdata('user_name'))): ?>
