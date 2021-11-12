@@ -2,19 +2,20 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="keywords" content="IKM - BKPPD BALANGAN">
-		<meta name="description" content="Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
+		<meta name="keywords" content="IKM - BKPSDM BALANGAN">
+		<meta name="description" content="Indeks Kepuasan Masyarakat (IKM) BKPSDM Balangan">
 		<meta name="robots" content="index,follow"/>
 		<!-- Meta Properti GOOGLE -->
-		<meta property="og:title" content="IKM - BKPPD BALANGAN">
-		<meta property="og:description" content="Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
+		<meta property="og:title" content="IKM - BKPSDM BALANGAN">
+		<meta property="og:description" content="Indeks Kepuasan Masyarakat (IKM) BKPSDM Balangan">
 		<meta property="og:type" content="web">
 		<meta property="og:image" content="<?= base_url('assets/images/ikm-bkppd-balangan.png') ?>">
 		<meta property="og:url" content="<?= base_url('ikm') ?>">
 		<!-- Meta Properti Twitter -->
 		<meta name="twitter:card" content="summary">
-		<meta name="twitter:description" content="Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
+		<meta name="twitter:description" content="Indeks Kepuasan Masyarakat (IKM) BKPSDM Balangan">
 		<meta name="twitter:type" content="web">
 		<meta name="twitter:image" content="<?= base_url('assets/images/ikm-bkppd-balangan.png') ?>">
 		<meta name="twitter:url" content="<?= base_url('ikm') ?>">
