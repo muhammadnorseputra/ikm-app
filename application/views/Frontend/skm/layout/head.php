@@ -33,6 +33,9 @@
 		<?php if($this->uri->segment(1) === 'skm'): ?>
 			<link rel="stylesheet" href="<?= base_url('template/v1/plugin/slick/slick/slick-theme.css') ?>">
 		<?php endif; ?>
+		<?php if($this->uri->segment(1) === 'ikm'): ?>
+			<link rel="stylesheet" href="<?= base_url('template/argon/vendor/chart.js/dist/Chart.min.css') ?>">
+		<?php endif; ?>
 		<link rel="stylesheet" href="<?= base_url('assets/css/skm.css') ?>">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
