@@ -2,19 +2,20 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="keywords" content="IKM - BKPPD BALANGAN">
-		<meta name="description" content="Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
+		<meta name="keywords" content="IKM - BKPSDM BALANGAN">
+		<meta name="description" content="Indeks Kepuasan Masyarakat (IKM) BKPSDM Balangan">
 		<meta name="robots" content="index,follow"/>
 		<!-- Meta Properti GOOGLE -->
-		<meta property="og:title" content="IKM - BKPPD BALANGAN">
-		<meta property="og:description" content="Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
+		<meta property="og:title" content="IKM - BKPSDM BALANGAN">
+		<meta property="og:description" content="Indeks Kepuasan Masyarakat (IKM) BKPSDM Balangan">
 		<meta property="og:type" content="web">
 		<meta property="og:image" content="<?= base_url('assets/images/ikm-bkppd-balangan.png') ?>">
 		<meta property="og:url" content="<?= base_url('ikm') ?>">
 		<!-- Meta Properti Twitter -->
 		<meta name="twitter:card" content="summary">
-		<meta name="twitter:description" content="Indeks Kepuasan Masyarakat (IKM) BKPPD Balangan">
+		<meta name="twitter:description" content="Indeks Kepuasan Masyarakat (IKM) BKPSDM Balangan">
 		<meta name="twitter:type" content="web">
 		<meta name="twitter:image" content="<?= base_url('assets/images/ikm-bkppd-balangan.png') ?>">
 		<meta name="twitter:url" content="<?= base_url('ikm') ?>">
@@ -31,6 +32,9 @@
 		<?php endif; ?>
 		<?php if($this->uri->segment(1) === 'skm'): ?>
 			<link rel="stylesheet" href="<?= base_url('template/v1/plugin/slick/slick/slick-theme.css') ?>">
+		<?php endif; ?>
+		<?php if($this->uri->segment(1) === 'ikm'): ?>
+			<link rel="stylesheet" href="<?= base_url('template/argon/vendor/chart.js/dist/Chart.min.css') ?>">
 		<?php endif; ?>
 		<link rel="stylesheet" href="<?= base_url('assets/css/skm.css') ?>">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
