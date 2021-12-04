@@ -20,7 +20,13 @@
 		<meta name="twitter:image" content="<?= base_url('assets/images/ikm-bkppd-balangan.png') ?>">
 		<meta name="twitter:url" content="<?= base_url('ikm') ?>">
 
+		<link rel="dns-prefetch" href="//fonts.googleapis.com/">
+		<link rel="dns-prefetch" href="//cdn.jsdelivr.net/">
+		<link rel="dns-prefetch" href="//www.googletagmanager.com/">
+		<link rel="dns-prefetch" href="//www.gstatic.com/">
+
 		<title><?= $title ?></title>
+		
 		<link rel="shortcut icon" href="<?= base_url('assets/images/logo.png'); ?>">
 		<link rel="apple-touch-icon" href="<?= base_url('assets/images/logo.png'); ?>">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">

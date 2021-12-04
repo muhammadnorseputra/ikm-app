@@ -36,7 +36,7 @@
 	<div class="waves"></div>
 </section>
 <div>
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200"><path fill="#212529" fill-opacity="1" d="M0,192L26.7,165.3C53.3,139,107,85,160,53.3C213.3,21,267,11,320,10.7C373.3,11,427,21,480,42.7C533.3,64,587,96,640,106.7C693.3,117,747,107,800,90.7C853.3,75,907,53,960,58.7C1013.3,64,1067,96,1120,122.7C1173.3,149,1227,171,1280,176C1333.3,181,1387,171,1413,165.3L1440,160L1440,0L1413.3,0C1386.7,0,1333,0,1280,0C1226.7,0,1173,0,1120,0C1066.7,0,1013,0,960,0C906.7,0,853,0,800,0C746.7,0,693,0,640,0C586.7,0,533,0,480,0C426.7,0,373,0,320,0C266.7,0,213,0,160,0C106.7,0,53,0,27,0L0,0Z"></path></svg>
+<svg id="wave" style="transform:rotate(180deg); transition: 0.3s" viewBox="0 0 1440 100" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(33, 37, 41, 1)" offset="0%"></stop><stop stop-color="rgba(33, 37, 41, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,60L10,61.7C20,63,40,67,60,65C80,63,100,57,120,60C140,63,160,77,180,73.3C200,70,220,50,240,43.3C260,37,280,43,300,46.7C320,50,340,50,360,43.3C380,37,400,23,420,25C440,27,460,43,480,51.7C500,60,520,60,540,58.3C560,57,580,53,600,43.3C620,33,640,17,660,8.3C680,0,700,0,720,11.7C740,23,760,47,780,53.3C800,60,820,50,840,48.3C860,47,880,53,900,51.7C920,50,940,40,960,33.3C980,27,1000,23,1020,28.3C1040,33,1060,47,1080,55C1100,63,1120,67,1140,56.7C1160,47,1180,23,1200,16.7C1220,10,1240,20,1260,35C1280,50,1300,70,1320,80C1340,90,1360,90,1380,78.3C1400,67,1420,43,1430,31.7L1440,20L1440,100L1430,100C1420,100,1400,100,1380,100C1360,100,1340,100,1320,100C1300,100,1280,100,1260,100C1240,100,1220,100,1200,100C1180,100,1160,100,1140,100C1120,100,1100,100,1080,100C1060,100,1040,100,1020,100C1000,100,980,100,960,100C940,100,920,100,900,100C880,100,860,100,840,100C820,100,800,100,780,100C760,100,740,100,720,100C700,100,680,100,660,100C640,100,620,100,600,100C580,100,560,100,540,100C520,100,500,100,480,100C460,100,440,100,420,100C400,100,380,100,360,100C340,100,320,100,300,100C280,100,260,100,240,100C220,100,200,100,180,100C160,100,140,100,120,100C100,100,80,100,60,100C40,100,20,100,10,100L0,100Z"></path></svg>
 </div>
 <section>
 <div class="container">
@@ -65,7 +65,7 @@
 							<h5 class="card-title fw-bold">Total Responden</h5>
 							<span class="card-text display-2 countTo" data-from="0" data-to="<?= nominal($total_responden) ?>" data-speed="300" data-refresh-interval="50">0</span>
 							<!-- <div class="card-text"><small class="text-muted">Jumlah Keseluruhan Responden</small></div> -->
-							<div class="card-text"><small class="text-muted">Pria : <b> <?= $total_responden_l ?></b> | Wanita : <b><?= $total_responden_p  ?></b> </small></div>
+							<div class="card-text"><small class="text-dark">Periode Sekarang</small></div>
 							
 						</div>
 					</div>
@@ -86,7 +86,7 @@
 						<div class="card-body">
 							<h5 class="card-title fw-bold">Total Layanan</h5>
 							<span class="card-text display-2 countTo" data-from="0" data-to="<?= nominal($total_layanan) ?>" data-speed="300" data-refresh-interval="50">0</span>
-							<div class="card-text"><small class="text-dark">Jumlah Keseluruhan Layanan</small></div>
+							<div class="card-text"><small class="text-dark">Jumlah Layanan</small></div>
 						</div>
 					</div>
 				</div>
@@ -114,10 +114,10 @@
 	</div>
 	<div class="row">
 		<div class="col-12 col-xl-6">
-			<div id="piechart_3d" style="width: 100%; height: 500px;"></div>
+			<div id="piechart_3d" class="shadow-sm" style="width: 100%; height: 400px;"></div>
 		</div>
 		<div class="col-12 col-xl-6">
-			<div id="columnchart_values" style="width: 100%; height: 500px;"></div>
+			<div id="columnchart_values" class="shadow-sm"  style="width: 100%; height: 400px;"></div>
 		</div>
 	</div>
 </div>
@@ -130,12 +130,9 @@
       function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['x', 'y'],
+          ['Laki - Laki', <?= $total_responden_l ?>],
+          ['Perempuan', <?= $total_responden_p  ?>],
         ]);
 
         var options = {
@@ -167,9 +164,7 @@
 	                       2]);
 
 	      var options = {
-	        title: "Density of Precious Metals, in g/cm^3",
-	        width: '100%',
-	        height: 500,
+	        title: "Trend Responden Berdasarkan Jenis Pekerjaan",
 	        bar: {groupWidth: "30%"},
 	        legend: { position: "none" },
 	      };

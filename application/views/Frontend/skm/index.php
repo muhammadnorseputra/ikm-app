@@ -29,11 +29,11 @@
 		</div>
 	</div>
 </section>
-<section class="pedoman-ikm mb-5" style="margin-top: -5%;">
+<section class="pedoman-ikm mb-5" style="margin-top: -6%;">
 <div class="container">
 	<div class="row align-items-center">
 		<div class="col-12">
-			<div class="d-flex justify-content-between align-items-start flex-lg-row flex-column gap-3 shadow p-3 rounded-3 border  bg-white">
+			<div class="d-flex justify-content-between align-items-start flex-lg-row flex-column gap-3 shadow-sm p-3 rounded-3 bg-white">
 				<div>
 					<img src="<?= base_url('assets/images/skm_menpan.png') ?>" alt="SKM - BKPPD BALANGAN" class="w-auto img-fluid">
 				</div>
@@ -85,7 +85,7 @@
 </div>
 </section>
 <section class="function">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#212529" fill-opacity="1" d="M0,32L30,69.3C60,107,120,181,180,192C240,203,300,149,360,138.7C420,128,480,160,540,170.7C600,181,660,171,720,170.7C780,171,840,181,900,170.7C960,160,1020,128,1080,122.7C1140,117,1200,139,1260,170.7C1320,203,1380,245,1410,266.7L1440,288L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
+<svg id="wave" style="transform:rotate(0deg); transition: 0.3s" viewBox="0 0 1440 100" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(33, 37, 41, 1)" offset="0%"></stop><stop stop-color="rgba(33, 37, 41, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,10L16,20C32,30,64,50,96,50C128,50,160,30,192,23.3C224,17,256,23,288,33.3C320,43,352,57,384,61.7C416,67,448,63,480,65C512,67,544,73,576,78.3C608,83,640,87,672,86.7C704,87,736,83,768,73.3C800,63,832,47,864,41.7C896,37,928,43,960,43.3C992,43,1024,37,1056,40C1088,43,1120,57,1152,56.7C1184,57,1216,43,1248,33.3C1280,23,1312,17,1344,11.7C1376,7,1408,3,1440,11.7C1472,20,1504,40,1536,45C1568,50,1600,40,1632,35C1664,30,1696,30,1728,31.7C1760,33,1792,37,1824,31.7C1856,27,1888,13,1920,21.7C1952,30,1984,60,2016,63.3C2048,67,2080,43,2112,36.7C2144,30,2176,40,2208,51.7C2240,63,2272,77,2288,83.3L2304,90L2304,100L2288,100C2272,100,2240,100,2208,100C2176,100,2144,100,2112,100C2080,100,2048,100,2016,100C1984,100,1952,100,1920,100C1888,100,1856,100,1824,100C1792,100,1760,100,1728,100C1696,100,1664,100,1632,100C1600,100,1568,100,1536,100C1504,100,1472,100,1440,100C1408,100,1376,100,1344,100C1312,100,1280,100,1248,100C1216,100,1184,100,1152,100C1120,100,1088,100,1056,100C1024,100,992,100,960,100C928,100,896,100,864,100C832,100,800,100,768,100C736,100,704,100,672,100C640,100,608,100,576,100C544,100,512,100,480,100C448,100,416,100,384,100C352,100,320,100,288,100C256,100,224,100,192,100C160,100,128,100,96,100C64,100,32,100,16,100L0,100Z"></path></svg>
 <div class="bg-dark"  id="feedback">
 <div class="container">
 	<div class="row mb-md-5">
