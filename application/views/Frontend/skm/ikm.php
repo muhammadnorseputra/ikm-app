@@ -163,9 +163,9 @@ $(function() {
 				animationEnabled: true,
 		        exportEnabled: false,
 				theme: "light2", // "light1", "light2", "dark1", "dark2"
-				exportFileName: "Responden By Tingkat Pendidikan",
+				exportFileName: "Responden Berdasarkan Tingkat Pendidikan",
 				title:{
-				 text: "Trend By Tingkat Pendidikan",
+				 text: "Trend Berdasarkan Tingkat Pendidikan",
 			     verticalAlign: "top", // "top", "center", "bottom"
 			     horizontalAlign: "left", // "left", "right", "center"
 			     fontSize: 18,
