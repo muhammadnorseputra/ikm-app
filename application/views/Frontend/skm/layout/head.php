@@ -24,6 +24,7 @@
 		<link rel="dns-prefetch" href="//cdn.jsdelivr.net/">
 		<link rel="dns-prefetch" href="//www.googletagmanager.com/">
 		<link rel="dns-prefetch" href="//www.gstatic.com/">
+		<link rel="dns-prefetch" href="//code.jquery.com/">
 
 		<title><?= $title ?></title>
 		

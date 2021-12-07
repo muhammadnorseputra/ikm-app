@@ -22,7 +22,7 @@
 							0
 						</div>
 					</div>
-					<div class="text-center bg-light p-3 rounded-3 shadow-lg border border-secondary">
+					<div class="text-center bg-light p-3 rounded-3 shadow-lg">
 						<p class="fw-bold text-dark">Mutu Unit Pelayanan</p>
 						<div class="display-1 text-<?= $hasil['nilai_konversi']['c'] ?>">
 							<?= $hasil['nilai_konversi']['x'] ?>
@@ -112,7 +112,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row mb-3">
 		<div class="col-12 col-xl-6">
 			<div id="piechart_3d" class="shadow-sm" style="width: 100%; height: 400px;"></div>
 		</div>
@@ -122,53 +122,74 @@
 	</div>
 </div>
 </section>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="<?= base_url('assets/plugins/canvajs/canvasjs.min.js') ?>"></script>
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+$(function() {
+	// Canva By Gender
+  	$.getJSON(`${_uri}/api/chart/CH_GENDER`, function(res) {
+      	var ch1 = new CanvasJS.Chart("piechart_3d", {
+			theme: "light2", // "light1", "light2", "dark1", "dark2"
+			exportEnabled: false,
+			animationEnabled: true,
+			exportFileName: "Responden By Gender",
+			title: {
+				text: "Trend Berdasarkan Jenis Kelamin",
+				verticalAlign: "top", // "top", "center", "bottom"
+			     horizontalAlign: "left", // "left", "right", "center"
+			     fontSize: 18,
+			     margin: 0,
+			     padding: 10,
+			     fontWeight: 'normal',
+			     fontStyle: 'normal'
+			},
+			data: [{
+				type: "pie",
+				startAngle: 25,
+				toolTipContent: "<b>{label}</b>: {p}% <br> <b>Jumlah</b>: {y}",
+				showInLegend: "true",
+				legendText: "{label}",
+				indexLabelFontSize: 14,
+				indexLabel: "{label} - ({y}) {p}%",
+				dataPoints: res				
+			}]
+		});
+		ch1.render();
+	});
 
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['x', 'y'],
-          ['Laki - Laki', <?= $total_responden_l ?>],
-          ['Perempuan', <?= $total_responden_p  ?>],
-        ]);
-
-        var options = {
-          title: 'Trend Responden Berdasarkan Gender'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-
-        chart.draw(data, options);
-      }
-
-      // Col Chart
-        google.charts.setOnLoadCallback(colChart);
-	    function colChart() {
-	      var data = google.visualization.arrayToDataTable([
-	        ["Element", "Density", { role: "style" } ],
-	        ["Copper", 8.94, "#b87333"],
-	        ["Silver", 10.49, "silver"],
-	        ["Gold", 19.30, "gold"],
-	        ["Platinum", 21.45, "color: #e5e4e2"]
-	      ]);
-
-	      var view = new google.visualization.DataView(data);
-	      view.setColumns([0, 1,
-	                       { calc: "stringify",
-	                         sourceColumn: 1,
-	                         type: "string",
-	                         role: "annotation" },
-	                       2]);
-
-	      var options = {
-	        title: "Trend Responden Berdasarkan Jenis Pekerjaan",
-	        bar: {groupWidth: "30%"},
-	        legend: { position: "none" },
-	      };
-	      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-	      chart.draw(view, options);
-	  }
-    </script>
+	// Canva By Pendidikan
+		$.getJSON(`${_uri}/api/chart/CH_TINGPEN`, function(res) {
+			var ch2 = new CanvasJS.Chart("columnchart_values", {
+				animationEnabled: true,
+		        exportEnabled: false,
+				theme: "light2", // "light1", "light2", "dark1", "dark2"
+				exportFileName: "Responden By Tingkat Pendidikan",
+				title:{
+				 text: "Trend By Tingkat Pendidikan",
+			     verticalAlign: "top", // "top", "center", "bottom"
+			     horizontalAlign: "left", // "left", "right", "center"
+			     fontSize: 18,
+			     margin: 0,
+			     padding: 10,
+			     fontWeight: 'normal',
+			     fontStyle: 'normal'
+				},
+				dataPointWidth: 20,
+				legend: {
+			       horizontalAlign: "center", // "center" , "right"
+			       verticalAlign: "bottom",  // "top" , "bottom"
+			     },
+				data: [{        
+					type: "column",  
+					showInLegend: true, 
+					indexLabel: "{y}",
+					indexLabelPlacement: "outside",
+					legendMarkerColor: "white",
+					legendText: "Tingkat Pendidikan",
+					dataPoints: res
+				}]
+			});
+			ch2.render();
+		});
+})
+</script>

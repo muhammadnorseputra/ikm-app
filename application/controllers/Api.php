@@ -82,4 +82,48 @@ class Api extends RestController {
         }
     }
 
+    function ch_gender()
+    {
+        $tahun = date('Y');
+        $total_responden = $this->lap->total_responden_by_tahun($tahun);
+        $l = $this->lap->responden_by_gender($tahun,null,'L');
+        $p = $this->lap->responden_by_gender($tahun,null,'P');
+        $marge = [
+            'Laki - Laki' => intval($l),
+            'Perempuan' => intval($p)
+        ];
+        $data = [];
+        foreach ($marge as $key => $value) {
+            $persentase = @number_format(($value/$total_responden) * 100, 2);
+            $data[] = ['y' => $value, 'label' => $key, 'p' => $persentase];
+        }
+        $this->output->set_content_type('application/json');
+        echo json_encode($data);    
+    }
+
+    function ch_tingpen()
+    {
+        $tahun = date('Y');
+        $total_responden = $this->lap->total_responden_by_tahun($tahun);
+        $pendidikan = $this->skm->skm_pendidikan();
+        foreach($pendidikan->result() as $p):
+            $pendidikan = $p->tingkat_pendidikan;
+            $total_responden_pendidikan = $this->lap->responden_by_pendidikan($tahun,null,$p->id);
+            $persentase = @number_format(($total_responden_pendidikan/$total_responden) * 100, 2);
+            $data[] = ['y' => $total_responden_pendidikan, 'label' => $pendidikan, 'p' => $persentase];
+        endforeach;
+        $this->output->set_content_type('application/json');
+        echo json_encode($data);
+    }
+
+    public function chart_get($type)
+    {
+        if($type === 'CH_GENDER'):
+            $ch_data = $this->ch_gender();
+        elseif($type === 'CH_TINGPEN'):
+            $ch_data = $this->ch_tingpen();
+        endif;
+        return $ch_data;
+    }
+
 }
