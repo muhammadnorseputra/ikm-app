@@ -92,7 +92,7 @@ class PDF extends TCPDF {
         $y = 76;
         $x = 10;
         $maxline = 1;
-        $limit = 48;
+        $limit = 47;
         foreach($responden->result() as $k => $v):
         $total_responden_sum = $responden->num_rows();
             
@@ -179,7 +179,7 @@ class PDF extends TCPDF {
             $nrr_t_total[] = $value*$bobot;
         $this->Cell($setWidth,10,$nrr_t,1,0,'C', 0, false, 0, false, 'T', 'M');
         endforeach;
-        $nrr_total = decimal(array_sum($nrr_t_total), 2);
+        $nrr_total = decimal(array_sum($nrr_t_total), 3);
         $this->Cell(20,10,"*) ".$nrr_total,1,1,'R', 0, false, 0, false, 'T', 'M');
 
         // Nilai IKM
