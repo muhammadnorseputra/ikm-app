@@ -85,7 +85,7 @@ class Api extends RestController {
     function ch_gender()
     {
         $tahun = date('Y');
-        $total_responden = $this->lap->total_responden_by_tahun($tahun);
+        $total_responden = $this->lap->total_responden_by_tahun_periode($tahun);
         $l = $this->lap->responden_by_gender($tahun,null,'L');
         $p = $this->lap->responden_by_gender($tahun,null,'P');
         $marge = [
@@ -97,14 +97,13 @@ class Api extends RestController {
             $persentase = @number_format(($value/$total_responden) * 100, 2);
             $data[] = ['y' => $value, 'label' => $key, 'p' => $persentase];
         }
-        $this->output->set_content_type('application/json');
-        echo json_encode($data);    
+        $this->response( $data, 200 );  
     }
 
     function ch_tingpen()
     {
         $tahun = date('Y');
-        $total_responden = $this->lap->total_responden_by_tahun($tahun);
+        $total_responden = $this->lap->total_responden_by_tahun_periode($tahun);
         $pendidikan = $this->skm->skm_pendidikan();
         foreach($pendidikan->result() as $p):
             $pendidikan = $p->tingkat_pendidikan;
@@ -112,8 +111,7 @@ class Api extends RestController {
             $persentase = @number_format(($total_responden_pendidikan/$total_responden) * 100, 2);
             $data[] = ['y' => $total_responden_pendidikan, 'label' => $pendidikan, 'p' => $persentase];
         endforeach;
-        $this->output->set_content_type('application/json');
-        echo json_encode($data);
+        $this->response( $data, 200 );
     }
 
     public function chart_get($type)
