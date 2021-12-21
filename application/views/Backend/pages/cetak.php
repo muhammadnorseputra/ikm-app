@@ -96,7 +96,7 @@ class PDF extends TCPDF {
         foreach($responden->result() as $k => $v):
         $total_responden_sum = $responden->num_rows();
             
-            $maxline = $maxline % $limit;
+            $maxline = $maxline % ($limit+5);
             if($maxline == 0) {
                 $y1 = 30;
                 $y = 54;
@@ -104,6 +104,7 @@ class PDF extends TCPDF {
                 $this->SetY($y1);
                 $this->Ln(8);
                 $this->Cell(10,16,'NO',1,0,'C', 0, false, 0, false, 'T', 'M');
+                $this->SetFillColor(200,249,249);
                 $this->Cell(165,8,'Unsur Layanan',1,0,'C', 0, false, 0, false, 'T', 'M');
                 $this->Cell(20,16,'','LTR',1,'C', 0, false, 0, false, 'T', 'M');
 
@@ -111,6 +112,7 @@ class PDF extends TCPDF {
                 $setWidth = 165/$total_unsur;
                 foreach($unsur->result() as $k => $v):
                     $n = $k == 0 ? 1 : $k+1;
+                    $this->SetFillColor(200,249,249);
                     $this->Cell($setWidth,8,"U{$n}",1,0,'C', 0, false, 0, false, 'T', 'M');
                 endforeach;
                 $this->Ln();
