@@ -180,7 +180,7 @@ class PDF extends TCPDF {
             $nrr_t_total[] = $value*$bobot;
         $this->Cell($setWidth,10,$nrr_t,1,0,'C', 0, false, 0, false, 'T', 'M');
         endforeach;
-        $nrr_total = number_format(array_sum($nrr_t_total), 3);
+        $nrr_total = decimal(array_sum($nrr_t_total), 3);
         $this->Cell(20,10,"*) ".$nrr_total,1,1,'R', 0, false, 0, false, 'T', 'M');
 
         // Nilai IKM
