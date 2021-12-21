@@ -105,7 +105,7 @@ class PDF extends TCPDF {
                 $this->Ln(8);
                 $this->Cell(10,16,'NO',1,0,'C', 0, false, 0, false, 'T', 'M');
                 $this->SetFillColor(200,249,249);
-                $this->Cell(165,8,'Unsur Layanan',1,0,'C', 0, false, 0, false, 'T', 'M');
+                $this->Cell(165,8,'Unsur Layanan',1,0,'C', 1, false, 0, false, 'T', 'M');
                 $this->Cell(20,16,'','LTR',1,'C', 0, false, 0, false, 'T', 'M');
 
                 $this->SetXY(20,46);
@@ -113,7 +113,7 @@ class PDF extends TCPDF {
                 foreach($unsur->result() as $k => $v):
                     $n = $k == 0 ? 1 : $k+1;
                     $this->SetFillColor(200,249,249);
-                    $this->Cell($setWidth,8,"U{$n}",1,0,'C', 0, false, 0, false, 'T', 'M');
+                    $this->Cell($setWidth,8,"U{$n}",1,0,'C', 1, false, 0, false, 'T', 'M');
                 endforeach;
                 $this->Ln();
                 $maxline++;
@@ -181,7 +181,7 @@ class PDF extends TCPDF {
             $nrr_t_total[] = $value*$bobot;
         $this->Cell($setWidth,10,$nrr_t,1,0,'C', 0, false, 0, false, 'T', 'M');
         endforeach;
-        $nrr_total = decimal(array_sum($nrr_t_total), 3);
+        $nrr_total = number_format(array_sum($nrr_t_total), 3);
         $this->Cell(20,10,"*) ".$nrr_total,1,1,'R', 0, false, 0, false, 'T', 'M');
 
         // Nilai IKM
