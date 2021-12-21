@@ -95,7 +95,6 @@ class PDF extends TCPDF {
         $limit = 47;
         foreach($responden->result() as $k => $v):
         $total_responden_sum = $responden->num_rows();
-            
             $maxline = $maxline % $limit;
             if($maxline == 0) {
                 $y1 = 30;
@@ -117,7 +116,6 @@ class PDF extends TCPDF {
                 endforeach;
                 $this->Ln();
                 $maxline++;
-                $limit+5;
             }
 
             $jawaban = $CI->skm->_get_jawaban_responden($v->id);
