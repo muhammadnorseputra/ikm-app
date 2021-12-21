@@ -168,7 +168,7 @@ class PDF extends TCPDF {
         // Nilai Rata-Rata / Unsur
         $this->Cell(10,10,'NRR',1,0,'C', 0, false, 0, false, 'T', 'M');
         foreach ($cari_nrr as $key => $value):
-            $nrr = decimal($value/$responden->num_rows(), 3);
+            $nrr = number_format($value/$responden->num_rows(), 3);
             $cari_nrr_t[] = $value/$responden->num_rows();
         $this->Cell($setWidth,10,$nrr,1,0,'C', 0, false, 0, false, 'T', 'M');
         endforeach;
@@ -177,11 +177,11 @@ class PDF extends TCPDF {
         // Nilai Rata-Rata Tertimbang / Unsur
         $this->Cell(10,10,'NRRT',1,0,'C', 0, false, 0, false, 'T', 'M');
         foreach ($cari_nrr_t as $key => $value):
-            $nrr_t = decimal($value*$bobot, 3);
+            $nrr_t = decimal($value*$bobot, 2);
             $nrr_t_total[] = $value*$bobot;
         $this->Cell($setWidth,10,$nrr_t,1,0,'C', 0, false, 0, false, 'T', 'M');
         endforeach;
-        $nrr_total = number_format(array_sum($nrr_t_total), 3);
+        $nrr_total = decimal(array_sum($nrr_t_total), 3);
         $this->Cell(20,10,"*) ".$nrr_total,1,1,'R', 0, false, 0, false, 'T', 'M');
 
         // Nilai IKM
