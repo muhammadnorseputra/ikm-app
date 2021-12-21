@@ -186,7 +186,7 @@ class PDF extends TCPDF {
         // Nilai IKM
         $this->Cell(10,10,'IKM',1,0,'C', 0, false, 0, false, 'T', 'M');
         $this->Cell(160,10,'','BL',0,'C', 0, false, 0, false, 'T', 'M');
-        $this->Cell(25,10,"**) ".decimal($nrr_total*25,2),'RB',1,'R', 0, false, 0, false, 'T', 'M');
+        $this->Cell(25,10,"**) ".number_format($nrr_total*25,2),'RB',1,'R', 0, false, 0, false, 'T', 'M');
         
         $this->SetFont('dejavusans', 'N', 8);
         // Tabel Keterangan
