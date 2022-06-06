@@ -1,6 +1,6 @@
 <?php $this->load->view('Frontend/skm/pages/setting_modal'); ?>
 <?php $this->load->view('Frontend/skm/pages/print_modal'); ?>
-<footer class="bg-light border-top">
+<footer class="bg-light border-top pb-5 pb-md-0">
 	<div class="container">
 		<div class="row">
 			<p class="text-center text-muted py-4">
@@ -9,7 +9,7 @@
 		</div>
 	</div>
 </footer>
-<a href="#top" id="btn-top" class="btn btn-lg btn-warning rounded">
+<a href="#top" id="btn-top" class="btn btn-lg btn-warning rounded-circle shadow-sm border border-light mb-5">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
 </svg>
