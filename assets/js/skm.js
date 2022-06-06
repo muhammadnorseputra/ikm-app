@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    // AOS 
+    AOS.init();
+
     // back to top
     var btn = $('#btn-top');
 

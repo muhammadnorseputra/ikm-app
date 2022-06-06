@@ -35,6 +35,7 @@
 <script src="<?= base_url('assets/lib/skm-validation.js') ?>"></script>
 <?php endif; ?>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="<?= base_url('assets/plugins/bootstrap-notify/bootstrap-notify.min.js') ?>"></script>
 <script src="<?= base_url('assets/lib/skm-production.js') ?>"></script>
 </body>

@@ -44,6 +44,7 @@
 			<link rel="stylesheet" href="<?= base_url('template/argon/vendor/chart.js/dist/Chart.min.css') ?>">
 		<?php endif; ?>
 		<link rel="stylesheet" href="<?= base_url('assets/css/skm.css') ?>">
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 	    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-199508931-1"></script>
