@@ -82,6 +82,6 @@
 			<script src="<?= base_url('assets/plugins/blockUI/jquery.blockUI.js') ?>"></script>
 			<script src="<?= base_url('template/v1/plugin/jquery-form-validator/form-validator/jquery.form-validator.min.js') ?>"></script>
 			<script src="<?= base_url('assets/js/route.js') ?>"></script>
-			<script src="<?= base_url('assets/js/console_login.js') ?>"></script>
+			<script src="<?= base_url('assets/lib/skm-console.js') ?>"></script>
 		</body>
 	</html>

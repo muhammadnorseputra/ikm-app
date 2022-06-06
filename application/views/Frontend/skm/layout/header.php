@@ -3,7 +3,7 @@
 	if($uri === 'ikm'):
 		$nv = 'navbar-dark'; $bg = 'bg-dark bg-gradient';
 	elseif($uri === 'skm'):
-		$nv = 'navbar-dark'; $bg = 'bg-success bg-gradient';
+		$nv = 'navbar-dark'; $bg = 'bg-primary bg-gradient';
 	else:
 		$nv = 'navbar-light'; $bg = 'bg-light bg-gradient';
 	endif;
@@ -34,7 +34,7 @@
 				</li>
 				<?php if($this->uri->segment(1) == 'skm'): ?>
 				<li class="nav-item">
-					<a class="nav-link fw-bold text-warning" href="#apa-itu-ikm" tabindex="-1" aria-disabled="true">Apa itu IKM ?
+					<a class="nav-link fw-bold" href="#apa-itu-ikm" tabindex="-1" aria-disabled="true">Apa itu IKM ?
 					</a>
 				</li>
 				<li class="nav-item">

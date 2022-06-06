@@ -39,3 +39,13 @@ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl
 var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 })
+
+/* Navbar on scroll add shadow */
+window.addEventListener('scroll',(e)=>{
+    const nav = document.querySelector('.navbar');
+    if(window.pageYOffset>0){
+      nav.classList.add("shadow");
+    }else{
+      nav.classList.remove("shadow");
+    }
+});

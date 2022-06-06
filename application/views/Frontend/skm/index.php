@@ -1,8 +1,9 @@
 <section class="hero">
-	<div class="p-md-4 py-3 px-2 bg-success">
-		<div class="container py-md-5">
+	<div class="p-md-4 py-3 px-2 bg-primary">
+		<div class="container py-md-5 h-screen">
 			<div class="d-flex justify-content-between align-items-md-center align-items-start flex-lg-row flex-column">
 				<div class="order-last order-md-first col-md-6">
+					<!-- <img src="<?= base_url('assets/images/logo.png') ?>" class="d-none d-md-block mt--5" width="80" alt="Logo Kabupaten Balangan - BKPSDM Kab. Balangan"> -->
 					<h1 class="display-4 fw-bold text-white">Selamat Datang</h1>
 					<p class="fs-4 text-white">Di Survei IKM BKPSDM Kabupaten Balangan</p>
 					
@@ -29,7 +30,7 @@
 		</div>
 	</div>
 </section>
-<section class="pedoman-ikm mb-5" style="margin-top: -6%;">
+<section class="pedoman-ikm mb-5" style="margin-top: -5%;">
 <div class="container">
 	<div class="row align-items-center">
 		<div class="col-12">
@@ -59,7 +60,7 @@
 		<div class="col-12 col-md-6">
 			<div class="card border-0">
 				<div class="card-body lead">
-					<h5 class="card-title text-success fw-bold">Apa sih IKM itu ?</h5>
+					<h5 class="card-title text-primary fw-bold">Apa sih IKM itu ?</h5>
 					<!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
 					<div class="card-text">
 						<p>
@@ -71,7 +72,7 @@
 						<p>
 							Dengan adanya survey IKM ini diharapkan kami dapat selalu meningkatkan layanan kami terhadap masyarakat.
 						</p>
-						<a  class="btn btn-success btn-lg px-4 shadow" href="<?= base_url('survei') ?>">
+						<a  class="btn btn-primary btn-lg px-4 shadow" href="<?= base_url('survei') ?>">
 							Isi Survei Sekarang
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 20 20">
 								<path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -90,19 +91,19 @@
 <div class="container">
 	<div class="row mb-md-5">
 		<div class="col">
-			<div class="fw-bold display-6 text-success"> Apasih Untungnya Responden Anda Bagi Kami</div>
+			<div class="fw-bold display-6 text-primary"> Apasih Untungnya Responden Anda Bagi Kami</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col my-5 text-light">
 			<img  class="animated bounce img-fluid shadow-lg rounded mb-5" src="<?= base_url('assets/images/bg/bg-hero-function-1.png') ?>"  alt="Survei BKPPD">
-			<h5 class="d-flex"><span class="text-success me-3">&bull;</span> Sebagai Indikator Untuk Meningkatkan Layanan</h5>
-			<h5 class="d-flex"><span class="text-success me-3">&bull;</span> Cara yang efektif dan efisien untuk melakukan sebuah pengamatan atau observasi terhadap suatu kegiatan.</h5>
+			<h5 class="d-flex"><span class="text-primary me-3">&bull;</span> Sebagai Indikator Untuk Meningkatkan Layanan</h5>
+			<h5 class="d-flex"><span class="text-primary me-3">&bull;</span> Cara yang efektif dan efisien untuk melakukan sebuah pengamatan atau observasi terhadap suatu kegiatan.</h5>
 		</div>
 		<div class="col my-5 text-light">
 			<img class="animated bounce img-fluid shadow-lg rounded mb-5" src="<?= base_url('assets/images/bg/bg-hero-function-2.png') ?>" alt="Survei BKPPD">
-			<h5 class="d-flex"><span class="text-success me-3">&bull;</span> Motivasi Kami Untuk Lebih Maju Lagi</h5>
-			<h5 class="d-flex"><span class="text-success me-3">&bull;</span> Sebagai indikator dalam mengetahui Kualitas dan Kuantitas suatu layanan. </h5>
+			<h5 class="d-flex"><span class="text-primary me-3">&bull;</span> Motivasi Kami Untuk Lebih Maju Lagi</h5>
+			<h5 class="d-flex"><span class="text-primary me-3">&bull;</span> Sebagai indikator dalam mengetahui Kualitas dan Kuantitas suatu layanan. </h5>
 		</div>
 	</div>
 </div>
@@ -116,9 +117,9 @@
 		<img src="<?= base_url('assets/images/ikm-bkppd-balangan.png') ?>" class="img-fluid" alt="qr-code-ikm-bkppd-balangan">
 	</div>
 	<div class="col-12 col-md-6">
-		<div class="fs-4 fw-bold text-success mb-2">Tinjau Perkembangan IKM</div>
+		<div class="fs-4 fw-bold text-primary mb-2">Tinjau Perkembangan IKM</div>
 		<p class="text-muted">
-			Silahkan pindai QR-Code untuk meninjau secara langsung hasil dari penilaian Indeks Kepuasan Masyarakat (IKM) atau dengan mengunjungi alamat url (<code>https://ikm.bkppd-balangankab.info</code>)
+			Silahkan pindai QR-Code untuk meninjau secara langsung hasil dari penilaian Indeks Kepuasan Masyarakat (IKM) atau dengan mengunjungi alamat url (<code>https://www.bkpsdm.balangankab.go.id/ikm</code>)
 		</p>
 		<p class="text-muted">
 			Kami selaku unit pelayanan mengucapkan terimakasih atas partisipasi anda dalam pelaksanaan penilaian IKM secara Online maupun Offline.
