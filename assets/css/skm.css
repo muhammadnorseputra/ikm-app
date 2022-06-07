@@ -7,7 +7,7 @@ body {
 font-family: 'Poppins', sans-serif;
 }	
 .hero-overlay {
-	background-image: url('https://www.bkpsdm.balangankab.go.id/assets/images/bg/overlay.svg'),linear-gradient(45deg,#007bff,#006fe6) !important;
+	background-image: url('https://www.bkpsdm-skm.balangankab.go.id/assets/images/bg/overlay.svg'),linear-gradient(45deg,#007bff,#006fe6) !important;
 	z-index: 0;
 }
 .blured {
