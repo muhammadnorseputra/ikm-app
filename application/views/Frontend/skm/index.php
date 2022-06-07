@@ -114,12 +114,12 @@
 <div class="container">
 <div class="row gap-5 py-5">
 	<div class="col-12 col-md-2 offset-md-2">
-		<img src="<?= base_url('assets/images/ikm-bkppd-balangan.png') ?>" class="img-fluid" alt="qr-code-ikm-bkppd-balangan">
+		<img src="<?= base_url('assets/images/qr-web-ikm.png') ?>" class="img-fluid" alt="qr-code-ikm-bkpsdm-balangan">
 	</div>
 	<div class="col-12 col-md-6">
 		<div class="fs-4 fw-bold text-primary mb-2">Tinjau Perkembangan IKM</div>
 		<p class="text-muted">
-			Silahkan pindai QR-Code untuk meninjau secara langsung hasil dari penilaian Indeks Kepuasan Masyarakat (IKM) atau dengan mengunjungi alamat url (<code>https://www.bkpsdm.balangankab.go.id/ikm</code>)
+			Silahkan pindai QR-Code untuk meninjau secara langsung hasil dari penilaian Indeks Kepuasan Masyarakat (IKM) atau dengan mengunjungi alamat url (<a href="<?= base_url('ikm') ?>"><badge>https://www.bkpsdm.balangankab.go.id/ikm</badge></a>)
 		</p>
 		<p class="text-muted">
 			Kami selaku unit pelayanan mengucapkan terimakasih atas partisipasi anda dalam pelaksanaan penilaian IKM secara Online maupun Offline.
