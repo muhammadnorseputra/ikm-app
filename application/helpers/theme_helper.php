@@ -38,4 +38,32 @@ if (! function_exists('theme'))
 		 }
 		 return $t_component;
 	}
+	function meta_theme($uri) {
+		if($uri === 'skm') {
+			$meta = "<meta content='#0d6efd' name='theme-color' />
+							<meta content='#0d6efd' name='msapplication-TileColor' />
+							<meta content='#0d6efd' name='msapplication-navbutton-color' />
+							<meta content='#0d6efd' name='apple-mobile-web-app-status-bar-style' />
+							<meta content='true' name='apple-mobile-web-app-capable' />";
+		} elseif($uri === 'ikm') {
+			$meta = "<meta content='#212529' name='theme-color' />
+							<meta content='#212529' name='msapplication-TileColor' />
+							<meta content='#212529' name='msapplication-navbutton-color' />
+							<meta content='#212529' name='apple-mobile-web-app-status-bar-style' />
+							<meta content='true' name='apple-mobile-web-app-capable' />";
+		} elseif($uri == 'survei') {
+			$meta = "<meta content='#198754' name='theme-color' />
+							<meta content='#198754' name='msapplication-TileColor' />
+							<meta content='#198754' name='msapplication-navbutton-color' />
+							<meta content='#198754' name='apple-mobile-web-app-status-bar-style' />
+							<meta content='true' name='apple-mobile-web-app-capable' />";
+		} else {
+			$meta = "<meta content='#0d6efd' name='theme-color' />
+							<meta content='#0d6efd' name='msapplication-TileColor' />
+							<meta content='#0d6efd' name='msapplication-navbutton-color' />
+							<meta content='#0d6efd' name='apple-mobile-web-app-status-bar-style' />
+							<meta content='true' name='apple-mobile-web-app-capable' />";
+		}
+		return $meta;
+	}
 }

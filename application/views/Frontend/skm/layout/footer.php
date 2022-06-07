@@ -1,6 +1,6 @@
 <?php $this->load->view('Frontend/skm/pages/setting_modal'); ?>
 <?php $this->load->view('Frontend/skm/pages/print_modal'); ?>
-<footer class="bg-light border-top pb-5 pb-md-0">
+<footer class="bg-light border-top">
 	<div class="container">
 		<div class="row">
 			<p class="text-center text-muted py-4">

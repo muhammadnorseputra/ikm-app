@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-
+		<?= meta_theme($this->uri->segment(1)) ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="keywords" content="IKM - BKPSDM BALANGAN">
 		<meta name="description" content="Indeks Kepuasan Masyarakat (IKM) BKPSDM Balangan">

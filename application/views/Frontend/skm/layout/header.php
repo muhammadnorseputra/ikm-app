@@ -8,7 +8,7 @@
 		$nv = 'navbar-light'; $bg = 'bg-light bg-gradient';
 	endif;
 ?>
-<nav class="navbar navbar-expand-lg <?= $nv." ".$bg ?> fixed-bottom sticky-md-top" id="navbar">
+<nav class="navbar navbar-expand-lg <?= $nv." ".$bg ?> sticky-md-top" id="navbar">
 	<div class="container">
 		<a class="navbar-brand text-truncate d-block text-center" href="<?= base_url('skm') ?>">
 			<!-- <img src="<?= base_url('assets/images/logo.png'); ?>" alt="Survey SKM" width="40"> -->

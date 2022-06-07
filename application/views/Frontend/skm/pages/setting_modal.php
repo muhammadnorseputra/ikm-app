@@ -13,7 +13,7 @@
 				<select class="form-select mb-3" name="tahun" aria-label=".form-select-lg" id="example_tahun" required=>
 					<option value="">Pilih tahun</option>
 					<?php foreach($this->skm->skm_all_tahun()->result() as $jl): ?>
-					<?php $selected = $tahun === $jl->tahun ? 'selected' : ''; ?>
+					<?php $selected = isset($tahun) === $jl->tahun ? 'selected' : ''; ?>
 					<option value="<?= $jl->tahun ?>" <?= $selected ?>><?= strtoupper($jl->tahun) ?></option>
 					<?php endforeach; ?>
 				</select>
