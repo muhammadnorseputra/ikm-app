@@ -32,7 +32,7 @@
 				<div class="d-flex justify-content-around align-items-center my-3 gap-4  bg-white p-3 rounded-3 shadow-lg">
 					<div class="text-center">
 						<p class="fw-bold pb-3">Nilai IKM</p>
-						<div class="display-1 countTo text-<?= $hasil['nilai_konversi']['c'] ?> pb-1" data-from="0" data-to="<?= $hasil['nilai_ikm'] ?>" data-decimals="2" data-speed="300" data-refresh-interval="50">
+						<div class="display-1 countTo pb-1" data-from="0" data-to="<?= $hasil['nilai_ikm'] ?>" data-decimals="2" data-speed="300" data-refresh-interval="50">
 							0
 						</div>
 					</div>
