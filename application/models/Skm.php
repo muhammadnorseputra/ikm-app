@@ -266,7 +266,7 @@ class Skm extends CI_Model {
             $x = 'B';
             $y = 'BAIK';
         elseif($ikm >= '88.31' && $ikm <= '100.00'):
-            $c = 'light';
+            $c = 'primary';
             $x = 'A';
             $y = 'SANGAT BAIK';
         else:
