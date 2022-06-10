@@ -29,7 +29,7 @@
 			</div>
 		</div>
 	</div>
-<svg style="pointer-events: none;position: relative;top:-50;" class="wave" width="100%" height="50px" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 75">
+<svg style="pointer-events: none;" class="wave" width="100%" height="50px" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 75">
     <defs>
         <style>
             .a {
