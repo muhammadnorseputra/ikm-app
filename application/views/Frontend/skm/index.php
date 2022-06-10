@@ -1,6 +1,6 @@
-<section class="hero bg-primary">
-	<div class="p-md-5 py-4 px-2 hero-overlay">
-		<div class="container py-md-5">
+<section class="hero bg-primary hero-overlay">
+	<div class="p-md-5 py-3 px-2">
+		<div class="container py-md-3">
 			<div class="d-flex justify-content-between align-items-md-center align-items-start flex-lg-row flex-column overflow-y-hidden">
 				<div class="order-last order-md-first col-md-6">
 					<!-- <img src="<?= base_url('assets/images/logo.png') ?>" class="d-none d-md-block mt--5" width="80" alt="Logo Kabupaten Balangan - BKPSDM Kab. Balangan"> -->

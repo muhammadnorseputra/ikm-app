@@ -36,7 +36,7 @@
 							0
 						</div>
 					</div>
-					<div class="vr border border-dark border-opacity-25" style="height: 150px;"></div>
+					<div class="vr bg-dark border border-dark border-opacity-25" style="height: 150px;"></div>
 					<div class="text-center">
 						<p class="fw-bold text-dark">Mutu Unit Pelayanan</p>
 						<div class="display-1 text-<?= $hasil['nilai_konversi']['c'] ?>">
