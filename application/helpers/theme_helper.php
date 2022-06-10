@@ -46,16 +46,16 @@ if (! function_exists('theme'))
 							<meta content='#0d6efd' name='apple-mobile-web-app-status-bar-style' />
 							<meta content='true' name='apple-mobile-web-app-capable' />";
 		} elseif($uri === 'ikm') {
-			$meta = "<meta content='#212529' name='theme-color' />
-							<meta content='#212529' name='msapplication-TileColor' />
-							<meta content='#212529' name='msapplication-navbutton-color' />
-							<meta content='#212529' name='apple-mobile-web-app-status-bar-style' />
-							<meta content='true' name='apple-mobile-web-app-capable' />";
-		} elseif($uri == 'survei') {
 			$meta = "<meta content='#198754' name='theme-color' />
 							<meta content='#198754' name='msapplication-TileColor' />
 							<meta content='#198754' name='msapplication-navbutton-color' />
 							<meta content='#198754' name='apple-mobile-web-app-status-bar-style' />
+							<meta content='true' name='apple-mobile-web-app-capable' />";
+		} elseif($uri == 'survei') {
+			$meta = "<meta content='#f8f9fa' name='theme-color' />
+							<meta content='#f8f9fa' name='msapplication-TileColor' />
+							<meta content='#f8f9fa' name='msapplication-navbutton-color' />
+							<meta content='#f8f9fa' name='apple-mobile-web-app-status-bar-style' />
 							<meta content='true' name='apple-mobile-web-app-capable' />";
 		} else {
 			$meta = "<meta content='#0d6efd' name='theme-color' />

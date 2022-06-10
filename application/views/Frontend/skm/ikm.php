@@ -1,4 +1,4 @@
-<section class="bg-dark">
+<section class="bg-success hero-overlay">
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-md-6">
@@ -6,26 +6,28 @@
 					<div class="display-3">IKM</div>
 					<div class="fs-3">(Indeks Kepuasan Masyarakat)</div>
 					<?php
-						$bulan_mulai = explode('-', $periode->tgl_mulai);
-						$bulan_selesai = explode('-', $periode->tgl_selesai);
-						$bn = $bulan_mulai['1'];
-						$bs = $bulan_selesai['1'];
+						$bulan_mulai = date('m', strtotime($periode->tgl_mulai));
+						$bulan_selesai = date('m', strtotime($periode->tgl_selesai));
 					?>
-					<p class="fs-3 text-muted">Periode <?= bulan($bn) ?> - <?= bulan($bs) ?> <?= $periode->tahun ?></p>
+					<p class="fs-3 text-warning">Periode Live <?= bulan($bulan_mulai) ?> - <?= bulan($bulan_selesai) ?> <?= $periode->tahun ?></p>
 				</div>
-
+				<a href="<?= base_url('survei') ?>" class="btn btn-warning btn-lg px-4 shadow d-block d-md-inline">
+						<i class="bi bi-ui-checks me-2"></i>
+						Isi Survei Sekarang
+						<i class="bi bi-arrow-right"></i>
+					</a>
 			</div>
 			<div class="col-12 col-md-6">
-				<div class="form-floating">
+				<div class="form-floating mt-4">
 				  <select onChange="filterPeriode(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
 				  	<?php 
 				  		foreach ($periode_all->result() as $v):
 				  		$selected = $v->id === $_GET['periode'] ? 'selected' : ''; 
 				  	?>
-					    <option value="<?= $v->id ?>" <?= $selected ?>><?= $v->tahun." (".date('M', strtotime($v->tgl_mulai))." - ".date('M', strtotime($v->tgl_selesai)).")" ?></option>
+					    <option value="<?= $v->id ?>" <?= $selected ?>><?= $v->tahun." (".bulan(date('m', strtotime($v->tgl_mulai)))." - ".bulan(date('m', strtotime($v->tgl_selesai))).")" ?></option>
 				  	<?php endforeach; ?>	
 				  </select>
-				  <label for="floatingSelect">FILTER PERIODE/SEMESTER</label>
+				  <label for="floatingSelect">FILTER SURVEY PERIODE/SEMESTER</label>
 				</div>
 				<div class="d-flex justify-content-around align-items-center my-5 my-2 gap-4">
 					<div class="text-center">
@@ -46,10 +48,47 @@
 		</div>
 	</div>
 	<div class="waves"></div>
+<svg style="pointer-events: none;position: relative;top:-50;" class="wave" width="100%" height="50px" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 75">
+    <defs>
+        <style>
+            .a {
+                fill: none;
+            }
+
+            .b {
+                clip-path: url(#a);
+            }
+
+            .c,
+            .d {
+                fill: #ffffff;
+            }
+
+            .d {
+                opacity: 0.5;
+                isolation: isolate;
+            }
+        </style>
+        <clipPath id="a">
+            <rect class="a" width="1920" height="75"></rect>
+        </clipPath>
+    </defs>
+    <title>wave</title>
+    <g class="b">
+        <path class="c" d="M1963,327H-105V65A2647.49,2647.49,0,0,1,431,19c217.7,3.5,239.6,30.8,470,36,297.3,6.7,367.5-36.2,642-28a2511.41,2511.41,0,0,1,420,48"></path>
+    </g>
+    <g class="b">
+        <path class="d" d="M-127,404H1963V44c-140.1-28-343.3-46.7-566,22-75.5,23.3-118.5,45.9-162,64-48.6,20.2-404.7,128-784,0C355.2,97.7,341.6,78.3,235,50,86.6,10.6-41.8,6.9-127,10"></path>
+    </g>
+    <g class="b">
+        <path class="d" d="M1979,462-155,446V106C251.8,20.2,576.6,15.9,805,30c167.4,10.3,322.3,32.9,680,56,207,13.4,378,20.3,494,24"></path>
+    </g>
+    <g class="b">
+        <path class="d" d="M1998,484H-243V100c445.8,26.8,794.2-4.1,1035-39,141-20.4,231.1-40.1,378-45,349.6-11.6,636.7,73.8,828,150"></path>
+    </g>
+</svg>
 </section>
-<div>
-<svg id="wave" style="transform:rotate(180deg); transition: 0.3s" viewBox="0 0 1440 100" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(33, 37, 41, 1)" offset="0%"></stop><stop stop-color="rgba(33, 37, 41, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,60L10,61.7C20,63,40,67,60,65C80,63,100,57,120,60C140,63,160,77,180,73.3C200,70,220,50,240,43.3C260,37,280,43,300,46.7C320,50,340,50,360,43.3C380,37,400,23,420,25C440,27,460,43,480,51.7C500,60,520,60,540,58.3C560,57,580,53,600,43.3C620,33,640,17,660,8.3C680,0,700,0,720,11.7C740,23,760,47,780,53.3C800,60,820,50,840,48.3C860,47,880,53,900,51.7C920,50,940,40,960,33.3C980,27,1000,23,1020,28.3C1040,33,1060,47,1080,55C1100,63,1120,67,1140,56.7C1160,47,1180,23,1200,16.7C1220,10,1240,20,1260,35C1280,50,1300,70,1320,80C1340,90,1360,90,1380,78.3C1400,67,1420,43,1430,31.7L1440,20L1440,100L1430,100C1420,100,1400,100,1380,100C1360,100,1340,100,1320,100C1300,100,1280,100,1260,100C1240,100,1220,100,1200,100C1180,100,1160,100,1140,100C1120,100,1100,100,1080,100C1060,100,1040,100,1020,100C1000,100,980,100,960,100C940,100,920,100,900,100C880,100,860,100,840,100C820,100,800,100,780,100C760,100,740,100,720,100C700,100,680,100,660,100C640,100,620,100,600,100C580,100,560,100,540,100C520,100,500,100,480,100C460,100,440,100,420,100C400,100,380,100,360,100C340,100,320,100,300,100C280,100,260,100,240,100C220,100,200,100,180,100C160,100,140,100,120,100C100,100,80,100,60,100C40,100,20,100,10,100L0,100Z"></path></svg>
-</div>
+
 <section>
 <div class="container">
 	<div class="row">

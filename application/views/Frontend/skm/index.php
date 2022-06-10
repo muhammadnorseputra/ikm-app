@@ -1,4 +1,4 @@
-<section class="hero">
+<section class="hero bg-primary">
 	<div class="p-md-5 py-4 px-2 hero-overlay">
 		<div class="container py-md-5">
 			<div class="d-flex justify-content-between align-items-md-center align-items-start flex-lg-row flex-column overflow-y-hidden">

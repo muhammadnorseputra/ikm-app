@@ -1,7 +1,7 @@
 <?php  
 	$uri = $this->uri->segment(1);
 	if($uri === 'ikm'):
-		$nv = 'navbar-dark'; $bg = 'bg-dark bg-gradient';
+		$nv = 'navbar-dark'; $bg = 'bg-success bg-gradient';
 	elseif($uri === 'skm'):
 		$nv = 'navbar-dark'; $bg = 'bg-primary bg-gradient';
 	else:
@@ -12,8 +12,8 @@
 	<div class="container">
 		<a class="navbar-brand text-truncate d-block text-center" href="<?= base_url('skm') ?>">
 			<!-- <img src="<?= base_url('assets/images/logo.png'); ?>" alt="Survey SKM" width="40"> -->
-			<span class="fw-bold d-none d-xl-block">SKM BKPSDM</span>
-			<span class="fw-bold d-xl-none">BKPSDM</span>
+			<span class="fw-bold d-none d-xl-block"><i class="fas fa-project-diagram"></i> e-Survey</span>
+			<span class="fw-bold d-xl-none"><i class="fas fa-project-diagram"></i> e-Survey</span>
 		</a>
 		<?php if(empty($this->session->userdata('user_name'))): ?>
 		<a class="btn btn-warning btn-block ms-auto d-block d-sm-block d-md-block d-lg-none"  href="<?= base_url('survei') ?>">

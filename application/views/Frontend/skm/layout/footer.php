@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<p class="text-center text-muted py-4">
-				&copy; <?= date('Y') ?> Survei IKM BKPSDM Kab. Balangan
+				&copy; <?= date('Y') ?> e-Survey IKM BKPSDM Kab. Balangan. Semua hak dilindungi | Credit by <a href="https://www.mediadigitalcenter.my.id" target="_blank">MDCenter</a>
 			</p>
 		</div>
 	</div>
