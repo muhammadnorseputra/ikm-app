@@ -1,10 +1,15 @@
 <?php $this->load->view('Frontend/skm/pages/setting_modal'); ?>
 <?php $this->load->view('Frontend/skm/pages/print_modal'); ?>
-<footer class="bg-light border-top">
+<footer class="bg-light border-top text-center text-muted py-4">
 	<div class="container">
 		<div class="row">
-			<p class="text-center text-muted py-4">
+			<p>
 				&copy; <?= date('Y') ?> e-Survey IKM BKPSDM Kab. Balangan. Semua hak dilindungi | Credit by <a href="https://www.mediadigitalcenter.my.id" target="_blank">MDCenter</a>
+			</p>
+			<p class="font-1 fw-light fst-italic">
+				Make with <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill text-danger" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+</svg> from south kalimantan, indonesia.
 			</p>
 		</div>
 	</div>
