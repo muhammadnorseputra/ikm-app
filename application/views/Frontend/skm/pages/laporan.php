@@ -613,7 +613,7 @@ $t = !empty($target->target_tahunan) ? $target->target_tahunan : 0;
 								$nrr_tertimbang_sum_tahun = [];
 								foreach($unsur_tahun->result() as $k => $u):
 									$nrr_tertimbang_tahun = @number_format($acc[$k]/$total_responden_by_tahun, 2);
-									$nrr_tertimbang_sum_tahun[] = ($acc[$k]/$total_responden_by_tahun * $bobot_nilai_tahun);
+									$nrr_tertimbang_sum_tahun[] = ($acc[$k]/$total_responden_by_tahun) * $bobot_nilai_tahun;
 									$ikm_unsur_tahun = @number_format($nrr_tertimbang_tahun * 25, 2);
 									// $ikm_unsur_arr[] = @number_format($nrr_tertimbang * 25, 2);
 							?>
