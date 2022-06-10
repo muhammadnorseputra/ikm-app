@@ -18,7 +18,7 @@
 					</a>
 			</div>
 			<div class="col-12 col-md-6">
-				<div class="form-floating mt-4">
+				<div class="form-floating mt-2 mt-md-5">
 				  <select onChange="filterPeriode(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
 				  	<?php 
 				  		foreach ($periode_all->result() as $v):
@@ -29,19 +29,20 @@
 				  </select>
 				  <label for="floatingSelect">FILTER SURVEY PERIODE/SEMESTER</label>
 				</div>
-				<div class="d-flex justify-content-around align-items-center my-5 my-2 gap-4">
+				<div class="d-flex justify-content-around align-items-center my-3 gap-4  bg-white p-3 rounded-3 shadow-lg">
 					<div class="text-center">
-						<p class="fw-bold text-light">Nilai IKM</p>
-						<div class="display-1 text-<?= $hasil['nilai_konversi']['c'] ?> countTo" data-from="0" data-to="<?= $hasil['nilai_ikm'] ?>" data-decimals="2" data-speed="300" data-refresh-interval="50">
+						<p class="fw-bold pb-3">Nilai IKM</p>
+						<div class="display-1 countTo pb-1" data-from="0" data-to="<?= $hasil['nilai_ikm'] ?>" data-decimals="2" data-speed="300" data-refresh-interval="50">
 							0
 						</div>
 					</div>
-					<div class="text-center bg-light p-3 rounded-3 shadow-lg">
+					<div class="vr border border-dark border-opacity-25" style="height: 150px;"></div>
+					<div class="text-center">
 						<p class="fw-bold text-dark">Mutu Unit Pelayanan</p>
 						<div class="display-1 text-<?= $hasil['nilai_konversi']['c'] ?>">
 							<?= $hasil['nilai_konversi']['x'] ?>
 						</div>
-						<span class="text-muted">(<?= $hasil['nilai_konversi']['y'] ?>)</span>
+						<span class="text-dark">(<?= $hasil['nilai_konversi']['y'] ?>)</span>
 					</div>
 				</div>
 			</div>
