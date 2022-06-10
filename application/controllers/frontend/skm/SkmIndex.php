@@ -53,10 +53,9 @@ class SkmIndex extends CI_Controller
         return isset($value) ? $value : $default;
     }
 
-    public function hitung()
+    public function hitung($p)
     {
-
-        $res = $this->skm->get_responden($this->periode_skr);
+        $res = $this->skm->get_responden($p);
         $total_responden = $res->num_rows();
         $total_unsur = $this->skm->skm_total_indikator()->num_rows();
         
@@ -149,10 +148,10 @@ class SkmIndex extends CI_Controller
             return $j;
     }
     
-    public function hasil_ikm()
+    public function hasil_ikm($p)
     {
         $this->output->set_content_type('application/json');
-        echo json_encode($this->hitung());
+        echo json_encode($this->hitung($p));
     }
 
     public function index()
@@ -216,16 +215,18 @@ class SkmIndex extends CI_Controller
     }
     public function ikm()
     {
+        $periode = isset($_GET['periode']) ? $_GET['periode'] : $this->skm->skm_periode()->row()->id;
         $data = [
             'title' => 'IKM - BKPSDM Kab. Balangan',
             'content' => 'Frontend/skm/ikm',
+            'periode_all' => $this->skm->skm_all_periode(),
             'periode' => $this->skm->skm_periode()->row(),
-            'total_responden' => $this->skm->skm_total_responden($this->periode_skr),
-            'total_responden_l' => $this->skm->skm_total_responden_l($this->periode_skr)->num_rows(),
-            'total_responden_p' => $this->skm->skm_total_responden_p($this->periode_skr)->num_rows(),
+            'total_responden' => $this->skm->skm_total_responden($periode),
+            'total_responden_l' => $this->skm->skm_total_responden_l($periode)->num_rows(),
+            'total_responden_p' => $this->skm->skm_total_responden_p($periode)->num_rows(),
             'total_layanan' => $this->skm->skm_total_layanan()->num_rows(),
             'total_indikator' => $this->skm->skm_total_indikator()->num_rows(),
-            'hasil' => $this->hitung(),  
+            'hasil' => $this->hitung($periode),  
         ];
         $this->load->view('Frontend/skm/layout/app', $data);
     }

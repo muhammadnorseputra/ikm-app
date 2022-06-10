@@ -13,8 +13,20 @@
 					?>
 					<p class="fs-3 text-muted">Periode <?= bulan($bn) ?> - <?= bulan($bs) ?> <?= $periode->tahun ?></p>
 				</div>
+
 			</div>
 			<div class="col-12 col-md-6">
+				<div class="form-floating">
+				  <select onChange="filterPeriode(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+				  	<?php 
+				  		foreach ($periode_all->result() as $v):
+				  		$selected = $v->id === $_GET['periode'] ? 'selected' : ''; 
+				  	?>
+					    <option value="<?= $v->id ?>" <?= $selected ?>><?= $v->tahun." (".date('M', strtotime($v->tgl_mulai))." - ".date('M', strtotime($v->tgl_selesai)).")" ?></option>
+				  	<?php endforeach; ?>	
+				  </select>
+				  <label for="floatingSelect">FILTER PERIODE/SEMESTER</label>
+				</div>
 				<div class="d-flex justify-content-around align-items-center my-5 my-2 gap-4">
 					<div class="text-center">
 						<p class="fw-bold text-light">Nilai IKM</p>
@@ -125,9 +137,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="<?= base_url('assets/plugins/canvajs/canvasjs.min.js') ?>"></script>
 <script type="text/javascript">
+function filterPeriode(e) {
+	window.location.replace(`${_uri}/ikm?periode=${e.value}`)
+}
 $(function() {
 	// Canva By Gender
-  	$.getJSON(`${_uri}/api/chart/CH_GENDER`, function(res) {
+  	$.getJSON(`${_uri}/api/chart/CH_GENDER`, {periode: urlParams.get('periode')}, function(res) {
       	var ch1 = new CanvasJS.Chart("piechart_3d", {
 			theme: "light2", // "light1", "light2", "dark1", "dark2"
 			exportEnabled: false,
@@ -158,7 +173,7 @@ $(function() {
 	});
 
 	// Canva By Pendidikan
-		$.getJSON(`${_uri}/api/chart/CH_TINGPEN`, function(res) {
+		$.getJSON(`${_uri}/api/chart/CH_TINGPEN`, {periode: urlParams.get('periode')}, function(res) {
 			var ch2 = new CanvasJS.Chart("columnchart_values", {
 				animationEnabled: true,
 		        exportEnabled: false,

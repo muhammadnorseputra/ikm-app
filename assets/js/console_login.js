@@ -39,7 +39,7 @@ $(document).ready(function() {
               data: _data,
               dataType: 'json',
               beforeSend: function() {
-                  $('button[type="submit"]').html(`<center><img width="15" src="${_uri}/assets/images/loader/oval.svg"></center>`);
+                  $('button[type="submit"]').html(`<div class="d-flex justify-content-center align-items-center"><span class="mr-2"><img width="15" src="${_uri}/assets/images/loader/oval.svg"></span> <span>Processing ...</span></div>`);
               },
               success: call_success,
               error: call_error,

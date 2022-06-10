@@ -23,9 +23,10 @@ class Api extends RestController {
 
     public function ikm_get()
     {
-
+        $periode_skr = $this->skm->skm_periode()->row()->id;
         $filter_tahun = $this->get('tahun');
         $filter_periode = $this->get('periode');
+        $p = isset($filter_periode) ? $filter_periode : $periode_skr;  
 
         $skm_periode = $this->skm->skm_periode()->row();
         $tahun_skr = $skm_periode->tahun;
@@ -44,7 +45,7 @@ class Api extends RestController {
         endif;
         $jml_indikator = $this->skm->skm_total_indikator()->num_rows();
         $jml_layanan = $this->skm->skm_total_layanan()->num_rows();
-        $data_ikm = apiIkm(base_url('frontend/skm/skmIndex/hasil_ikm'));
+        $data_ikm = apiIkm(base_url('frontend/skm/skmIndex/hasil_ikm/'.$p));
         $data = [
             'kind' => 'Hasil IKM',
             'status' => true, 
@@ -84,10 +85,24 @@ class Api extends RestController {
 
     function ch_gender()
     {
-        $tahun = date('Y');
-        $total_responden = $this->lap->total_responden_by_tahun_periode($tahun);
-        $l = $this->lap->responden_by_gender($tahun,null,'L');
-        $p = $this->lap->responden_by_gender($tahun,null,'P');
+        // row data periode yg terakhir di database
+        $periode_db = $this->skm->skm_periode()->row();
+        // ambil parameters yg dikirim lewat ajax ?periode=???
+        $getPeriode = $this->input->get('periode');
+        //jika parameter ada maka pakai $getPeriode jika tidak ada pakai periode terkahir dari database
+        $priode = isset($getPeriode) ? $getPeriode : $periode_db->id;
+        // row data periode berdasarkan id
+        $periode_db_id = $this->skm->skm_periode_by_id($getPeriode);
+        //jika parameter ada maka tahun pakai periode yang dipilih dan jika tidak pakai tahun terakhir dari database
+        $tahun = $getPeriode !== '' ? $periode_db_id->tahun : $periode_db->tahun;
+        
+        if(!$tahun) {
+            $this->response('DATA TIDAK DITEMUKAN', 404);  
+            return false;
+        }
+        $total_responden = $this->lap->total_responden_by_tahun_periode($tahun, $priode);
+        $l = $this->lap->responden_by_gender($tahun,$priode,'L');
+        $p = $this->lap->responden_by_gender($tahun,$priode,'P');
         $marge = [
             'Laki - Laki' => intval($l),
             'Perempuan' => intval($p)
@@ -98,16 +113,32 @@ class Api extends RestController {
             $data[] = ['y' => $value, 'label' => $key, 'p' => $persentase];
         }
         $this->response( $data, 200 );  
+        
     }
 
     function ch_tingpen()
     {
-        $tahun = date('Y');
-        $total_responden = $this->lap->total_responden_by_tahun_periode($tahun);
+        // row data periode yg terakhir di database
+        $periode_db = $this->skm->skm_periode()->row();
+        // ambil parameters yg dikirim lewat ajax ?periode=???
+        $getPeriode = $this->input->get('periode');
+        //jika parameter ada maka pakai $getPeriode jika tidak ada pakai periode terkahir dari database
+        $priode = isset($getPeriode) ? $getPeriode : $periode_db->id;
+        // row data periode berdasarkan id
+        $periode_db_id = $this->skm->skm_periode_by_id($getPeriode);
+        //jika parameter ada maka tahun pakai periode yang dipilih dan jika tidak pakai tahun terakhir dari database
+        $tahun = $getPeriode !== '' ? $periode_db_id->tahun : $periode_db->tahun;
+        
+        if(!$tahun) {
+            $this->response('DATA TIDAK DITEMUKAN', 404);  
+            return false;
+        }
+        // $tahun = date('Y'); // tahun sekarang
+        $total_responden = $this->lap->total_responden_by_tahun_periode($tahun, $priode);
         $pendidikan = $this->skm->skm_pendidikan();
         foreach($pendidikan->result() as $p):
             $pendidikan = $p->tingkat_pendidikan;
-            $total_responden_pendidikan = $this->lap->responden_by_pendidikan($tahun,null,$p->id);
+            $total_responden_pendidikan = $this->lap->responden_by_pendidikan($tahun,$priode,$p->id);
             $persentase = @number_format(($total_responden_pendidikan/$total_responden) * 100, 2);
             $data[] = ['y' => $total_responden_pendidikan, 'label' => $pendidikan, 'p' => $persentase];
         endforeach;

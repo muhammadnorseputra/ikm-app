@@ -12,4 +12,4 @@ console.log(_uriSegment);
 // Params
 var queryString = window.location.search;
 var urlParams = new URLSearchParams(queryString);
-console.log('Params', queryString);
+console.log('Params', urlParams);

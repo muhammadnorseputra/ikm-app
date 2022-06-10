@@ -139,7 +139,7 @@ class Skm_laporan extends CI_Model {
 		$this->db->join('skm_periode AS p', 's.fid_periode = p.id');
 		$this->db->where('p.tahun', $tahun);
 		if(!empty($gender)):
-			$this->db->where('jns_kelamin', $gender);
+			$this->db->where('s.jns_kelamin', $gender);
 		endif;
 		if(!empty($periode)):
 			$this->db->where('s.fid_periode', $periode);
