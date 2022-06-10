@@ -588,6 +588,7 @@ $t = !empty($target->target_tahunan) ? $target->target_tahunan : 0;
 							$bobot_nilai_tahun = $this->skm->skm_bobot_nilai();
 							foreach($result_tahun as $t):
 							$responden_unsur_tahun = $this->lap->responden_by_tahun($t->tahun);
+							$upoin=[];
 							foreach($responden_unsur_tahun->result() as $s):
 								$get_jawaban_tahun = $this->skm->_get_jawaban_responden($s->id);
 								$poin_tahun = [];
