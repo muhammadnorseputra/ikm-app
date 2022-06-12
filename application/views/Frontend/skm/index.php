@@ -5,7 +5,7 @@
 				<div class="order-last order-md-first col-md-6">
 					<!-- <img src="<?= base_url('assets/images/logo.png') ?>" class="d-none d-md-block mt--5" width="80" alt="Logo Kabupaten Balangan - BKPSDM Kab. Balangan"> -->
 					<h1 class="display-4 fw-bold text-white" data-aos="fade-up" data-aos-delay="50">Selamat Datang</h1>
-					<p class="fs-4 text-white" data-aos="fade-up" data-aos-delay="100">Di Survei IKM BKPSDM Kabupaten Balangan</p>
+					<p class="fs-4 text-white" data-aos="fade-up" data-aos-delay="100">Di Survei IKM <span class="text-glow-white">BKPSDM</span> Kabupaten Balangan</p>
 					
 					<a data-aos="fade-up" data-aos-delay="150" href="<?= base_url('survei') ?>" class="btn btn-warning btn-lg px-4 shadow">
 						<i class="bi bi-ui-checks me-2"></i>
@@ -16,7 +16,7 @@
 						<i class="bi bi-book-half fs-4"></i>
 					</a>
 					<div class="mt-4">
-						<span class="display-1 fw-bold text-warning countTo" data-from="0" data-to="<?= nominal($total_responden) ?>"
+						<span class="display-1 fw-bold text-white countTo text-glow-white" data-from="0" data-to="<?= nominal($total_responden) ?>"
 						data-speed="300" data-refresh-interval="50" data-aos="fade-up" data-aos-delay="200">0</span>
 						<p class="text-light" data-aos="fade-up" data-aos-delay="250" data-aos-once="true">Total Responden sampai saat ini.</p>
 					</div>

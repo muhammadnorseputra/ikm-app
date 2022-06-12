@@ -9,7 +9,7 @@
 						$bulan_mulai = date('m', strtotime($periode->tgl_mulai));
 						$bulan_selesai = date('m', strtotime($periode->tgl_selesai));
 					?>
-					<p class="fs-3 text-warning">Periode Live <?= bulan($bulan_mulai) ?> - <?= bulan($bulan_selesai) ?> <?= $periode->tahun ?></p>
+					<p class="fs-3 text-warning">Periode <span class="text-glow-white">Live</span> <?= bulan($bulan_mulai) ?> - <?= bulan($bulan_selesai) ?> <?= $periode->tahun ?></p>
 				</div>
 				<a href="<?= base_url('survei') ?>" class="btn btn-warning btn-lg px-4 shadow d-block d-md-inline">
 						<i class="bi bi-ui-checks me-2"></i>
@@ -22,7 +22,7 @@
 				  <select onChange="filterPeriode(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
 				  	<?php 
 				  		foreach ($periode_all->result() as $v):
-				  		$selected = $v->id === $_GET['periode'] ? 'selected' : ''; 
+				  		$selected = $v->id === isset($_GET['periode']) ? 'selected' : ''; 
 				  	?>
 					    <option value="<?= $v->id ?>" <?= $selected ?>><?= $v->tahun." (".bulan(date('m', strtotime($v->tgl_mulai)))." - ".bulan(date('m', strtotime($v->tgl_selesai))).")" ?></option>
 				  	<?php endforeach; ?>	

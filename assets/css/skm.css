@@ -85,3 +85,29 @@ font-family: 'Poppins', sans-serif;
     left: 0;     
   }
 }
+
+/* TEXT NEON ANIMATION */
+.text-glow-white {
+  -webkit-animation: neon-white 0.75s ease-in-out infinite alternate;
+  animation: neon-white 0.75s ease-in-out infinite alternate;
+}
+.text-glow-white-static {
+  text-shadow: 0 0 10px hsla(0, 0%, 100%, 0.8);
+}
+@-webkit-keyframes neon-white {
+  0% {
+    text-shadow: 0 0 10px hsla(0, 0%, 100%, 0.3);
+  }
+  to {
+    text-shadow: 0 0 10px #fff;
+  }
+}
+@keyframes neon-white {
+  0% {
+    text-shadow: 0 0 10px hsla(0, 0%, 100%, 0.3);
+  }
+  to {
+    text-shadow: 0 0 10px #fff;
+  }
+}
+/* END TEXT NEON ANIMATION */
