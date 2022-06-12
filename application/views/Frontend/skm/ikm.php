@@ -22,7 +22,7 @@
 				  <select onChange="filterPeriode(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
 				  	<?php 
 				  		foreach ($periode_all->result() as $v):
-				  		$selected = $v->id === isset($_GET['periode']) ? 'selected' : ''; 
+				  		$selected = isset($v->id) === isset($_GET['periode']) ? 'selected' : ''; 
 				  	?>
 					    <option value="<?= $v->id ?>" <?= $selected ?>><?= $v->tahun." (".bulan(date('m', strtotime($v->tgl_mulai)))." - ".bulan(date('m', strtotime($v->tgl_selesai))).")" ?></option>
 				  	<?php endforeach; ?>	
@@ -166,10 +166,10 @@
 	</div>
 	<div class="row mb-3">
 		<div class="col-12 col-xl-6">
-			<div id="piechart_3d" class="shadow-sm" style="width: 100%; height: 400px;"></div>
+			<div id="piechart_3d" class="shadow-sm border rounded overflow-hidden" style="width: 100%; height: 300px;"></div>
 		</div>
 		<div class="col-12 col-xl-6">
-			<div id="columnchart_values" class="shadow-sm"  style="width: 100%; height: 400px;"></div>
+			<div id="columnchart_values" class="shadow-sm border rounded overflow-hidden"  style="width: 100%; height: 300px;"></div>
 		</div>
 	</div>
 </div>
