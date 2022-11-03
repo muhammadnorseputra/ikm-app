@@ -32,7 +32,7 @@ class Api extends RestController {
         $data = [];
         foreach($layanan->result() as $r) {
             $row['id'] = $r->id;
-            $row['name'] = $r->nama_jenis_layanan;
+            $row['name'] = strtoupper($r->nama_jenis_layanan);
             $data[] = $row;
         }
         $this->response($data, 200);
@@ -49,7 +49,7 @@ class Api extends RestController {
         $data = [];
         foreach($pendidikan->result() as $r) {
             $row['id'] = $r->id;
-            $row['name'] = $r->tingkat_pendidikan;
+            $row['name'] = strtoupper($r->tingkat_pendidikan);
             $data[] = $row;
         }
         $this->response($data, 200);
@@ -66,7 +66,7 @@ class Api extends RestController {
         $data = [];
         foreach($pekerjaan->result() as $r) {
             $row['id'] = $r->id;
-            $row['name'] = $r->jenis_pekerjaan;
+            $row['name'] = strtoupper($r->jenis_pekerjaan);
             $data[] = $row;
         }
         $this->response($data, 200);
