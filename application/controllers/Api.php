@@ -20,7 +20,57 @@ class Api extends RestController {
             'message' => 'API Web Survei Indeks Kepuasan Masyarakat'
         ], 404 );
     }
-    
+    public function layanan_get()
+    {
+        $layanan = $this->skm->skm_jenis_layanan();
+        if($layanan->num_rows() == 0) {
+            return $this->response( [
+                'status' => false,
+                'message' => 'Data is empty on database'
+            ], 410 );
+        }
+        $data = [];
+        foreach($layanan->result() as $r) {
+            $row['id'] = $r->id;
+            $row['name'] = $r->nama_jenis_layanan;
+            $data[] = $row;
+        }
+        $this->response($data, 200);
+    }
+    public function pendidikan_get()
+    {
+        $pendidikan = $this->skm->skm_pendidikan();
+        if($pendidikan->num_rows() == 0) {
+            return $this->response( [
+                'status' => false,
+                'message' => 'Data is empty on database'
+            ], 410 );
+        }
+        $data = [];
+        foreach($pendidikan->result() as $r) {
+            $row['id'] = $r->id;
+            $row['name'] = $r->tingkat_pendidikan;
+            $data[] = $row;
+        }
+        $this->response($data, 200);
+    }
+    public function pekerjaan_get()
+    {
+        $pekerjaan = $this->skm->skm_pekerjaan();
+        if($pekerjaan->num_rows() == 0) {
+            return $this->response( [
+                'status' => false,
+                'message' => 'Data is empty on database'
+            ], 410 );
+        }
+        $data = [];
+        foreach($pekerjaan->result() as $r) {
+            $row['id'] = $r->id;
+            $row['name'] = $r->jenis_pekerjaan;
+            $data[] = $row;
+        }
+        $this->response($data, 200);
+    }
     public function ikm_get()
     {
         $periode_skr = $this->skm->skm_periode()->row()->id;
