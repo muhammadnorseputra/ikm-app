@@ -1766,9 +1766,9 @@ class RestController extends \CI_Controller
         }
 
         // Check if the user is logged into the system
-        // if ($this->_check_login($username, $password) === false) {
-        //     $this->_force_login();
-        // }
+        if ($this->_check_login($username, $password) === false) {
+            $this->_force_login();
+        }
     }
 
     /**
