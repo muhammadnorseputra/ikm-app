@@ -227,7 +227,7 @@ $config['rest_valid_logins'] = ['admin' => '1234', 'Balangankab' => 'bkpsdm@2022
 |    restrict certain methods to IPs in your white-list
 |
 */
-$config['rest_ip_whitelist_enabled'] = true;
+$config['rest_ip_whitelist_enabled'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -252,7 +252,7 @@ $config['rest_handle_exceptions'] = true;
 | 127.0.0.1 and 0.0.0.0 are allowed by default
 |
 */
-$config['rest_ip_whitelist'] = '127.0.0.1, 192.168.147.60, 120.188.74.108';
+$config['rest_ip_whitelist'] = '192.168.147.60, 120.188.74.108';
 
 /*
 |--------------------------------------------------------------------------
@@ -545,7 +545,7 @@ $config['rest_language'] = 'english';
 | will access it through a browser
 |
 */
-$config['check_cors'] = true;
+$config['check_cors'] = false;
 
 /*
 |--------------------------------------------------------------------------
