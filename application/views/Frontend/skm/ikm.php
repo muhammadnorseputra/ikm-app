@@ -182,7 +182,7 @@ function filterPeriode(e) {
 }
 $(function() {
 	// Canva By Gender
-  	$.getJSON(`${_uri}/api/chart/CH_GENDER`, {periode: urlParams.get('periode')}, function(res) {
+  	$.getJSON(`${_uri}/api/chart/CH_GENDER?API_KEY=bkpsdm6811`, {periode: urlParams.get('periode')}, function(res) {
       	var ch1 = new CanvasJS.Chart("piechart_3d", {
 			theme: "light2", // "light1", "light2", "dark1", "dark2"
 			exportEnabled: false,
@@ -213,7 +213,7 @@ $(function() {
 	});
 
 	// Canva By Pendidikan
-		$.getJSON(`${_uri}/api/chart/CH_TINGPEN`, {periode: urlParams.get('periode')}, function(res) {
+		$.getJSON(`${_uri}/api/chart/CH_TINGPEN?API_KEY=bkpsdm6811`, {periode: urlParams.get('periode')}, function(res) {
 			var ch2 = new CanvasJS.Chart("columnchart_values", {
 				animationEnabled: true,
 		        exportEnabled: false,
