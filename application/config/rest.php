@@ -252,7 +252,7 @@ $config['rest_handle_exceptions'] = true;
 | 127.0.0.1 and 0.0.0.0 are allowed by default
 |
 */
-$config['rest_ip_whitelist'] = '127.0.0.1, 192.168.147.60';
+$config['rest_ip_whitelist'] = '127.0.0.1, 192.168.147.60, 120.188.74.108';
 
 /*
 |--------------------------------------------------------------------------
