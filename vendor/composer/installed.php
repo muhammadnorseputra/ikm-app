@@ -1,41 +1,42 @@
-<?php return array(
-    'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'type' => 'library',
-        'install_path' => __DIR__ . '/../../',
-        'aliases' => array(),
-        'reference' => '22a6c90edc7e48d597f6f09e0909e2b8dca73dcd',
-        'name' => '__root__',
-        'dev' => true,
+<?php return array (
+  'root' => 
+  array (
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
+    'aliases' => 
+    array (
     ),
-    'versions' => array(
-        '__root__' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'reference' => '22a6c90edc7e48d597f6f09e0909e2b8dca73dcd',
-            'dev_requirement' => false,
-        ),
-        'chriskacerguis/codeigniter-restserver' => array(
-            'pretty_version' => '3.1.1',
-            'version' => '3.1.1.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../chriskacerguis/codeigniter-restserver',
-            'aliases' => array(),
-            'reference' => '6ced70d12c7e8d207eaded3f208a201330950b57',
-            'dev_requirement' => false,
-        ),
-        'tecnickcom/tcpdf' => array(
-            'pretty_version' => '6.4.2',
-            'version' => '6.4.2.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
-            'aliases' => array(),
-            'reference' => '172540dcbfdf8dc983bc2fe78feff48ff7ec1c76',
-            'dev_requirement' => false,
-        ),
+    'reference' => 'f81a423d25f19790c06ab87ab94f59d7bf25fd3c',
+    'name' => '__root__',
+  ),
+  'versions' => 
+  array (
+    '__root__' => 
+    array (
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f81a423d25f19790c06ab87ab94f59d7bf25fd3c',
     ),
+    'chriskacerguis/codeigniter-restserver' => 
+    array (
+      'pretty_version' => '3.1.4',
+      'version' => '3.1.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f386f4e0013daadaa213681a0a41af69aa81d9de',
+    ),
+    'tecnickcom/tcpdf' => 
+    array (
+      'pretty_version' => '6.5.0',
+      'version' => '6.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'cc54c1503685e618b23922f53635f46e87653662',
+    ),
+  ),
 );

@@ -108,9 +108,9 @@ $config['rest_realm'] = 'REST API';
 | 'digest'  More secured login
 | 'session' Check for a PHP session variable. See 'auth_source' to set the
 |           authorization key
-|
+|	
 */
-$config['rest_auth'] = false;
+$config['rest_auth'] = 'basic';
 
 /*
 |--------------------------------------------------------------------------
@@ -126,7 +126,7 @@ $config['rest_auth'] = false;
 | Note: If 'rest_auth' is set to 'session' then change 'auth_source' to the name of the session variable
 |
 */
-$config['auth_source'] = 'ldap';
+$config['auth_source'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -323,7 +323,7 @@ $config['rest_keys_table'] = 'keys';
 |   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_keys'] = false;
+$config['rest_enable_keys'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -376,7 +376,7 @@ $config['rest_key_length'] = 40;
 | 2012/06/12. See RFC 6648 specification for more details
 |
 */
-$config['rest_key_name'] = 'apikey';
+$config['rest_key_name'] = 'API_KEY';
 
 /*
 |--------------------------------------------------------------------------
@@ -589,7 +589,7 @@ $config['allowed_cors_methods'] = [
 | source domain
 |
 */
-$config['allow_any_cors_domain'] = true;
+$config['allow_any_cors_domain'] = false;
 
 /*
 |--------------------------------------------------------------------------

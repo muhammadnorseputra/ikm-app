@@ -27,7 +27,7 @@ class Api extends RestController {
             return $this->response( [
                 'status' => false,
                 'message' => 'Data is empty on database'
-            ], 410 );
+            ], 410);
         }
         $data = [];
         foreach($layanan->result() as $r) {
