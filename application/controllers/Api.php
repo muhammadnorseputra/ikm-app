@@ -20,7 +20,7 @@ class Api extends RestController {
             'message' => 'API Web Survei Indeks Kepuasan Masyarakat'
         ], 404 );
     }
-    public function layanan_post()
+    public function layanan_get()
     {
         $layanan = $this->skm->skm_jenis_layanan();
         if($layanan->num_rows() == 0) {
