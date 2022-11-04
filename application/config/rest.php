@@ -227,7 +227,7 @@ $config['rest_valid_logins'] = ['admin' => '1234', 'Balangankab' => 'bkpsdm@2022
 |    restrict certain methods to IPs in your white-list
 |
 */
-$config['rest_ip_whitelist_enabled'] = false;
+$config['rest_ip_whitelist_enabled'] = true;
 
 /*
 |--------------------------------------------------------------------------
