@@ -12,14 +12,6 @@ class Api extends RestController {
         $this->load->model('skm_laporan', 'lap');
     }
 
-    public function index_get()
-    {
-        // Set the response and exit
-        $this->response( [
-            'status' => true,
-            'message' => 'API Web Survei Indeks Kepuasan Masyarakat'
-        ], 404 );
-    }
     public function layanan_post()
     {
         $layanan = $this->skm->skm_jenis_layanan();
