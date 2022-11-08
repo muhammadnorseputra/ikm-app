@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
-require APPPATH . '/libraries/REST_Controller.php';
 
 class Api extends RestController {
     public function __construct()
