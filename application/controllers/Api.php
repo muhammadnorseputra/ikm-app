@@ -23,9 +23,9 @@ class Api extends RestController {
     public function authtoken(){
         $secret_key = $this->configToken()['secretkey']; 
         $token = null; 
-        $authHeader = $this->input->request_headers()['Authorization'];  
+        $authHeader = isset($this->input->request_headers()['Authorization']) ? $this->input->request_headers()['Authorization'] : 'AUTH NOT_ALLOWED';  
         $arr = explode(" ", $authHeader); 
-        $token = $arr[1];        
+        $token = !empty($arr[1]) ? $arr[1] : 'TOKEN_REQUIRED';        
         if ($token){
             try{
                 $decoded = JWT::decode($token, $this->configToken()['secretkey'], array('HS256'));          
@@ -52,7 +52,7 @@ class Api extends RestController {
                 )
             );       
         
-        $jwt = JWT::encode($token, $this->configToken()['secretkey']);
+        $jwt = JWT::encode($token, $this->configToken()['secretkey'], 'HS256');
         $output = [
                 'status' => 200,
                 'message' => 'Berhasil login',
@@ -65,6 +65,10 @@ class Api extends RestController {
 
     public function layanan_post()
     {
+        if ($this->authtoken() === false){
+            return $this->response(array('status'=>false, 'message'=>'signature tidak sesuai'), RestController::HTTP_UNAUTHORIZED);
+            die();
+        }
         $layanan = $this->skm->skm_jenis_layanan();
         if($layanan->num_rows() == 0) {
             return $this->response( [
@@ -74,18 +78,13 @@ class Api extends RestController {
             die();
         }
 
-        if ($this->authtoken() === false){
-            return $this->response(array('status'=>false, 'message'=>'signature tidak sesuai'), RestController::HTTP_UNAUTHORIZED);
-            die();
-        }
-
         $data = [];
         foreach($layanan->result() as $r) {
             $row['id'] = $r->id;
             $row['name'] = strtoupper($r->nama_jenis_layanan);
             $data[] = $row;
         }
-        $this->response($data, 200);
+        $this->response($data, RestController::HTTP_OK);
     }
     public function pendidikan_get()
     {
@@ -94,7 +93,7 @@ class Api extends RestController {
             return $this->response( [
                 'status' => false,
                 'message' => 'Data is empty on database'
-            ], 410 );
+            ], RestController::HTTP_NOT_FOUND );
         }
         $data = [];
         foreach($pendidikan->result() as $r) {
@@ -102,7 +101,7 @@ class Api extends RestController {
             $row['name'] = strtoupper($r->tingkat_pendidikan);
             $data[] = $row;
         }
-        $this->response($data, 200);
+        $this->response($data, RestController::HTTP_OK);
     }
     public function pekerjaan_get()
     {
