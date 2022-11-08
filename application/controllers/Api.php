@@ -2,11 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
+require APPPATH . '/libraries/REST_Controller.php';
 
 class Api extends RestController {
     public function __construct()
     {
         parent::__construct();
+        header('Access-Control-Allow-Credentials: *');
+        header('Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding, Authorization');
         //MODEL
         $this->load->model('skm');
         $this->load->model('skm_laporan', 'lap');
@@ -108,20 +111,20 @@ class Api extends RestController {
         
         if($responden > 0):
             // Set the response and exit
-            $this->response( $data, 200 );
+            $this->response( $data, RestController::HTTP_OK );
         else:
             // Set the response and exit
             $this->response( [
                 'status' => false,
                 'message' => 'Not Found Data'
-            ], 404 );
+            ], RestController::HTTP_NOT_FOUND );
         endif;
         
         if(count($data) == 0) {
             $this->response( [
                 'status' => false,
                 'message' => 'Data is empty on server'
-            ], 410 );
+            ], RestController::HTTP_FORBIDDEN );
             return;
         }
     }
