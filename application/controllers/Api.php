@@ -2,16 +2,65 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
+use \Firebase\JWT\JWT;
+use \Firebase\JWT\ExpiredException;
 
 class Api extends RestController {
     public function __construct()
     {
         parent::__construct();
-        header('Access-Control-Allow-Credentials: *');
-        header('Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding, Authorization');
         //MODEL
         $this->load->model('skm');
         $this->load->model('skm_laporan', 'lap');
+    }
+
+    function configToken(){
+        $cnf['exp'] = 3600; //milisecond
+        $cnf['secretkey'] = '2212336221';
+        return $cnf;        
+    }
+
+    public function authtoken(){
+        $secret_key = $this->configToken()['secretkey']; 
+        $token = null; 
+        $authHeader = $this->input->request_headers()['Authorization'];  
+        $arr = explode(" ", $authHeader); 
+        $token = $arr[1];        
+        if ($token){
+            try{
+                $decoded = JWT::decode($token, $this->configToken()['secretkey'], array('HS256'));          
+                if ($decoded){
+                    return true;
+                }
+            } catch (\Exception $e) {
+                return false;                
+            }
+        }       
+    }
+
+    public function getToken_post(){               
+            $exp = time() + 3600;
+            $token = array(
+                "iss" => 'apprestservice',
+                "aud" => 'pengguna',
+                "iat" => time(),
+                "nbf" => time() + 10,
+                "exp" => $exp,
+                "data" => array(
+                    "username" => 'admin',
+                    "password" => '1234'
+                )
+            );       
+        
+        $jwt = JWT::encode($token, $this->configToken()['secretkey']);
+        $output = [
+                'status' => 200,
+                'message' => 'Berhasil login',
+                "token" => $jwt,                
+                "expireAt" => $token['exp']
+            ];      
+        $data = array('kode'=>'200', 'pesan'=>'token', 'data'=>array('token'=>$jwt, 'exp'=>$exp));
+        $this->response($data, 200 );       
     }
 
     public function layanan_post()
@@ -21,8 +70,15 @@ class Api extends RestController {
             return $this->response( [
                 'status' => false,
                 'message' => 'Data is empty on database'
-            ], 410);
+            ], RestController::HTTP_NOT_FOUND);
+            die();
         }
+
+        if ($this->authtoken() === false){
+            return $this->response(array('status'=>false, 'message'=>'signature tidak sesuai'), RestController::HTTP_UNAUTHORIZED);
+            die();
+        }
+
         $data = [];
         foreach($layanan->result() as $r) {
             $row['id'] = $r->id;
