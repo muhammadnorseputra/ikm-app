@@ -16,60 +16,60 @@ class Api extends RestController {
 
     function configToken(){
         $cnf['exp'] = 3600; //milisecond
-        $cnf['secretkey'] = '2212336221';
+        $cnf['secretkey'] = 'bkpsdm@2022';
         return $cnf;        
     }
 
     public function authtoken(){
         $secret_key = $this->configToken()['secretkey']; 
         $token = null; 
-        $authHeader = isset($this->input->request_headers()['Authorization']) ? $this->input->request_headers()['Authorization'] : 'AUTH NOT_ALLOWED';  
+        $authHeader = isset($this->input->request_headers()['Authorization']) ? $this->input->request_headers()['Authorization'] : 'AUTH BEARER_TOKEN_REQUIRED_FIELDS';
         $arr = explode(" ", $authHeader); 
-        $token = !empty($arr[1]) ? $arr[1] : 'TOKEN_REQUIRED';        
+        $token = !empty($arr[1]) ? $arr[1] : 'TOKEN NULL';        
         if ($token){
             try{
                 $decoded = JWT::decode($token, $this->configToken()['secretkey'], array('HS256'));          
                 if ($decoded){
-                    return true;
+                    return [
+                        'status' => true,
+                        'token' => $token
+                    ];
                 }
             } catch (\Exception $e) {
-                return false;                
+                return [
+                    'status' => false,
+                    'token' => $token
+                ];               
             }
         }       
     }
 
-    public function getToken_post(){               
+    public function token_post(){               
             $exp = time() + 3600;
             $token = array(
                 "iss" => 'apprestservice',
-                "aud" => 'pengguna',
+                "aud" => 'apiServices',
                 "iat" => time(),
                 "nbf" => time() + 10,
                 "exp" => $exp,
                 "data" => array(
-                    "username" => 'admin',
-                    "password" => '1234'
+                    "username" => "admin",
+                    "password" => "1234"
                 )
             );       
         
-        $jwt = JWT::encode($token, $this->configToken()['secretkey'], 'HS256');
-        $output = [
-                'status' => 200,
-                'message' => 'Berhasil login',
-                "token" => $jwt,                
-                "expireAt" => $token['exp']
-            ];      
-        $data = array('kode'=>'200', 'pesan'=>'token', 'data'=>array('token'=>$jwt, 'exp'=>$exp));
-        $this->response($data, 200 );       
+        $jwt = JWT::encode($token, $this->configToken()['secretkey'], 'HS256');     
+        $data = array(
+            'status' => true, 
+            'message'=>'Access Token Generated', 
+            'data'=>array('token'=>$jwt, 'exp'=>$exp)
+        );
+        $this->response($data, RestController::HTTP_OK);       
     }
 
 
     public function layanan_post()
     {
-        if ($this->authtoken() === false){
-            return $this->response(array('status'=>false, 'message'=>'signature tidak sesuai'), RestController::HTTP_UNAUTHORIZED);
-            die();
-        }
         $layanan = $this->skm->skm_jenis_layanan();
         if($layanan->num_rows() == 0) {
             return $this->response( [
@@ -77,6 +77,16 @@ class Api extends RestController {
                 'message' => 'Data is empty on database'
             ], RestController::HTTP_NOT_FOUND);
             die();
+        }
+        
+        // Cek Token JWT
+        if ($this->authtoken()['status'] === false){
+            $msg = [
+                'status'=> false, 
+                'message' => 'Token Invalid',
+                'token' => $this->authtoken()['token'] 
+            ];
+            return $this->response($msg, RestController::HTTP_UNAUTHORIZED);
         }
 
         $data = [];
