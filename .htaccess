@@ -1,9 +1,12 @@
 RewriteEngine On
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
 #RewriteCond $1 !^(index\.php|images|assets|files|robots\.txt)
 RewriteCond %{REQUEST_URI} !\.(?:css|js)$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L] 
+
 
 # Force compression for mangled headers.
 # http://developer.yahoo.com/blogs/ydn/posts/2010/12/pushing-beyond-gzipping

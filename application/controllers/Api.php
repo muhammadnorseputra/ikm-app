@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
+use \Firebase\JWT\JWT;
+use \Firebase\JWT\ExpiredException;
 
 class Api extends RestController {
     public function __construct()
@@ -12,30 +14,78 @@ class Api extends RestController {
         $this->load->model('skm_laporan', 'lap');
     }
 
-    public function index_get()
-    {
-        // Set the response and exit
-        $this->response( [
-            'status' => true,
-            'message' => 'API Web Survei Indeks Kepuasan Masyarakat'
-        ], 404 );
+    function configToken(){
+        $cnf['exp'] = 3600; //milisecond
+        $cnf['secretkey'] = '2212336221';
+        return $cnf;        
     }
+
+    public function authtoken(){
+        $secret_key = $this->configToken()['secretkey']; 
+        $token = null; 
+        $authHeader = isset($this->input->request_headers()['Authorization']) ? $this->input->request_headers()['Authorization'] : 'AUTH NOT_ALLOWED';  
+        $arr = explode(" ", $authHeader); 
+        $token = !empty($arr[1]) ? $arr[1] : 'TOKEN_REQUIRED';        
+        if ($token){
+            try{
+                $decoded = JWT::decode($token, $this->configToken()['secretkey'], array('HS256'));          
+                if ($decoded){
+                    return true;
+                }
+            } catch (\Exception $e) {
+                return false;                
+            }
+        }       
+    }
+
+    public function getToken_post(){               
+            $exp = time() + 3600;
+            $token = array(
+                "iss" => 'apprestservice',
+                "aud" => 'pengguna',
+                "iat" => time(),
+                "nbf" => time() + 10,
+                "exp" => $exp,
+                "data" => array(
+                    "username" => 'admin',
+                    "password" => '1234'
+                )
+            );       
+        
+        $jwt = JWT::encode($token, $this->configToken()['secretkey'], 'HS256');
+        $output = [
+                'status' => 200,
+                'message' => 'Berhasil login',
+                "token" => $jwt,                
+                "expireAt" => $token['exp']
+            ];      
+        $data = array('kode'=>'200', 'pesan'=>'token', 'data'=>array('token'=>$jwt, 'exp'=>$exp));
+        $this->response($data, 200 );       
+    }
+
+
     public function layanan_post()
     {
+        if ($this->authtoken() === false){
+            return $this->response(array('status'=>false, 'message'=>'signature tidak sesuai'), RestController::HTTP_UNAUTHORIZED);
+            die();
+        }
         $layanan = $this->skm->skm_jenis_layanan();
         if($layanan->num_rows() == 0) {
             return $this->response( [
                 'status' => false,
                 'message' => 'Data is empty on database'
-            ], 410);
+            ], RestController::HTTP_NOT_FOUND);
+            die();
         }
+
         $data = [];
         foreach($layanan->result() as $r) {
             $row['id'] = $r->id;
             $row['name'] = strtoupper($r->nama_jenis_layanan);
             $data[] = $row;
         }
-        $this->response($data, 200);
+        $this->response($data, RestController::HTTP_OK);
     }
     public function pendidikan_get()
     {
@@ -44,7 +94,7 @@ class Api extends RestController {
             return $this->response( [
                 'status' => false,
                 'message' => 'Data is empty on database'
-            ], 410 );
+            ], RestController::HTTP_NOT_FOUND );
         }
         $data = [];
         foreach($pendidikan->result() as $r) {
@@ -52,7 +102,7 @@ class Api extends RestController {
             $row['name'] = strtoupper($r->tingkat_pendidikan);
             $data[] = $row;
         }
-        $this->response($data, 200);
+        $this->response($data, RestController::HTTP_OK);
     }
     public function pekerjaan_get()
     {
@@ -116,20 +166,20 @@ class Api extends RestController {
         
         if($responden > 0):
             // Set the response and exit
-            $this->response( $data, 200 );
+            $this->response( $data, RestController::HTTP_OK );
         else:
             // Set the response and exit
             $this->response( [
                 'status' => false,
                 'message' => 'Not Found Data'
-            ], 404 );
+            ], RestController::HTTP_NOT_FOUND );
         endif;
         
         if(count($data) == 0) {
             $this->response( [
                 'status' => false,
                 'message' => 'Data is empty on server'
-            ], 410 );
+            ], RestController::HTTP_FORBIDDEN );
             return;
         }
     }
