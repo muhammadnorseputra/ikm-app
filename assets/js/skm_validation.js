@@ -60,9 +60,9 @@ $(document).ready(function() {
         form: '#f-survei',
         modules: 'date, security, html5, sanitize',
         showErrorDialogs: true,
-        // disabledFormFilter: 'form.toggle-disabled',
-        // reCaptchaSiteKey: '6LfiM08bAAAAAJkf5geIEBau6f9-kMOEzxkxw06_',
-        // reCaptchaTheme: 'light',
+        disabledFormFilter: 'form.toggle-disabled',
+        reCaptchaSiteKey: '6LfiM08bAAAAAJkf5geIEBau6f9-kMOEzxkxw06_',
+        reCaptchaTheme: 'light',
         onError: function($form) {
             $.notify({
                 icon: `fas fa-times`,

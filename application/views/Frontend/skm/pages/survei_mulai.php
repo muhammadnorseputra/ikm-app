@@ -117,9 +117,9 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 					<?php endforeach; ?>
 				</ul>
 				<hr>
-				<!-- <p>
+				<p>
 				    <input data-validation="recaptcha" data-validation-recaptcha-sitekey="6LfiM08bAAAAAJkf5geIEBau6f9-kMOEzxkxw06_">
-				</p> -->
+				</p>
 				<div class="form-group form-check mb-3">
 				    <input type="checkbox" class="form-check-input" data-validation="required" name="disclimer" id="exampleCheck1">
 				    <label class="form-check-label" for="exampleCheck1">Penilaian yang saya berikan merupakan benar-benar hasil dari pelayanan BKPSDM Balangan.</label>
