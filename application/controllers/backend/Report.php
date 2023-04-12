@@ -134,7 +134,7 @@ class Report extends CI_Controller {
         $this->load->view('Backend/pages/cetak', $data);	
 	}
 
-	public function cetak_view_two($tahun,$periode=null) {
+	public function cetak_view_v2($tahun,$periode=null) {
 		$data = [
       		'title' => 'e-Survei | Cetak IKM - '.$tahun.' ( '.$this->report->getPeriodeBulan($periode).' ) ',
 			'tahun' => $tahun,
