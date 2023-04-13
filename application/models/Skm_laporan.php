@@ -58,6 +58,7 @@ class Skm_laporan extends CI_Model {
 		if(!empty($periode)):
 			$this->db->where('s.fid_periode', $periode);
 		endif;
+		$this->db->order_by('s.fid_jenis_layanan');
 		$q = $this->db->get();
 		return $q;
     }	
