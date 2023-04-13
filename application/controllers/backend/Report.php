@@ -128,19 +128,7 @@ class Report extends CI_Controller {
 			'periode' => $periode,
 			'responden' => $this->laporan->responden_by_tahun_periode($tahun,$periode),
 			'sampel' => $this->skm->skm_total_responden_per_tahun($tahun, $periode),
-			'ikm' => apiIkm(base_url('api/ikm?periode='.$periode))
-		];
-
-        $this->load->view('Backend/pages/cetak', $data);	
-	}
-
-	public function cetak_view_v2($tahun,$periode=null) {
-		$data = [
-      		'title' => 'e-Survei | Cetak IKM - '.$tahun.' ( '.$this->report->getPeriodeBulan($periode).' ) ',
-			'tahun' => $tahun,
-			'periode' => $periode,
-			'responden' => $this->laporan->responden_by_tahun_periode($tahun,$periode),
-			'sampel' => $this->skm->skm_total_responden_per_tahun($tahun, $periode),
+			'populasi' => $this->skm->skm_total_populasi($tahun, $periode),
 			'ikm' => apiIkm(base_url('api/ikm?periode='.$periode))
 		];
 

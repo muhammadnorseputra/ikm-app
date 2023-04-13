@@ -92,6 +92,15 @@ class Skm extends CI_Model {
 		}
 		return $r;
 	}
+	public function skm_total_populasi($tahun)
+	{
+		$q = $this->db->select('populasi')
+		->from('skm_periode')
+		->where('tahun', $tahun)
+		->get();
+		$r = $q->row()->populasi;
+		return $r;
+	}
 	public function get_responden($periode=null)
 	{
 		return $this->db->get_where('skm', ['fid_periode' => $periode]);
