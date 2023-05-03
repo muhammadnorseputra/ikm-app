@@ -286,7 +286,7 @@ class PDF extends TCPDF {
 
         // Nilai Rata-Rata Per Unsur
         $x = 155;
-        $this->setXY($x,$y);
+        $this->setXY($x,$y+3);
         $this->Cell(10,10,'NO',1,0,'C', 0, false, 0, false, 'T', 'M');
         $this->Cell(80,10,'Unsur Layanan',1,0,'L', 0, false, 0, false, 'T', 'M');
         $this->Cell(20,10,'NRR',1,1,'C', 0, false, 0, false, 'T', 'M');
@@ -294,13 +294,12 @@ class PDF extends TCPDF {
         foreach($unsur->result() as $k => $u) {
             $n = $k == 0 ? 1 : $k+1;
             $this->SetFont('dejavusans', 'N', 8);
-            $this->SetXY($x,$y+10);
+            $this->SetXY($x,$y+13);
             $this->Cell(10,10,"U{$n}",1,0,'C', 0, false, 0, false, 'T', 'M');
             $nrr = decimal($cari_nrr_t[$k], 3);
             $this->Cell(80,10,$u->jdl_unsur,1,0,'L', 0, false, 0, false, 'T', 'M');
             $this->SetFont('dejavusans', 'N', 8);
             $this->Cell(20,10,$nrr,1,1,'C', 0, false, 0, false, 'T', 'M');
-        
         $no++;
         $y = $y+10;
         }
