@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<p>
-				&copy; <?= date('Y') ?> e-Survey IKM BKPSDM Kab. Balangan. Semua hak dilindungi | Credit by <a href="https://www.mediadigitalcenter.my.id" target="_blank">MDCenter</a>
+				&copy; <?= date('Y') ?> e-Survey IKM BKPSDM Kab. Balangan. Semua hak dilindungi | Credit by <a href="https://www.mediabalangan.com/" target="_blank" rel="dofollow">Media Balangan</a>
 			</p>
 			<p class="font-1 fw-light fst-italic">
 				Make with <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill text-danger" viewBox="0 0 16 16">
