@@ -64,10 +64,10 @@
 					?>
 						<tr>
 							<th scope="row" class="text-center fw-bold"><?= $no ?></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
+							<th><?= $v->jns_kelamin ?></th>
+							<th><?= $v->usia ?></th>
+							<th><?= $v->tingkat_pendidikan ?></th>
+							<th><?= $v->jenis_pekerjaan ?></th>
 							<?php 
 								$total_responden = $responden->num_rows();
 								foreach ($poin as $key => $value):
