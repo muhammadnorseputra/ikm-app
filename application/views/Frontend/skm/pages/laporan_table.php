@@ -67,7 +67,7 @@
 							?>
 								<td class="text-center"><?= $poin_unsur ?></td>
 							<?php endforeach; ?>
-							<td></td>
+							<td><?= strtoupper($v->nama_jenis_layanan) ?></td>
 						</tr>
 					<?php $no++; endforeach; endif;?>
 				</tbody>

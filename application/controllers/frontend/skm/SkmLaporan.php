@@ -36,8 +36,9 @@ class SkmLaporan extends CI_Controller
         
         $tahun = isset($_GET['tahun']) ? $_GET['tahun'] : $tahun_skr;
         $periode_id = isset($_GET['periode']) ? $_GET['periode'] : $periode_skr;
+        $layanan_id = isset($_GET['layanan_id']) ? $_GET['layanan_id'] : null;
 
-        $responden = $this->lap->responden_by_tahun_periode($tahun,$periode_id);
+        $responden = $this->lap->responden_by_tahun_periode_layanan($tahun,$periode_id, $layanan_id);
 
         $bobot_nilai = $this->skm->skm_bobot_nilai();
 
