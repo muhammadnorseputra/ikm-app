@@ -35,6 +35,10 @@
 				<thead class="bg-primary bg-gradient text-white">
 					<tr>
 						<th scope="col" rowspan="2" class="text-center align-middle bg-white text-dark" width="30">No <br> Responden</th>
+						<th scope="col" rowspan="2" class="text-center align-middle bg-white text-dark" width="30">JK</th>
+						<th scope="col" rowspan="2" class="text-center align-middle bg-white text-dark" width="30">USIA</th>
+						<th scope="col" rowspan="2" class="text-center align-middle bg-white text-dark">PENDIDIKAN</th>
+						<th scope="col" rowspan="2" class="text-center align-middle bg-white text-dark">PEKERJAAN</th>
 						<th scope="col" colspan="<?= $total_unsur ?>" class="text-center align-middle">
 							NILAI UNSUR PERLAYANAN
 						</th>
@@ -60,6 +64,10 @@
 					?>
 						<tr>
 							<th scope="row" class="text-center fw-bold"><?= $no ?></th>
+							<th class="text-center"><?= $v->jns_kelamin ?></th>
+							<th class="text-center"><?= $v->umur ?></th>
+							<th class="text-center"><?= $v->tingkat_pendidikan ?></th>
+							<th class="text-center"><?= $v->jenis_pekerjaan ?></th>
 							<?php 
 								$total_responden = $responden->num_rows();
 								foreach ($poin as $key => $value):
