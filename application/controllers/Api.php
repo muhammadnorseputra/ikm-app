@@ -136,7 +136,9 @@ class Api extends RestController {
         $periode_skr = $this->skm->skm_periode()->row()->id;
         $filter_tahun = $this->get('tahun');
         $filter_periode = $this->get('periode');
+        $filter_jenis_layanan = $this->get('layanan_id');
         $p = isset($filter_periode) ? $filter_periode : $periode_skr;  
+        $j = isset($filter_jenis_layanan) ? $filter_jenis_layanan : '';  
 
         $skm_periode = $this->skm->skm_periode()->row();
         $tahun_skr = $skm_periode->tahun;
@@ -156,7 +158,7 @@ class Api extends RestController {
         endif;
         $jml_indikator = $this->skm->skm_total_indikator()->num_rows();
         $jml_layanan = $this->skm->skm_total_layanan()->num_rows();
-        $data_ikm = apiIkm(base_url('frontend/skm/skmIndex/hasil_ikm/'.$p));
+        $data_ikm = apiIkm(base_url('frontend/skm/skmIndex/hasil_ikm/'.$p.'/'.$j));
         $data = [
             'kind' => 'Hasil IKM',
             'status' => true, 

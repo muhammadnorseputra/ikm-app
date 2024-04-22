@@ -41,6 +41,8 @@ class SkmLaporan extends CI_Controller
         $responden = $this->lap->responden_by_tahun_periode_layanan($tahun,$periode_id, $layanan_id);
 
         $bobot_nilai = $this->skm->skm_bobot_nilai();
+        
+        $data_ikm = apiIkm(base_url('frontend/skm/skmIndex/hasil_ikm/'.$periode_id.'/'.$layanan_id));
 
         $data = [
             'title' => 'LAPORAN IKM - BKPPD Balangan',
@@ -50,7 +52,8 @@ class SkmLaporan extends CI_Controller
             'tahun' => $tahun_skr,
             'periode' => $periode_skr,
             'responden' => $responden,
-            'bobot' => $bobot_nilai
+            'bobot' => $bobot_nilai,
+            'data_ikm' => $data_ikm
         ];
         $this->load->view('Frontend/skm/layout/app', $data);
     }

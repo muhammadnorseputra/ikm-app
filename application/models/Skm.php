@@ -101,9 +101,16 @@ class Skm extends CI_Model {
 		$r = $q->row()->populasi;
 		return $r;
 	}
-	public function get_responden($periode=null)
+	public function get_responden($periode=null,$layanan_id='')
 	{
-		return $this->db->get_where('skm', ['fid_periode' => $periode]);
+		// return $this->db->get_where('skm', ['fid_periode' => $periode, 'fid_jenis_layanan' => $layanan_id]);
+		$this->db->select('*');
+		$this->db->from('skm');
+		$this->db->where('fid_periode', $periode);
+		if(!empty($layanan_id)) {
+			$this->db->where('fid_jenis_layanan', $layanan_id);
+		}
+		return $this->db->get();
 	}
 	public function responden_by_nipnik($nipnik)
 	{

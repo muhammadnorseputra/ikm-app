@@ -64,9 +64,11 @@ class Skm_laporan extends CI_Model {
     }	
     public function responden_by_tahun_periode_layanan($tahun,$periode=null, $layanan_id='')
     {
-    	$this->db->select('s.id,s.nama_lengkap,s.jawaban_responden,jl.nama_jenis_layanan');
+    	$this->db->select('s.id,s.jns_kelamin,s.umur,s.nama_lengkap,s.jawaban_responden,pd.tingkat_pendidikan,pk.jenis_pekerjaan,jl.nama_jenis_layanan');
 		$this->db->from('skm AS s');
 		$this->db->join('skm_periode AS p', 's.fid_periode = p.id');
+		$this->db->join('skm_pendidikan AS pd', 's.fid_pendidikan=pd.id');
+		$this->db->join('skm_pekerjaan AS pk', 's.fid_pekerjaan=pk.id');
 		$this->db->join('skm_jenis_layanan AS jl', 's.fid_jenis_layanan = jl.id');
 		$this->db->where('p.tahun', $tahun);
 		if(!empty($layanan_id)) {

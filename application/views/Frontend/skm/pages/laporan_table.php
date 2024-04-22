@@ -81,7 +81,7 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td class="text-secondary fw-bold">Nilai/Unsur</td>
+						<td class="text-secondary fw-bold" colspan="5">Nilai/Unsur</td>
 						<?php 
 							$acc = array_shift($u);
 							foreach ($u as $val) {
@@ -98,7 +98,7 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td class="text-secondary fw-bold">NRR/Unsur</td>
+						<td class="text-secondary fw-bold" colspan="5">NRR/Unsur</td>
 						<?php  
 							foreach ($cari_nrr as $key => $value):
 							$nrr = $value/$total_responden;
@@ -109,7 +109,7 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td class="text-secondary fw-bold">
+						<td class="text-secondary fw-bold" colspan="5">
 							NRR Tertimbang <br>/ Unsur
 						</td>
 						<?php  
@@ -119,7 +119,7 @@
 						?>
 							<td class="text-center align-middle"><?= number_format($nrr_t,2) ?></td>
 						<?php endforeach; ?>
-						<td class="text-success">
+						<td class="text-success" colspan="5">
 							<?php 
 								$nrr_total = array_sum($nrr_t_total);
 							?>
@@ -131,7 +131,7 @@
 						<?php  
 						$ikm = number_format($nrr_total*25,2);
 						?>
-						<td colspan="<?= $total_unsur+1 ?>" class="text-dark fw-bold align-middle">IKM Unit Layanan</td>
+						<td colspan="<?= $total_unsur+5 ?>" class="text-dark fw-bold align-middle">IKM Unit Layanan</td>
 						<td class="text-success">
 							<div class="small">**)</div>  
 							<div class="text-center"><?= $ikm ?></div>
@@ -285,6 +285,8 @@
 					<?php $no++; endforeach; ?>
 				</tbody>
 			</table>
+			<hr>
+			<div id="piechart_3d" class="shadow-sm border rounded overflow-hidden" style="width: 100%; height: 300px;"></div>
 		</div>
 	</div>
 <?php else: ?>
@@ -306,3 +308,42 @@
 </div>
 <?php endif; ?>
 </div>
+<?php
+$data = [];
+foreach ($data_ikm['presentase'] as $key => $value) {
+	$persentase = @number_format(($value/$total_responden) * 100, 2);
+	$data[] = ['y' => $persentase, 'label' => $key, 'p' => $persentase];
+}
+?>
+
+<script src="<?= base_url('assets/js/route.js') ?>"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="<?= base_url('assets/plugins/canvajs/canvasjs.min.js') ?>"></script>
+<script>
+      	var ch1 = new CanvasJS.Chart("piechart_3d", {
+			theme: "light2", // "light1", "light2", "dark1", "dark2"
+			exportEnabled: false,
+			animationEnabled: true,
+			exportFileName: "Responden By Gender",
+			title: {
+				text: "Grafik Frekuensi",
+				verticalAlign: "top", // "top", "center", "bottom"
+			     horizontalAlign: "left", // "left", "right", "center"
+			     fontSize: 18,
+			     margin: 0,
+			     padding: 10,
+			     fontWeight: 'normal',
+			     fontStyle: 'normal'
+			},
+			data: [{
+				type: "pie",
+				startAngle: 25,
+				toolTipContent: "<b>{label}</b>: {p}% <br> <b>Jumlah</b>: {y}",
+				showInLegend: "true",
+				legendText: "{label}",
+				indexLabelFontSize: 14,
+				indexLabel: "{label} - ({y}) {p}%",
+				dataPoints: <?= json_encode($data) ?>			
+			}]
+		});
+</script>

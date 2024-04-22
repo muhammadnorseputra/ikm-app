@@ -53,9 +53,9 @@ class SkmIndex extends CI_Controller
         return isset($value) ? $value : $default;
     }
 
-    public function hitung($p)
+    public function hitung($p,$j="")
     {
-        $res = $this->skm->get_responden($p);
+        $res = $this->skm->get_responden($p,$j); // $p = periode, $j = layanan_id
         $total_responden = $res->num_rows();
         $total_unsur = $this->skm->skm_total_indikator()->num_rows();
         
@@ -110,10 +110,14 @@ class SkmIndex extends CI_Controller
             $presentase_b = ($this->_cekValue(@$total_predikat_sama['B'], '0') / $total_responden) * 100;
             $presentase_c = ($this->_cekValue(@$total_predikat_sama['C'], '0') / $total_responden) * 100;
             $presentase_d = ($this->_cekValue(@$total_predikat_sama['D'], '0') / $total_responden) * 100;
-            $presentase_predikat = ['A' => number_format($presentase_a, 2), 
-                                    'B' => number_format($presentase_b, 2), 
-                                    'C' => number_format($presentase_c, 2), 
-                                    'D' => number_format($presentase_d, 2)];
+            // $presentase_predikat = ['SANGAT MUDAH' => number_format($presentase_a, 2), 
+            //                         'MUDAH'=> number_format($presentase_b, 2), 
+            //                         'CUKUP MUDAH' => number_format($presentase_c, 2), 
+            //                         'SANGAT SULIT' => number_format($presentase_d, 2)];
+            $presentase_predikat = ['SANGAT MUDAH' => number_format($presentase_a, 2), 
+                                    'MUDAH'=> number_format($presentase_b, 2), 
+                                    'CUKUP MUDAH' => number_format($presentase_c, 2), 
+                                    'SANGAT SULIT' => number_format($presentase_d, 2)];
             
             // TOTAL KESELURUHAN UNSUR
             // $total_u = $total_u1 + $total_u2 + $total_u3 + $total_u4 + $total_u5 + $total_u6 
@@ -148,10 +152,10 @@ class SkmIndex extends CI_Controller
             return $j;
     }
     
-    public function hasil_ikm($p)
+    public function hasil_ikm($p,$j)
     {
         $this->output->set_content_type('application/json');
-        echo json_encode($this->hitung($p));
+        echo json_encode($this->hitung($p,$j));
     }
 
     public function index()
