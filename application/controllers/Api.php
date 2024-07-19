@@ -131,6 +131,24 @@ class Api extends RestController {
         }
         $this->response($data, 200);
     }
+    
+    public function ikm_by_layananid_get() 
+    {
+        $periode_id = $this->query('periode_id');
+        $layanan_id = $this->query('layanan_id');     
+        $responden = $this->skm->get_responden($periode_id,$layanan_id)->num_rows();   
+        $data_ikm = apiIkm(base_url('frontend/skm/skmIndex/hasil_ikm/'.$periode_id.'/'.$layanan_id));
+
+        $data = [];
+        foreach ($data_ikm['presentase_konversi'] as $key => $value) {
+            $persentase = @number_format(($value/$responden) * 100);
+            $data[] = ['y' => intval($value), 'label' => $key, 'p' => $value];
+            $data['responden'] = $responden;
+        }
+
+        $this->response( $data, 200 ); 
+    }
+
     public function ikm_get()
     {
         $periode_skr = $this->skm->skm_periode()->row()->id;

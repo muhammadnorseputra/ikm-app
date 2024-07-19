@@ -309,17 +309,14 @@
 <?php endif; ?>
 </div>
 <?php
-$data = [];
-foreach ($data_ikm['presentase'] as $key => $value) {
-	$persentase = @number_format(($value/$total_responden) * 100, 2);
-	$data[] = ['y' => $persentase, 'label' => $key, 'p' => $persentase];
-}
+
 ?>
 
 <script src="<?= base_url('assets/js/route.js') ?>"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="<?= base_url('assets/plugins/canvajs/canvasjs.min.js') ?>"></script>
 <script>
+	$.getJSON(`${_uri}/api/ikm_by_layananid?API_KEY=bkpsdm6811&periode_id=${ urlParams.get('periode')}&layanan_id=${urlParams.get('layanan_id')}`, function(res) {
       	var ch1 = new CanvasJS.Chart("piechart_3d", {
 			theme: "light2", // "light1", "light2", "dark1", "dark2"
 			exportEnabled: false,
@@ -338,12 +335,14 @@ foreach ($data_ikm['presentase'] as $key => $value) {
 			data: [{
 				type: "pie",
 				startAngle: 25,
-				toolTipContent: "<b>{label}</b>: {p}% <br> <b>Jumlah</b>: {y}",
+				toolTipContent: "<b>{label}</b>: {p}%",
 				showInLegend: "true",
 				legendText: "{label}",
 				indexLabelFontSize: 14,
-				indexLabel: "{label} - ({y}) {p}%",
-				dataPoints: <?= json_encode($data) ?>			
+				indexLabel: "{label} - {p}%",
+				dataPoints: res
 			}]
 		});
+		ch1.render();
+	});
 </script>
