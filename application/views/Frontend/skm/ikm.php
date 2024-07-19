@@ -22,7 +22,7 @@
 				  <select onChange="filterPeriode(this)" class="form-select" id="floatingSelect" aria-label="Floating label select example">
 				  	<?php 
 				  		foreach ($periode_all->result() as $v):
-				  		$selected = isset($v->id) === isset($_GET['periode']) ? 'selected' : ''; 
+				  		$selected = $v->id == $_GET['periode'] ? 'selected' : ''; 
 				  	?>
 					    <option value="<?= $v->id ?>" <?= $selected ?>><?= $v->tahun." (".bulan(date('m', strtotime($v->tgl_mulai)))." - ".bulan(date('m', strtotime($v->tgl_selesai))).")" ?></option>
 				  	<?php endforeach; ?>	

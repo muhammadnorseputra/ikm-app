@@ -53,7 +53,7 @@ class SkmIndex extends CI_Controller
         return isset($value) ? $value : $default;
     }
 
-    public function hitung($p,$j)
+    public function hitung($p,$j="")
     {
         $res = $this->skm->get_responden($p,$j); // $p = periode, $j = layanan_id
         $total_responden = $res->num_rows();
