@@ -126,8 +126,8 @@
           </thead>
           <tbody>
             <?php 
-            if($ikm['data']['presentase'] != null): 
-              foreach($ikm['data']['presentase'] as $key => $val): 
+            if(@$ikm['data']['presentase'] != null): 
+              foreach(@$ikm['data']['presentase'] as $key => $val): 
                 if($key == 'A'): 
                   $persepsi = "Sangat Baik";
                   $col = 'success'; 

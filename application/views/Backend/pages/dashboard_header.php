@@ -116,8 +116,8 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                  <span class="text-success mr-2">( <?= $ikm['data']['nilai_konversi']['x'] ?> )</span>
-                  <span class="text-nowrap"><?= $ikm['data']['nilai_konversi']['y'] ?></span>
+                  <span class="text-success mr-2">( <?= @$ikm['data']['nilai_konversi']['x'] ?> )</span>
+                  <span class="text-nowrap"><?= @$ikm['data']['nilai_konversi']['y'] ?></span>
                 </p>
               </div>
               <div class="card-footer">
