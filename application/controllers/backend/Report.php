@@ -122,14 +122,16 @@ class Report extends CI_Controller {
 	}
 
 	public function cetak_view($tahun,$periode=null) {
+		$filter_jenis_layanan = $this->input->get('layanan_id');
+		$jenisLayanan = isset($filter_jenis_layanan) ? $filter_jenis_layanan : ''; 
 		$data = [
       		'title' => 'e-Survei | Cetak IKM - '.$tahun.' ( '.$this->report->getPeriodeBulan($periode).' ) ',
 			'tahun' => $tahun,
 			'periode' => $periode,
-			'responden' => $this->laporan->responden_by_tahun_periode($tahun,$periode),
+			'responden' => $this->laporan->responden_by_tahun_periode_layanan($tahun,$periode,$jenisLayanan),
 			'sampel' => $this->skm->skm_total_responden_per_tahun($tahun, $periode),
 			'populasi' => $this->skm->skm_total_populasi($tahun, $periode),
-			'ikm' => apiIkm(base_url('api/ikm?periode='.$periode))
+			'ikm' => apiIkm(base_url('api/ikm?periode='.$periode.'&layanan_id='.$jenisLayanan))
 		];
 
         $this->load->view('Backend/pages/cetakv2', $data);	

@@ -165,14 +165,14 @@ class Api extends RestController {
         $periode_skr_end = $skm_periode->tgl_selesai;
 
         if(!empty($filter_periode)):
-            $responden = $this->skm->get_responden($filter_periode)->num_rows();
-            $responden_pria = $this->skm->skm_total_responden_l($filter_periode)->num_rows();
-            $responden_wanita = $this->skm->skm_total_responden_p($filter_periode)->num_rows();
+            $responden = $this->skm->get_responden($filter_periode,$j)->num_rows();
+            $responden_pria = $this->skm->skm_total_responden_l($filter_periode,$j)->num_rows();
+            $responden_wanita = $this->skm->skm_total_responden_p($filter_periode,$j)->num_rows();
         else:
             // $responden = $this->skm->skm_total_responden_all();
             $responden = $this->skm->get_responden($periode_skr)->num_rows();
-            $responden_pria = $this->skm->skm_total_responden_l($periode_skr)->num_rows();
-            $responden_wanita = $this->skm->skm_total_responden_p($periode_skr)->num_rows();
+            $responden_pria = $this->skm->skm_total_responden_l($periode_skr, $j)->num_rows();
+            $responden_wanita = $this->skm->skm_total_responden_p($periode_skr, $j)->num_rows();
         endif;
         $jml_indikator = $this->skm->skm_total_indikator()->num_rows();
         $jml_layanan = $this->skm->skm_total_layanan()->num_rows();

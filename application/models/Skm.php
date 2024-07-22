@@ -138,21 +138,27 @@ class Skm extends CI_Model {
 		$q = $this->db->get();
 		return $q->num_rows();	
 	}
-	public function skm_total_responden_l($periode=null)
+	public function skm_total_responden_l($periode=null,$layanan_id=null)
 	{
 		// return $this->db->get_where('skm', ['jns_kelamin' => 'L', 'fid_periode' => $periode]); //Laki-laki
 		if(!empty($periode)):
 			$this->db->where('fid_periode', $periode);
 		endif;
+		if(!empty($layanan_id)) {
+			$this->db->where('fid_jenis_layanan', $layanan_id);
+		}
 		$this->db->where('jns_kelamin', 'L');
 		return $this->db->get('skm');
 	}
-	public function skm_total_responden_p($periode=null)
+	public function skm_total_responden_p($periode=null,$layanan_id=null)
 	{
 		// return $this->db->get_where('skm', ['jns_kelamin' => 'P', 'fid_periode' => $periode]); //Perempuan
 		if(!empty($periode)):
 			$this->db->where('fid_periode', $periode);
 		endif;
+		if(!empty($layanan_id)) {
+			$this->db->where('fid_jenis_layanan', $layanan_id);
+		}
 		$this->db->where('jns_kelamin', 'P');
 		return $this->db->get('skm');
 	}
