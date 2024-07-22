@@ -53,9 +53,9 @@ class SkmIndex extends CI_Controller
         return isset($value) ? $value : $default;
     }
 
-    public function hitung($p,$j="")
+    public function hitung($p,$jl)
     {
-        $res = $this->skm->get_responden($p,$j); // $p = periode, $j = layanan_id
+        $res = $this->skm->get_responden($p,$jl); // $p = periode, $jenisLayanan = layanan_id
         $total_responden = $res->num_rows();
         $total_unsur = $this->skm->skm_total_indikator()->num_rows();
         
@@ -152,10 +152,10 @@ class SkmIndex extends CI_Controller
         return $j;
     }
     
-    public function hasil_ikm($p,$j)
+    public function hasil_ikm($p,$jl=null)
     {
         $this->output->set_content_type('application/json');
-        echo json_encode($this->hitung($p,$j));
+        echo json_encode($this->hitung($p,$jl));
     }
 
     public function index()
@@ -220,17 +220,19 @@ class SkmIndex extends CI_Controller
     public function ikm()
     {
         $periode = isset($_GET['periode']) ? $_GET['periode'] : $this->skm->skm_periode()->row()->id;
+        $layanan = isset($_GET['layanan_id']) ? $_GET['layanan_id'] : '';
         $data = [
             'title' => 'IKM - BKPSDM Kab. Balangan',
             'content' => 'Frontend/skm/ikm',
             'periode_all' => $this->skm->skm_all_periode(),
             'periode' => $this->skm->skm_periode()->row(),
-            'total_responden' => $this->skm->skm_total_responden($periode),
-            'total_responden_l' => $this->skm->skm_total_responden_l($periode)->num_rows(),
-            'total_responden_p' => $this->skm->skm_total_responden_p($periode)->num_rows(),
+            'layanan' => $this->skm->skm_jenis_layanan(),
+            'total_responden' => $this->skm->skm_total_responden($periode,$layanan),
+            'total_responden_l' => $this->skm->skm_total_responden_l($periode,$layanan)->num_rows(),
+            'total_responden_p' => $this->skm->skm_total_responden_p($periode,$layanan)->num_rows(),
             'total_layanan' => $this->skm->skm_total_layanan()->num_rows(),
             'total_indikator' => $this->skm->skm_total_indikator()->num_rows(),
-            'hasil' => $this->hitung($periode),  
+            'hasil' => $this->hitung($periode,$layanan),  
         ];
         $this->load->view('Frontend/skm/layout/app', $data);
     }

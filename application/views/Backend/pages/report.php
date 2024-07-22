@@ -72,6 +72,17 @@
 					  <?php endforeach; ?>
 					</select>
         </div>
+		<div class="form-group">
+        	<label for="tahun">Layanan</label>
+        	<select name="report_layanan_id" class="form-control form-control-lg">
+				<option value="">LAYANAN KESELURUHAN</option>
+        		<?php 
+        		foreach($this->skm->skm_jenis_layanan()->result() as $jl): 
+        		?>
+					  	<option value="<?= $jl->id ?>"><?= $jl->nama_jenis_layanan ?></option>
+					  <?php endforeach; ?>
+					</select>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

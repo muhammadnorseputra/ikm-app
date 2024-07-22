@@ -40,13 +40,13 @@ class PDF extends TCPDF {
         $total_responden = $responden->num_rows();
 
         // Responden Gender
-        $responden_laki = $CI->laporan->responden_by_gender($this->tahun,$this->periode,'L');
+        $responden_laki = $CI->laporan->responden_by_gender($this->tahun,$this->periode,$CI->input->get('layanan_id'),'L');
         $persentase_laki = number_format($responden_laki/$total_responden*100, 1);
-        $responden_bini = $CI->laporan->responden_by_gender($this->tahun,$this->periode,'P');
+        $responden_bini = $CI->laporan->responden_by_gender($this->tahun,$this->periode,$CI->input->get('layanan_id'),'P');
         $persentase_bini = number_format($responden_bini/$total_responden*100, 1);
 
         #MultiCell(w, h, txt, border = 0, align = 'J', fill = 0, ln = 1, x = '', y = '', reseth = true, stretch = 0, ishtml = false, autopadding = true, maxh = 0)
-        $total_responden = "<small>Total Responden</small><br>".$total_responden."</b> / ".number_format(($total_responden/$this->sampel) * 100, 2)."%";
+        $total_responden = "<small>Total Respondens</small><br>".$total_responden."</b> / ".number_format(($total_responden/$this->sampel) * 100, 2)."%";
         $total_sampel = "<small>Total Sampel / Populasi</small><br>".$this->sampel." / ".$this->populasi;
         $nilai_ikm = "<small>Nilai IKM</small><br>".number_format($this->ikm['data']['nilai_ikm'], 2)." - ".$this->ikm['data']['nilai_konversi']['x']." (".$this->ikm['data']['nilai_konversi']['y'].")";
         $total_responden_pria = "L : ". $responden_laki ." / ". $persentase_laki."%";
