@@ -344,10 +344,10 @@ $t = !empty($target->target_tahunan) ? $target->target_tahunan : 0;
 					<tbody>
 						<?php  
 							// Jawaban Responden
-							foreach($responden_detail as $key => $val):
-								$jawaban_pecah[] = explode(",",$val->jawaban_responden);
+							foreach(@$responden_detail as $key => $val):
+								@$jawaban_pecah[] = explode(",",$val->jawaban_responden);
 							endforeach;
-							$marge = array_merge([], ...$jawaban_pecah);
+							$marge = array_merge([], ...@$jawaban_pecah);
 							$total = array_count_values($marge);
 							$no=1;
 							foreach($jawaban as $key => $val):
