@@ -62,6 +62,41 @@ function decrypt_url($string) {
     return $output;
 }
 
+if (!function_exists('generate_random_string')) {
+  /**
+   * Generate a random string of 32 characters
+   *
+   * @return string
+   */
+  function generate_random_string()
+  {
+      return bin2hex(random_bytes(16));
+  }
+}
+
+if (!function_exists('generate_random_string_every_second')) {
+  /**
+   * Generate and output a random string of 32 characters every second
+   *
+   * @param int $duration Duration in seconds (0 for infinite)
+   * @return void
+   */
+  function generate_random_string_every_second($duration = 0)
+  {
+      $start_time = time();
+      while (true) {
+          echo generate_random_string() . "\n";
+          flush();
+          ob_flush();
+          sleep(1);
+
+          if ($duration > 0 && (time() - $start_time) >= $duration) {
+              break;
+          }
+      }
+  }
+}
+
 if ( ! function_exists('cek_session'))
   {
       function cek_session()

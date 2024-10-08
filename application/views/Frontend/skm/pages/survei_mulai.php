@@ -6,9 +6,9 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 		<h4 class="text-light">Formulir Survei IKM</h4>
 	</div>
 	<?php  
-	if(!$this->session->csrf_token) {
-		$this->session->csrf_token = hash('sha512', time());
-	}
+	// if(!$this->session->csrf_token) {
+		$this->session->csrf_token = generate_random_string();
+	// }
 	$hidden = ['xtoken' => $this->session->csrf_token, 'nomor' => encrypt_url($nomor), 'card' => $_GET['card'], 'periode' => encrypt_url($periode->id)];
 	echo form_open(base_url('frontend/skm/skmProses'), ['id' => 'f-survei', 'class' => 'toggle-disabled', 'autocomplete' => 'off'], $hidden);
 	?>

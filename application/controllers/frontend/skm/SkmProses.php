@@ -15,8 +15,8 @@ class SkmProses extends CI_Controller
         $post = $this->input->post();
         $token_verify = $this->session->csrf_token;
         $token = $post['xtoken'];
-        // $cookie = get_cookie('ikm_vote');
-        // if(empty($cookie) || $cookie !== '1') {
+        $cookie = get_cookie('ikm_vote');
+        if(empty($cookie) && decrypt_url($cookie) !== '$2y$12$F.9uzoxlvk0XVFYM9UrnaepKACUcVrF4c3JEgl22cqY5Ve6RnX/o.') {
             if(!empty($token) && ($token === $token_verify)):
                 $jawab = implode(',', $post['jawaban_id']);
                 $data = [
@@ -39,7 +39,7 @@ class SkmProses extends CI_Controller
 
                 if($db)
                 {
-                    set_cookie('ikm_vote','1','3600');
+                    set_cookie('ikm_vote',encrypt_url('$2y$12$F.9uzoxlvk0XVFYM9UrnaepKACUcVrF4c3JEgl22cqY5Ve6RnX/o.'),'3600');
                     $msg = ['msg' => 'Token Valid', 'status' => true, 'redirectTo' => base_url('finish/'.$post['nomor'])];
                 } else {
                     delete_cookie('ikm_vote');
@@ -48,9 +48,9 @@ class SkmProses extends CI_Controller
             else:
                 $msg = ['msg' => 'Invalid Token', 'status' => false];
             endif;
-        // } else {
-        //     $msg = ['msg' => 'Invalid Responden', 'status' => false, 'redirectTo' => base_url('invalid/'.$post['nomor'])];
-        // }
+        } else {
+            $msg = ['msg' => 'Invalid Responden', 'status' => false, 'redirectTo' => base_url('invalid/'.$post['nomor'])];
+        }
         echo json_encode($msg);
     }
     
