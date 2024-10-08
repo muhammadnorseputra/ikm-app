@@ -21,19 +21,19 @@ class SkmProses extends CI_Controller
                 $jawab = implode(',', $post['jawaban_id']);
                 $data = [
                     'tahun' => date('Y'),
-                    'fid_periode' => decrypt_url($post['periode']),
-                    'fid_jenis_layanan' => $post['jns_layanan'],
-                    'nomor' => decrypt_url($post['nomor']),
-                    'nipnik' => !empty($post['cek_nipnik']) ? $post['cek_nipnik'] : null,
-                    'nama_lengkap' => $post['nama_lengkap'],
-                    'umur' => $post['umur'],
-                    'jns_kelamin' => $post['jns_kelamin'],
-                    'fid_pendidikan' => $post['pendidikan'],
-                    'fid_pekerjaan' => $post['pekerjaan'],
-                    'card_responden' => $post['card'],
+                    'fid_periode' => decrypt_url($this->input->post('periode', true)),
+                    'fid_jenis_layanan' => $this->input->post('jns_layanan', true),
+                    'nomor' => decrypt_url($this->input->post('nomor', true)),
+                    'nipnik' => !empty($this->input->post('cek_nipnik', true)) ? $this->input->post('cek_nipnik', true) : null,
+                    'nama_lengkap' => $this->input->post('nama_lengkap', true),
+                    'umur' => $this->input->post('umur', true),
+                    'jns_kelamin' => $this->input->post('jns_kelamin', true),
+                    'fid_pendidikan' => $this->input->post('pendidikan', true),
+                    'fid_pekerjaan' => $this->input->post('pekerjaan', true),
+                    'card_responden' => $this->input->post('card', true),
                     'jawaban_responden' => $jawab,
-                    'created_at' => date('Y-m-d'),
-                    'catatan' => $post['catatan']
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'catatan' => $this->input->post('catatan', true)
                 ];
                 $db = $this->skm->skm_insert('skm', $data);
 
