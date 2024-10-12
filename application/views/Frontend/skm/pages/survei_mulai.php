@@ -6,9 +6,7 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 		<h4 class="text-light">Formulir Survei IKM</h4>
 	</div>
 	<?php  
-	// if(!$this->session->csrf_token) {
-		$this->session->csrf_token = generate_random_string();
-	// }
+	$this->session->csrf_token = generate_random_string();
 	$hidden = ['xtoken' => $this->session->csrf_token, 'nomor' => encrypt_url($nomor), 'card' => $_GET['card'], 'periode' => encrypt_url($periode->id)];
 	echo form_open(base_url('frontend/skm/skmProses'), ['id' => 'f-survei', 'class' => 'toggle-disabled', 'autocomplete' => 'off'], $hidden);
 	?>
@@ -121,14 +119,12 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 					<label for="catatan"><b>Berikan Catatan</b> (*Opsional)</label>
 					<textarea class="form-control" name="catatan" id="catatan" rows="3" style="resize: none;" placeholder="Silahkan Masukan Catatan / Kritik / Saran Yang Membangun Disini ..."></textarea>
 				</div>
-				<!-- <p>
-				    <input data-validation="recaptcha" data-validation-recaptcha-sitekey="6LfiM08bAAAAAJkf5geIEBau6f9-kMOEzxkxw06_">
-				</p> -->
 				<div class="form-group form-check mb-3">
 				    <input type="checkbox" class="form-check-input" data-validation="required" name="disclimer" id="exampleCheck1">
 				    <label class="form-check-label" for="exampleCheck1">Penilaian yang saya berikan merupakan benar-benar hasil dari pelayanan BKPSDM Balangan.</label>
 				 </div>
-				
+				<div class="g-recaptcha" data-sitekey="6LfiM08bAAAAAJkf5geIEBau6f9-kMOEzxkxw06_"></div>
+				<hr>
 				<button type="submit" class="btn btn-primary btn-lg px-5">Kirim Survei</button>
 			</div>
 		</div>
@@ -152,4 +148,5 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 	</div>
 	<?= form_close(); ?>
 </section>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="<?= base_url('assets/js/route.js') ?>"></script>

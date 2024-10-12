@@ -10,12 +10,29 @@ class SkmProses extends CI_Controller
         $this->load->model('skm');
     }
 
+    public function google_validate_captcha() {
+        $google_captcha = $this->input->post('g-recaptcha-response');
+        $google_response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LfiM08bAAAAAGo4Eij2kDEFrHVTOBHm6Gmi3B6I&response=" . $google_captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+        $data = json_decode($google_response);
+
+        if (isset($data->success) && $data->success == "true") {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
     public function index()
     {
         $post = $this->input->post();
         $token_verify = $this->session->csrf_token;
         $token = $post['xtoken'];
         $cookie = get_cookie('ikm_vote');
+
+        if(!$this->google_validate_captcha()) {
+             echo json_encode(['msg' => 'Verifikasi Human Errors', 'status' => false]);
+             return false;
+        }
+
         if(empty($cookie) && decrypt_url($cookie) !== '$2y$12$F.9uzoxlvk0XVFYM9UrnaepKACUcVrF4c3JEgl22cqY5Ve6RnX/o.') {
             if(!empty($token) && ($token === $token_verify)):
                 $jawab = implode(',', $post['jawaban_id']);
