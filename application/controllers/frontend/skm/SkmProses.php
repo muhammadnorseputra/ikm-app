@@ -10,38 +10,61 @@ class SkmProses extends CI_Controller
         $this->load->model('skm');
     }
 
+    public function google_validate_captcha() {
+        $google_captcha = $this->input->post('g-recaptcha-response');
+        $google_response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LfiM08bAAAAAGo4Eij2kDEFrHVTOBHm6Gmi3B6I&response=" . $google_captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+        $data = json_decode($google_response);
+
+        if (isset($data->success) && $data->success == "true") {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
     public function index()
     {
         $post = $this->input->post();
         $token_verify = $this->session->csrf_token;
         $token = $post['xtoken'];
         $cookie = get_cookie('ikm_vote');
-        if(empty($cookie) || $cookie !== '1') {
+        
+        if(!empty($cookie) || $cookie === '1')  {
+            echo json_encode(['msg' => 'Invalid Responden', 'status' => false, 'redirectTo' => base_url('invalid/'.$post['nomor'])]);
+            return false;
+        }
+        
+        if(!$this->google_validate_captcha()) {
+                echo json_encode(['msg' => 'Verifikasi Human Errors', 'status' => false]);
+                return false;
+        }
+
+        if(empty($cookie) && decrypt_url($cookie) !== '$2y$12$F.9uzoxlvk0XVFYM9UrnaepKACUcVrF4c3JEgl22cqY5Ve6RnX/o.') {
+
             if(!empty($token) && ($token === $token_verify)):
                 $jawab = implode(',', $post['jawaban_id']);
                 $data = [
                     'is_disabilitas' => $post['is_disabilitas'],
                     'fid_disabilitas' => $post['jenis_disabilitas'],
                     'tahun' => date('Y'),
-                    'fid_periode' => decrypt_url($post['periode']),
-                    'fid_jenis_layanan' => $post['jns_layanan'],
-                    'nomor' => decrypt_url($post['nomor']),
-                    'nipnik' => !empty($post['cek_nipnik']) ? $post['cek_nipnik'] : null,
-                    'nama_lengkap' => $post['nama_lengkap'],
-                    'umur' => $post['umur'],
-                    'jns_kelamin' => $post['jns_kelamin'],
-                    'fid_pendidikan' => $post['pendidikan'],
-                    'fid_pekerjaan' => $post['pekerjaan'],
-                    'card_responden' => $post['card'],
+                    'fid_periode' => decrypt_url($this->input->post('periode', true)),
+                    'fid_jenis_layanan' => $this->input->post('jns_layanan', true),
+                    'nomor' => decrypt_url($this->input->post('nomor', true)),
+                    'nipnik' => !empty($this->input->post('cek_nipnik', true)) ? $this->input->post('cek_nipnik', true) : null,
+                    'nama_lengkap' => $this->input->post('nama_lengkap', true),
+                    'umur' => $this->input->post('umur', true),
+                    'jns_kelamin' => $this->input->post('jns_kelamin', true),
+                    'fid_pendidikan' => $this->input->post('pendidikan', true),
+                    'fid_pekerjaan' => $this->input->post('pekerjaan', true),
+                    'card_responden' => $this->input->post('card', true),
                     'jawaban_responden' => $jawab,
-                    'created_at' => date('Y-m-d'),
-                    'catatan' => $post['catatan']
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'catatan' => $this->input->post('catatan', true)
                 ];
                 $db = $this->skm->skm_insert('skm', $data);
 
                 if($db)
                 {
-                    set_cookie('ikm_vote','1','3600');
+                    set_cookie('ikm_vote',encrypt_url('$2y$12$F.9uzoxlvk0XVFYM9UrnaepKACUcVrF4c3JEgl22cqY5Ve6RnX/o.'),'3600');
                     $msg = ['msg' => 'Token Valid', 'status' => true, 'redirectTo' => base_url('finish/'.$post['nomor'])];
                 } else {
                     delete_cookie('ikm_vote');
@@ -50,9 +73,7 @@ class SkmProses extends CI_Controller
             else:
                 $msg = ['msg' => 'Invalid Token', 'status' => false];
             endif;
-        } else {
-            $msg = ['msg' => 'Invalid Responden', 'status' => false, 'redirectTo' => base_url('invalid/'.$post['nomor'])];
-        }
+        } 
         echo json_encode($msg);
     }
     

@@ -88,11 +88,14 @@ class Skm_laporan extends CI_Model {
     	$q = $this->db->get_where('skm', ['tahun' => $tahun]);
 		return $q->num_rows();
     }
-	public function total_responden_by_tahun_periode($tahun, $periode=null) {
+	public function total_responden_by_tahun_periode($tahun, $periode=null, $layanan_id=null) {
 		$this->db->select('p.tahun');
 		$this->db->from('skm AS s');
 		$this->db->join('skm_periode AS p', 's.fid_periode = p.id');
 		$this->db->where('p.tahun', $tahun);
+		if(!empty($layanan_id)) {
+			$this->db->where('s.fid_jenis_layanan', $layanan_id);
+		}
 		if(!empty($periode)):
 			$this->db->where('s.fid_periode', $periode);
 		endif;
@@ -141,14 +144,24 @@ class Skm_laporan extends CI_Model {
 		$r = $q->row();
 		return $r->total_responden;
 	}
+<<<<<<< HEAD
 	public function responden_by_gender($tahun,$periode=NULL,$layanan_id=NULL,$gender) {
+=======
+	public function responden_by_gender($tahun,$periode=null,$layanan_id=null,$gender) {
+>>>>>>> 711caf201b2fa6f06709dbf3b4d2fdbc1a1eef76
 		$this->db->select('s.id');
 		$this->db->from('skm AS s');
 		$this->db->join('skm_periode AS p', 's.fid_periode = p.id');
 		$this->db->where('p.tahun', $tahun);
+<<<<<<< HEAD
 		if(!empty($layanan_id)):
 			$this->db->where('s.fid_jenis_layanan', $layanan_id);
 		endif;
+=======
+		if(!empty($layanan_id)) {
+			$this->db->where('s.fid_jenis_layanan', $layanan_id);
+		}
+>>>>>>> 711caf201b2fa6f06709dbf3b4d2fdbc1a1eef76
 		if(!empty($gender)):
 			$this->db->where('s.jns_kelamin', $gender);
 		endif;
@@ -158,11 +171,14 @@ class Skm_laporan extends CI_Model {
 		$q = $this->db->get();
 		return $q->num_rows();
 	}
-	public function responden_by_pendidikan($tahun,$periode=null,$pendidikan_id) {
+	public function responden_by_pendidikan($tahun,$periode=null,$pendidikan_id,$layanan_id=null) {
 		$this->db->select('s.id');
 		$this->db->from('skm AS s');
 		$this->db->join('skm_periode AS p', 's.fid_periode = p.id');
 		$this->db->where('p.tahun', $tahun);
+		if(!empty($layanan_id)) {
+			$this->db->where('s.fid_jenis_layanan', $layanan_id);
+		}
 		if(!empty($pendidikan_id)):
 			$this->db->where('s.fid_pendidikan', $pendidikan_id);
 		endif;

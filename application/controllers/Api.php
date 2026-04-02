@@ -156,7 +156,7 @@ class Api extends RestController {
         $filter_periode = $this->get('periode');
         $filter_jenis_layanan = $this->get('layanan_id');
         $p = isset($filter_periode) ? $filter_periode : $periode_skr;  
-        $j = isset($filter_jenis_layanan) ? $filter_jenis_layanan : '';  
+        $j = isset($filter_jenis_layanan) ? $filter_jenis_layanan : null;  
 
         $skm_periode = $this->skm->skm_periode()->row();
         $tahun_skr = $skm_periode->tahun;
@@ -220,6 +220,8 @@ class Api extends RestController {
         $periode_db = $this->skm->skm_periode()->row();
         // ambil parameters yg dikirim lewat ajax ?periode=???
         $getPeriode = $this->input->get('periode');
+        // ambil params yang dikirim 
+        $getLayananId = $this->input->get('layanan');
         //jika parameter ada maka pakai $getPeriode jika tidak ada pakai periode terkahir dari database
         $priode = isset($getPeriode) ? $getPeriode : $periode_db->id;
         // row data periode berdasarkan id
@@ -231,9 +233,9 @@ class Api extends RestController {
             $this->response('DATA TIDAK DITEMUKAN', 404);  
             return false;
         }
-        $total_responden = $this->lap->total_responden_by_tahun_periode($tahun, $priode);
-        $l = $this->lap->responden_by_gender($tahun,$priode,'L');
-        $p = $this->lap->responden_by_gender($tahun,$priode,'P');
+        $total_responden = $this->lap->total_responden_by_tahun_periode($tahun, $priode, $getLayananId);
+        $l = $this->lap->responden_by_gender($tahun,$priode,$getLayananId,'L');
+        $p = $this->lap->responden_by_gender($tahun,$priode,$getLayananId,'P');
         $marge = [
             'Laki - Laki' => intval($l),
             'Perempuan' => intval($p)
@@ -253,6 +255,8 @@ class Api extends RestController {
         $periode_db = $this->skm->skm_periode()->row();
         // ambil parameters yg dikirim lewat ajax ?periode=???
         $getPeriode = $this->input->get('periode');
+        // ambil params yang dikirim 
+        $getLayananId = $this->input->get('layanan');
         //jika parameter ada maka pakai $getPeriode jika tidak ada pakai periode terkahir dari database
         $priode = isset($getPeriode) ? $getPeriode : $periode_db->id;
         // row data periode berdasarkan id
@@ -265,11 +269,11 @@ class Api extends RestController {
             return false;
         }
         // $tahun = date('Y'); // tahun sekarang
-        $total_responden = $this->lap->total_responden_by_tahun_periode($tahun, $priode);
+        $total_responden = $this->lap->total_responden_by_tahun_periode($tahun, $priode, $getLayananId);
         $pendidikan = $this->skm->skm_pendidikan();
         foreach($pendidikan->result() as $p):
             $pendidikan = $p->tingkat_pendidikan;
-            $total_responden_pendidikan = $this->lap->responden_by_pendidikan($tahun,$priode,$p->id);
+            $total_responden_pendidikan = $this->lap->responden_by_pendidikan($tahun,$priode,$p->id,$getLayananId);
             $persentase = @number_format(($total_responden_pendidikan/$total_responden) * 100, 2);
             $data[] = ['y' => $total_responden_pendidikan, 'label' => $pendidikan, 'p' => $persentase];
         endforeach;

@@ -114,16 +114,18 @@ class Report extends CI_Controller {
 		$p = $this->input->post();
 		$tahun = $p['report_tahun'] != '' ? $p['report_tahun'] : '-';
 		$periode = $p['report_periode'] != '' ? $p['report_periode'] : '-';
+		$layanan_id = $p['report_layanan_id'] != '' ? $p['report_layanan_id'] : '';
+
 
 		if(isset($tahun)) {
-			$msg = ['valid' => true, 'ref' => base_url("print-view/{$tahun}/{$periode}") ];
+			$msg = ['valid' => true, 'ref' => base_url("print-view/{$tahun}/{$periode}?layanan_id={$layanan_id}") ];
 		}
 		echo json_encode($msg);
 	}
 
 	public function cetak_view($tahun,$periode=null) {
 		$filter_jenis_layanan = $this->input->get('layanan_id');
-		$jenisLayanan = isset($filter_jenis_layanan) ? $filter_jenis_layanan : ''; 
+		$jenisLayanan = isset($filter_jenis_layanan) ? $filter_jenis_layanan : null; 
 		$data = [
       		'title' => 'e-Survei | Cetak IKM - '.$tahun.' ( '.$this->report->getPeriodeBulan($periode).' ) ',
 			'tahun' => $tahun,
