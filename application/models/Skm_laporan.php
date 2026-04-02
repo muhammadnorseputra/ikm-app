@@ -141,11 +141,14 @@ class Skm_laporan extends CI_Model {
 		$r = $q->row();
 		return $r->total_responden;
 	}
-	public function responden_by_gender($tahun,$periode=null,$gender) {
+	public function responden_by_gender($tahun,$periode=NULL,$layanan_id=NULL,$gender) {
 		$this->db->select('s.id');
 		$this->db->from('skm AS s');
 		$this->db->join('skm_periode AS p', 's.fid_periode = p.id');
 		$this->db->where('p.tahun', $tahun);
+		if(!empty($layanan_id)):
+			$this->db->where('s.fid_jenis_layanan', $layanan_id);
+		endif;
 		if(!empty($gender)):
 			$this->db->where('s.jns_kelamin', $gender);
 		endif;

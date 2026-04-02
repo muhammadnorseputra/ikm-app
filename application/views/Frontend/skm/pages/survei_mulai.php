@@ -30,7 +30,7 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 					<div class="col-md-4">
 						<div class="form-floating">
 							<input type="text" name="cek_nipnik" class="form-control form-control-lg" id="nipnik" placeholder="NIP/NIK" data-validation-param-name="nipnik" data-validation="server required number length" data-validation-length="16-18" data-validation-url="<?= base_url('frontend/skm/skmIndex/cekNipNik') ?>">
-							<label for="nipnik" class="form-label fw-bold">NIP/NIK</label>
+							<label for="nipnik" class="form-label fw-bold">NIP/NIK <span class="text-danger">*</span></label>
 						</div>					
 					</div>
 					<div class="col col-md-4">
@@ -42,13 +42,13 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 					<div class="col-md-4">
 						<div class="form-floating">
 							<input type="text" name="nama_lengkap" class="form-control" id="namalengkap" placeholder="Nama Lengkap" data-validation="required letternumeric" data-validation-allowing="'.A-Z ">
-							<label for="namalengkap" class="form-label fw-bold">Nama Lengkap</label>
+							<label for="namalengkap" class="form-label fw-bold">Nama Lengkap <span class="text-danger">*</span></label>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-floating">
 						<input type="text" data-validation="number" data-validation-allowing="range[18;60]" name="umur" data-validation-help="Batasan umur 18 - 60 tahun." class="form-control" id="umur" placeholder="Umur - only number" data-validation="required">
-						<label for="umur" class="form-label fw-bold">Umur</label>
+						<label for="umur" class="form-label fw-bold">Umur <span class="text-danger">*</span></label>
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -58,7 +58,7 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 								<option value="L">Laki - Laki (L)</option>
 								<option value="P">Perempuan (P)</option>
 							</select>
-							<label for="jk" class="form-label fw-bold">Jenis Kelamin</label>
+							<label for="jk" class="form-label fw-bold">Jenis Kelamin <span class="text-danger">*</span></label>
 						</div>
 					</div>
 				</div>
@@ -71,7 +71,7 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 								<option value="<?= $jl->id ?>"><?= strtoupper($jl->nama_jenis_layanan) ?></option>
 							<?php endforeach; ?>
 						</select>
-						<label for="jenis-layanan" class="form-label fw-bold">Jenis Layanan</label>
+						<label for="jenis-layanan" class="form-label fw-bold">Jenis Layanan <span class="text-danger">*</span></label>
 					</div>
 					</div>
 					<div class="col-md-4">
@@ -82,19 +82,42 @@ $card = isset($_GET['card']) ? $_GET['card'] : '';
 								<option value="<?= $p->id ?>"><?= strtoupper($p->tingkat_pendidikan) ?></option>
 							<?php endforeach; ?>
 						</select>
-						<label for="pendidikan" class="form-label fw-bold">Pendidikan Terakhir</label>
+						<label for="pendidikan" class="form-label fw-bold">Pendidikan Terakhir <span class="text-danger">*</span></label>
 					</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-floating">
-						<select name="pekerjaan" class="form-select" id="pekerjaan" aria-label=".form-select-lg" data-validation="required">
-							<option value="" selected>Pilih Pekerjaan</option>
-							<?php foreach($pekerjaan->result() as $pj): ?>
-								<option value="<?= $pj->id ?>"><?= strtoupper($pj->jenis_pekerjaan) ?></option>
-							<?php endforeach; ?>
-						</select>
-						<label for="pekerjaan" class="form-label fw-bold">Pekerjaan</label>
+							<select name="pekerjaan" class="form-select" id="pekerjaan" aria-label=".form-select-lg" data-validation="required">
+								<option value="" selected>Pilih Pekerjaan</option>
+								<?php foreach($pekerjaan->result() as $pj): ?>
+									<option value="<?= $pj->id ?>"><?= strtoupper($pj->jenis_pekerjaan) ?></option>
+								<?php endforeach; ?>
+							</select>
+							<label for="pekerjaan" class="form-label fw-bold">Pekerjaan <span class="text-danger">*</span></label>
+						</div>
 					</div>
+				</div>
+				<div class="row mb-4 g-3">
+					<div class="col-md-4">
+						<div class="form-control">
+							<label for="pekerjaan" class="form-label fw-bold">Apakah Anda merupakan penyandang disabilitas/pendamping penyandang disabilitas? <span class="text-danger">*</span></label>
+							<select name="is_disabilitas" class="form-select" id="is_disabilitas" aria-label=".form-select-lg" data-validation="required">
+								<option value="" selected>Pilih</option>
+								<option value="Y">Ya</option>
+								<option value="N">Tidak</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4" id="jenis-disabilitas" style="display: none;">
+						<div class="form-control">
+							<label for="pekerjaan" class="form-label fw-bold">Jika ya, jenis disabilitas apa yang Anda miliki/dampingi? <span class="text-danger">*</span></label>
+							<select name="jenis_disabilitas" class="form-select" id="jenis_disabilitas" aria-label=".form-select-lg" data-validation="required">
+								<option value="" selected>Pilih</option>
+								<?php foreach($jenis_disabilitas->result() as $jb): ?>
+									<option value="<?= $jb->id ?>"><?= strtoupper($jb->keterangan) ?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
 					</div>
 				</div>
 				<h5 class="card-title fw-bold">II. Pendapat Responden Tentang Pelayanan</h5>

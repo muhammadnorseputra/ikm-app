@@ -15,11 +15,13 @@ class SkmProses extends CI_Controller
         $post = $this->input->post();
         $token_verify = $this->session->csrf_token;
         $token = $post['xtoken'];
-        // $cookie = get_cookie('ikm_vote');
-        // if(empty($cookie) || $cookie !== '1') {
+        $cookie = get_cookie('ikm_vote');
+        if(empty($cookie) || $cookie !== '1') {
             if(!empty($token) && ($token === $token_verify)):
                 $jawab = implode(',', $post['jawaban_id']);
                 $data = [
+                    'is_disabilitas' => $post['is_disabilitas'],
+                    'fid_disabilitas' => $post['jenis_disabilitas'],
                     'tahun' => date('Y'),
                     'fid_periode' => decrypt_url($post['periode']),
                     'fid_jenis_layanan' => $post['jns_layanan'],
@@ -48,9 +50,9 @@ class SkmProses extends CI_Controller
             else:
                 $msg = ['msg' => 'Invalid Token', 'status' => false];
             endif;
-        // } else {
-        //     $msg = ['msg' => 'Invalid Responden', 'status' => false, 'redirectTo' => base_url('invalid/'.$post['nomor'])];
-        // }
+        } else {
+            $msg = ['msg' => 'Invalid Responden', 'status' => false, 'redirectTo' => base_url('invalid/'.$post['nomor'])];
+        }
         echo json_encode($msg);
     }
     

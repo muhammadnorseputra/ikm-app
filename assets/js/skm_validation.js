@@ -171,4 +171,18 @@ $(document).ready(function() {
             return false; // Will stop the submission of the form
         },
     });
+
+    $("select[name='is_disabilitas']").on('change', function() {
+        let value = $(this).val();
+        console.log('is_disabilitas', value);
+        if (value == 'Y') {
+            $("#jenis-disabilitas").css("display","block");
+            $("input[name='jenis_disabilitas']").val('').removeClass('error').addClass('valid').parent().removeClass('has-error').addClass('has-success');
+            $("input[name='jenis_disabilitas']").prop('disabled', false);
+        } else {
+            $("#jenis-disabilitas").css("display","none");
+            $("input[name='jenis_disabilitas']").prop('disabled', true).val('');
+        }
+    });
+
 });

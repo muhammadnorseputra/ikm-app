@@ -128,6 +128,7 @@ class Report extends CI_Controller {
       		'title' => 'e-Survei | Cetak IKM - '.$tahun.' ( '.$this->report->getPeriodeBulan($periode).' ) ',
 			'tahun' => $tahun,
 			'periode' => $periode,
+			'layanan' => $jenisLayanan,
 			'responden' => $this->laporan->responden_by_tahun_periode_layanan($tahun,$periode,$jenisLayanan),
 			'sampel' => $this->skm->skm_total_responden_per_tahun($tahun, $periode),
 			'populasi' => $this->skm->skm_total_populasi($tahun, $periode),

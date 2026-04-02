@@ -299,4 +299,9 @@ class Skm extends CI_Model {
         return ['x' => $x, 'y' => $y, 'c' => $c];
     }
 
+	public function skm_jenis_disabilitas()
+	{
+		return $this->db->get('t_disabilitas');
+	}
+
 }

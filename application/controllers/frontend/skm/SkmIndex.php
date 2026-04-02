@@ -180,6 +180,7 @@ class SkmIndex extends CI_Controller
                     'periode' => $this->skm->skm_periode()->row(),
                     'pertanyaan' => $this->skm->skm_pertanyaan(),
                     'jenis_layanan' => $this->skm->skm_jenis_layanan(),
+                    'jenis_disabilitas' => $this->skm->skm_jenis_disabilitas(),
                     'pendidikan' => $this->skm->skm_pendidikan(),
                     'pekerjaan' => $this->skm->skm_pekerjaan(),
                     'nomor' => generateRandomString(7)
@@ -191,6 +192,7 @@ class SkmIndex extends CI_Controller
                     'periode' => $this->skm->skm_periode()->row(),
                     'pertanyaan' => $this->skm->skm_pertanyaan(),
                     'jenis_layanan' => $this->skm->skm_jenis_layanan(),
+                    'jenis_disabilitas' => $this->skm->skm_jenis_disabilitas(),
                     'pendidikan' => $this->skm->skm_pendidikan(),
                     'pekerjaan' => $this->skm->skm_pekerjaan(),
                     'nomor' => generateRandomString(7)
@@ -202,6 +204,7 @@ class SkmIndex extends CI_Controller
                     'periode' => $this->skm->skm_periode()->row(),
                     'pertanyaan' => $this->skm->skm_pertanyaan(),
                     'jenis_layanan' => $this->skm->skm_jenis_layanan(),
+                    'jenis_disabilitas' => $this->skm->skm_jenis_disabilitas(),
                     'pendidikan' => $this->skm->skm_pendidikan(),
                     'pekerjaan' => $this->skm->skm_pekerjaan(),
                     'nomor' => generateRandomString(7)

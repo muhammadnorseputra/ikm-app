@@ -6,6 +6,7 @@ class M_pertanyaan extends CI_Model {
 		$this->db->select('p.*,u.jdl_unsur,u.id AS unsur_id');
 		$this->db->from('skm_pertanyaan AS p');
 		$this->db->join('skm_unsur AS u', 'p.fid_unsur = u.id');
+		$this->db->order_by('p.jdl_pertanyaan', 'ASC');
 		$q = $this->db->get();
 		return $q;
 	}
