@@ -175,7 +175,7 @@ class PDF extends TCPDF {
         $acc = array_shift($u);
         foreach ($u as $val) {
             foreach ($val as $key => $val) {
-                $acc[$key] += $val;
+                @$acc[$key] += $val;
             }
         }
         // width col
