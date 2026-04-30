@@ -3,7 +3,7 @@
 class Skm extends CI_Model {
 	public function skm_unsur_layanan()
 	{
-		return $this->db->get('skm_unsur');
+		return $this->db->group_by('jdl_unsur')->get('skm_unsur');
 	}
 	public function skm_all_tahun()
 	{

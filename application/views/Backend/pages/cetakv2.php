@@ -113,7 +113,7 @@ class PDF extends TCPDF {
                 $this->Cell(30,16,'PENDIDIKAN',1,0,'C', 0, false, 0, false, 'T', 'M');
                 $this->Cell(30,16,'PEKERJAAN',1,0,'C', 0, false, 0, false, 'T', 'M');
                 $this->SetFillColor(200,249,249);
-                $this->Cell(165,8,'Nilai Aktual Kepuasan Masyarakat Per Unsur Pelayanan',1,0,'C', 1, false, 0, false, 'T', 'M');
+                $this->Cell(185,8,'Nilai Aktual Kepuasan Masyarakat Per Unsur Pelayanan',1,0,'C', 1, false, 0, false, 'T', 'M');
                 $this->Cell(50,16,'JENIS LAYANAN',1,1,'C', 0, false, 0, false, 'T', 'M');
 
                 $this->SetXY($x + 95,46);
@@ -143,7 +143,7 @@ class PDF extends TCPDF {
                 foreach ($poin as $key => $value):
                     $poin_unsur = isset($poin[$key]) ? $poin[$key] : 0;
                     $this->MultiCell($setWidth,5, $poin_unsur,1,'C', 0, 0, $inX, $y, true, 0, true, false, 1);
-                $inX = $inX + 18.33;
+                $inX = $inX + 13.75;
                 endforeach;
                 
                 // if($no == ($total_responden_sum + 2)) {
