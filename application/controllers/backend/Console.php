@@ -95,7 +95,7 @@ class Console extends CI_Controller
         $acc = array_shift($j_responden);
         foreach ($j_responden as $val) {
             foreach ($val as $key => $val) {
-                $acc[$key] += $val;
+                @$acc[$key] += $val;
             }
         }
 
